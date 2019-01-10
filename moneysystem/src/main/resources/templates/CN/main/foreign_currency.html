@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>外币提现</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/daterangepicker-bs3.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/areajson.js"></script>
+    <script  type="text/javascript" src="/js/date.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/hlw.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row p0  m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu" style="min-height: 720px;">
+                <h4 class=" menu_title">交易</h4>
+                <div class="panel panel-default membercollhead">
+                    <div class="panel-heading" role="tab" id="heading1">
+                        <h4 class="panel-title">
+                            <a href="/CN/main/recharge" class="collapsed">
+                                <i></i> 充值
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>提现
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/CN/main/foreign_currency">外币提现</a></li>
+                                    <li><a href="/CN/main/pos_Bank">从银行提现</a></li>
+                                    <li><a href="javascript:;">从支付宝提现</a></li><!--href="/CN/main/pos_Alipay"-->
+                                    <li ><a href="javascript:;">从微信提现</a></li><!--href="/CN/main/pos_Alipay"-->
+                                    <li ><a href="javascript:;">现金提现</a></li><!--href="/CN/main/pos_Alipay"-->
+                                    <li ><a href="javascript:;">比特币提现</a></li><!--href="/CN/main/pos_Alipay"-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/CN/main/transfer_accounts" class="collapsed">
+                                    <i></i> 转账
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单 end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg">
+            <h3 class="page_title">外币提现</h3>
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-primary">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <p >温馨提示：为了您的资金安全，请务必核对您提现的银行卡信息</p>
+                </div>
+                <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+            <div class="inblock w100">
+                <form id="myform">
+                    <div class="form-group">
+                        <label class="col-form-label w100">选择支出账户<span class="warning">*</span></label>
+                        <select class="custom-select  w100" id="recharcount"></select>
+                        <input type="hidden" id="countid" name="countid">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label w100" for="bankid">银行卡号<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入银行卡号" id="bankid" type="text" name="cardnum">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label w100" for="banktype">银行卡类型<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入银行卡类型" id="banktype" type="text" name="banktype">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="inputje">提现金额<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入提现金额" id="inputje" type="text" name="num">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="name">持卡人姓名<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入持卡人姓名" id="name" type="text" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="pas">支出账户密码<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入支出账户密码" id="pas" type="password" name="paypwd">
+                    </div>
+
+                    <button type="button"  onclick="submitform()"  class="btn btn-primary btn-lg btn-block f14">提 交</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+<script  type="text/javascript" >
+    $(function(){
+        loadcount();//获取下拉账户
+        $("#nav_trans").addClass("cur");//导航栏添加焦点
+        $('#myform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'num': {
+                    validators: {
+                        notEmpty: {
+                            message: '金额不可以为空'
+                        },
+                        digits: {
+                            message: '金额只能包含数字。'
+                        },
+                        greaterThan: {
+                            value: 5,
+                            message: '金额必须大于5'
+                        }
+                    }
+                },
+                'paypwd': {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            /*长度提示*/
+                            min: 6,
+                            max: 30,
+                            message: '密码长度必须在6到30之间'
+                        }
+                    }
+                },
+                'cardnum': {
+                    validators: {
+                        notEmpty: {
+                            message: '不可以为空'
+                        },
+                        digits: {
+                            message: '只能是数字。'
+                        }
+                    }
+                },
+                'banktype': {
+                    validators: {
+                        notEmpty: {
+                            message: '不可以为空'
+                        }
+                    }
+                },
+                'username': {
+                    validators: {
+                        notEmpty: {
+                            message: '不可以为空'
+                        }
+                    }
+                }
+            }
+        })
+    })
+
+    function submitform() {
+        $('#myform').data('bootstrapValidator').enableFieldValidators('num', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('cardnum', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('banktype', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('username', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('paypwd', true);
+        $('#myform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#myform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var real = $("#recharcount").val();
+            $("#countid").val(real);
+            //ajax的形式提交表单
+            // var str = $("#myform").serializeObject(); //此处调用的就是我们写好的引入的方法，会将带有name的input，全部转为JSON。
+            // var datas = JSON.stringify(str);//返回一个新字符串
+            $.ajax({
+                url: '/count/getOutCash',
+                data: $("#myform").serialize(),
+                type: 'post',
+                success: function (data) {
+                    // console.log(strToJson(data).code);
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "恭喜您！提现成功！", "success");
+                        setTimeout(function () {
+                            window.location.href = "/CN/more/trade_list";
+                        }, 1500);
+                    }
+                    else {
+                        sweetAlert("", strToJson(data).message, "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "请求失败！", "error");
+                }
+            });
+        }
+    }
+
+    // 通过json同步获取下拉账户
+    function loadcount() {
+        $.ajax({
+            url: '/count/queryCountByUserid',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    var html ='<option value="'+jsonObj[i].id+'">'+jsonObj[i].cardId+'('+currency_type (jsonObj[i].countType)+')'+'</option>';
+                    $("#recharcount").append(html);
+                }
+                if(jsonObj.length==0){
+                    sweetAlert({
+                            title: "请先申请账户，才能进行操作！",
+                            type: "warning",
+                            confirmButtonText: "去申请",
+                            closeOnConfirm: false
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/CN/my/my_account";
+                            }
+                        });
+                }
+
+            }
+        })
+    }
+
+
+</script>
+
+</body>
+</html>

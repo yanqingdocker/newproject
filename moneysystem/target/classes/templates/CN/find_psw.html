@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>找回密码</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .area_num_select.area_select {
+            background: #999;padding: 0 15px;border-radius: 4px;margin-left: 0;
+        }
+        .area_num_select.area_select .area_option {
+            top:45px;border: 1px solid #ddd ;
+        }
+    </style>
+</head>
+</head>
+<body >
+<div class="find_top">
+    <div class="container">
+        <div class="inblock l">
+            <img src="/images/logo.png" style="height:50px">
+        </div>
+        <div class="inblock r">
+            <a href="javascript:history.back(-1)" >返回</a>
+        </div>
+    </div>
+</div>
+<div class=" mt60 ">
+    <h2 class="tc "><img src="/images/icon_findpsw.png" class="mr30" style="width: 60px; ">找回密码 </h2>
+    <div class="border_t mt50">
+        <div class="find_step1" id="find_step1">
+            <div class="tc mt50">
+                <img src="/images/find_step1.png" >
+            </div>
+            <div class="m step_block mt50" >
+                <form id="formone">
+                    <div class="form-group">
+                        <div class="w100 inblock">
+                            <label class="col-form-label block">请输入您需要找回的账号：</label>
+                            <div id="area_select" class="area_select area_num_select l mr10">
+                                <h4><span>选择国家</span> <i></i></h4>
+                                <div id="area_option" class="area_option" style="display: none">
+                                    <a data-id="">中国大陆(默认)</a>
+                                    <a data-id="852">中国香港</a>
+                                    <a data-id="855 ">柬埔寨</a>
+                                    <a data-id="65 ">新加坡</a>
+                                    <a data-id="60 ">马来西亚</a>
+                                    <a data-id="66 ">泰国</a>
+                                    <a data-id="95 ">缅甸</a>
+                                    <a data-id="62 ">印度尼西亚</a>
+                                    <a data-id="63 ">菲律宾</a>
+                                    <a data-id="84 ">越南</a>
+                                    <a data-id="856 ">老挝</a>
+                                    <a data-id="673 ">文莱</a>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control l " name="phone" id="phone" placeholder="请输入手机号"  style="width:60%;margin-left: 0" oninput="phonenum()"/>
+                            <input type="hidden" name="telphone"  id="Telephone" >
+                            <input type="hidden" id="areanum">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="w100 inblock"> <input class="form-control  l mr15 " style="width: 61%;" maxlength="11"  name="checknum"  placeholder="请输入验证码" id="checknum"  type="text">
+                            <button type="button" class="btn btn-primary code_btn l mr5 f14" id="getcode">发送验证码</button>
+                        </div>
+                        <div id="telephonenameTip"></div>
+                    </div>
+                    <div class="bs-component mt20 inblock w100 tc">
+                        <button type="button" id="nextstep_btn" onclick = "nextstep()" class="btn btn-primary f14">下一步</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--step1 end-->
+
+        <div class="find_step1" style="display: none"  id="find_step2">
+            <div class="tc mt50">
+                <img src="/images/find_step2.png" >
+            </div>
+            <div class="m step_block mt50" >
+                <form  id="formtwo">
+                    <div class="form-group">
+                        <label class="col-form-label" >请输入您的新密码：</label>
+                        <input type="password" class="form-control" placeholder="请输入新密码" maxlength="11" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >请确认您的新密码：</label>
+                        <input class="form-control " maxlength="11"  placeholder="请输入新密码"  type="password" name="ConfirmPassword">
+                    </div>
+                    <div class="bs-component mt20 inblock w100 tc">
+                        <button type="button" id="savebtn" onclick="save()" class="btn btn-primary f14">保  存</button>
+                    </div>
+                    <input type="hidden" id="telnum" name="telphone" value="">
+                    <input type="hidden"  name="checknum" id="checkcode">
+                </form>
+            </div>
+        </div>
+        <!--step2 end-->
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    // 模拟重写select
+    $("#area_select").click(function (event) {
+        $("#area_option").toggle();
+        event.stopImmediatePropagation();//取消事件冒泡；
+    });
+    $('#area_option a').on('click',function(){
+        var selTxt=$(this).text();
+        $('#area_select h4 span').text(selTxt);
+        var areanum=$(this).attr('data-id');
+        $("#areanum").val(areanum);
+        var number=$("#phone").val()
+        $("#Telephone").val($("#areanum").val()+number);
+    });
+    $(document).bind("click",function(){
+        $("#area_option").hide();
+    });
+    // 输入电话号码实时赋值
+    function phonenum() {
+        var number=$("#phone").val()
+        $("#Telephone").val($("#areanum").val()+number);
+    }
+    // 第一步
+    function nextstep() {
+
+        $('#formone').data('bootstrapValidator').enableFieldValidators('phone', true);
+        $('#formone').data('bootstrapValidator').enableFieldValidators('checknum', true);
+        $('#formone').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#formone').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+
+            $('#nextstep_btn').prop('disabled', true);
+            $.post("/user/findpsw", $("#formone").serialize(), function (data) {
+                if (strToJson(data).code=="success") {
+                    $("#find_step1").hide();
+                    $("#find_step2").show();
+                    var code=$("#checknum").val();
+                    $("#checkcode").val(code);
+                }
+                else {
+                    sweetAlert("", strToJson(data).message, "error");
+                    $('#nextstep_btn').prop('disabled', false);
+                }
+            });
+        }
+    }
+    // 第二步
+    function save() {
+        var telephonenum = $("#Telephone").val();
+        $("#telnum").val(telephonenum);
+        console.log( $("#telnum").val(telephonenum));
+        $('#formtwo').data('bootstrapValidator').enableFieldValidators('password', true);
+        $('#formtwo').data('bootstrapValidator').enableFieldValidators('ConfirmPassword', true);
+        $('#formtwo').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#formtwo').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            $('#savebtn').prop('disabled', true);
+            $.post("/user/resetpwd", $("#formtwo").serialize(), function (data) {
+                if (strToJson(data).code=="success") {
+                    // sweetAlert("", "重置成功！", "success");
+                    sweetAlert({
+                            title: "密码重置成功！",
+                            type: "success",
+                            showConfirmButton: false
+                        },
+                        function(isConfirm){
+                            if (isConfirm) {
+                                window.location.href = "/CN/login";
+                            }
+                        });
+                    setTimeout(function(){ window.location.href = "/CN/login";},1000);
+                }
+                else {
+                    sweetAlert("", "重置失败！", "error");
+                    $('#savebtn').prop('disabled', false);
+                }
+            });
+        }
+    }
+
+    $(function () {
+        $('#formtwo').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'password': {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            /*长度提示*/
+                            min: 6,
+                            max: 30,
+                            message: '密码长度必须在6到30之间'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: '密码由数字字母下划线和.组成'
+                        }
+                    }
+                },
+                'ConfirmPassword': {
+                    message: '密码无效',
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 30,
+                            message: '用户名长度必须在6到30之间'
+                        },
+                        identical: {//相同
+                            field: 'password',
+                            message: '两次密码不一致'
+                        },
+                        regexp: {//匹配规则
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: '密码由数字字母下划线和.组成'
+                        }
+                    }
+                }
+            }
+        })
+        $('#formone').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'phone': {
+                    message: '香港及国外手机请先选择下拉框',
+                    validators: {
+                        notEmpty: {
+                            message: '手机号不可以为空'
+                        },
+                        digits: {
+                            message: '手机号只能是数字'
+                        }
+                    }
+                },
+                'checknum': {
+                    validators: {
+                        notEmpty: {
+                            message: '短信验证码不可以为空'
+                        }
+                    }
+                }
+
+            }
+        })
+
+        // 获取验证码
+        $("#getcode").click(function () {
+            $("#formone").data("bootstrapValidator").validateField('phone');
+            //获取输入的手机号码
+            var phoNum = $("#Telephone").val();
+            curCount = count;
+
+            // 向后台发送处理数据
+            $.ajax({
+                type: "post", // 用POST方式传输
+                dataType: 'json',
+                url: "/user/checkPhone", // 目标地址
+                data: { "telphone":phoNum },
+                error: function (data) {
+                    sweetAlert("", data.message, "error");
+                },
+                success: function (data) {
+                    // debugger;
+                    if (data.code=="fail") {
+                        $("#getcode").attr("disabled", false);
+                        $("#getcode").text("重发验证码");
+                        $("#telephonenameTip").html("<font color='red'>× 短信验证码发送失败，请重新发送</font>");
+                        return false;
+
+                    } else {
+                        // 设置按钮显示效果，倒计时
+                        $("#getcode").attr("disabled", "true");
+                        $("#getcode").text("请在" + curCount + "秒后重试");
+                        InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次
+                        $("#telephonenameTip").html("<font color='#339933'>√ 短信验证码已发到您的手机,请查收(20分钟内有效)</font>");
+                    }
+                }
+            });
+
+        });
+    })
+    //timer处理函数
+    function SetRemainTime() {
+        if (curCount == 0) {
+            window.clearInterval(InterValObj);// 停止计时器
+            $("#getcode").attr("disabled", false);
+            $("#getcode").text("重发验证码");
+            $("#telephonenameTip").text("");
+
+            code = ""; // 清除验证码。如果不清除，过时间后，输入收到的验证码依然有效
+        } else {
+            curCount--;
+            $("#getcode").text("请在" + curCount + "秒后重试");
+        }
+    }
+    var InterValObj; //timer变量，控制时间
+    var count = 60; //间隔函数，1秒执行
+    var curCount;//当前剩余秒数
+    var code = ""; //验证码
+    var codeLength = 6;//验证码长度
+</script>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>My Account Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/areajson.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/ENheader.js"></script>
+<!--header end-->
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/ENpt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu">
+                <h4 class=" menu_title">My</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/EN/my/my_account" class="collapsed">
+                                    <i></i>My Account
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/EN/my/my_money" class="collapsed">
+                                    <i></i>My Balance
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel panel-default membercollhead">
+                            <div class="panel-heading" role="tab" id="heading3">
+                                <h4 class="panel-title">
+                                    <a href="/EN/my/my_loan" class="collapsed">
+                                        <i></i>My Lloan
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>My Information
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/EN/my/authentication" id="changetext">Basic Information</a></li>
+                                    <li><a href="/EN/my/change_phone">Modify Phone Number</a></li>
+                                    <li><a href="/EN/my/login_psw">login Password</a></li>
+                                    <li ><a href="/EN/my/pay_psw">Money Password</a></li>
+                                    <li ><a href="/EN/my/bank_card">Bank Card Binding</a></li>
+                                    <li><a href="/EN/my/bind_account">Alipay Binding</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>My Message
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/EN/my/message">Send</a></li>
+                                    <li ><a href="/EN/my/inbox">Inbox</a></li>
+                                    <li ><a href="/EN/my/outbox">Outbox</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg" style="min-height: 558px">
+            <h4 class=" page_title">My account</h4>
+            <div class="bs-component">
+                <button type="button" class="btn btn-primary yellow_btn" data-toggle="modal" data-target="#myModal" onclick="tipsalert()">Account application</button>
+            </div>
+            <div class="inblock w100 mt20">
+                <table width="100%"  cellspacing="0" cellpadding="0" border="1"   class="table" id="table">
+                    <thead>
+                    <tr>
+                        <th>Account Card Number</th>
+                        <th>Currency Type</th>
+                        <th width="180">Creation Time</th>
+                        <th width="120" >Status</th>
+                        <th  width="100" >Operation</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/ENfooter.js"></script>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myModalLabel"> Account Application</h4>
+            </div>
+            <form id="modalform" >
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-form-label w100" >Currency Type<span class="warning">*</span></label>
+                        <select class="custom-select  w100 account"  id="selectval" field="monneytype">
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Set Payment Password<span class="warning">*</span></label>
+                        <input class="form-control"  maxlength="50" type="password" name="payPwd" id="paypswid">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                    </button>
+                    <button type="button" onclick="submitform()" class="btn btn-primary">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".nav-tabs .nav-item").on({click:function(){
+                $(this).addClass("cur").siblings().removeClass("cur");
+            }
+        });
+        loadaccount();//加载平台货币类型
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        $('#table').DataTable( {
+            "serverSide": true,
+            searching: false,
+            lengthChange: false,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: false,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            ajax: {
+                url: "/count/queryCountByUserid",
+                dataSrc: '',
+                error : function() {
+                    window.location.href = "/EN/login";
+                }
+            },
+            "columns": [
+                {"data": "cardId" },
+                {"data": "countType" },
+                {"data": "createTime" },
+                {"data": "state",
+                    render:function(e,type,full,row){
+                        if(e==1){
+                            return "<span class='gray'>Normal</span>";
+                        }
+                        else{  return "<span class='red'>Abnormal</span>";}
+
+                    }
+                },
+                {"data": "id" ,
+                    render:function(e,type,full,row){
+                        return "<a href='javascript:;' class='red'  onclick='logoutCount("+e+")'>unsubscribe</a>";
+                    }
+                }
+            ]
+        } );
+
+        $('#modalform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'payPwd': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The money password should not be empty'
+                        }
+                    }
+                },
+                'monneytype':{
+                    validators:{
+                        notEmpty:{
+                            message:'Currency types cannot be empty'
+                        },
+                        callback: {
+                            message: 'A currency type must be chosen',
+                            callback: function(value, validator)
+                            {
+                                if (value == 0) {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    })
+    // 加载平台货币类型
+    function loadaccount() {
+        $.ajax({
+            url: '/count/queryMoneyType',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                console.log(jsonObj.length);
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    var html ='<option data-id="'+jsonObj[i]+'" value="'+jsonObj[i]+'">'+jsonObj[i]+'</option>';
+                    $(".account").append(html);
+
+                }
+
+
+            }
+        });
+    }
+    // 注销账户
+    function logoutCount(countid){
+        sweetAlert({
+                title: "Are you sure to delete it?",
+                text: "You will not be able to restore the account",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Confirm",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    $.ajax({
+                        type: "post", // 用POST方式传输
+                        dataType: 'json',
+                        url: "/count/logoutCount", // 目标地址
+                        data: { id :countid },
+                        success: function (data) {
+                            if (data.code=="success") {
+                                sweetAlert("", "Congratulations on your cancellation", "success");
+                                setTimeout(function(){ window.location.href = "/EN/my/my_account";},1500);
+                            } else {
+                                sweetAlert({
+                                    title:"The operation failure!",
+                                    text: data.message,
+                                    type: "error",
+                                    showCancelButton: true,
+                                    confirmButtonText: "Confirm",
+                                    cancelButtonText: "Cancel",
+                                    closeOnConfirm: false,
+                                    closeOnCancel: true
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+
+    }
+    // 申请账户
+    function submitform() {
+        $('#modalform').data('bootstrapValidator').enableFieldValidators('payPwd', true);
+        $('#modalform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#modalform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var valuea = $('#selectval').val();
+            var paypswval = $('#paypswid').val();
+            $.ajax({
+                type: "post", // 用POST方式传输
+                dataType: 'json',
+                url: "/count/createCount", // 目标地址
+                data: {countType: valuea,payPwd:paypswval},
+                error: function (data) {
+
+                },
+                success: function (data) {
+                    if (data.code == "success") {
+                        sweetAlert("", "Congratulations on your application", "success");
+                        setTimeout(function () {
+                            window.location.href = "/EN/my/my_account";
+                        }, 1500);
+                    } else {
+                        sweetAlert({
+                            title: "The operation failure!",
+                            text: data.message,
+                            type: "error",
+                            showCancelButton: true,
+                            confirmButtonText: "Confirm",
+                            cancelButtonText: "Cancel",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+    // 未认证提示
+    function tipsalert() {
+        if($("#isauth").val()==0){
+            sweetAlert({
+                    title: "Please verify the real name before operation.",
+                    type: "warning",
+                    confirmButtonText: "Certification",
+                    closeOnConfirm: false
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        window.location.href = "/EN/my/authentication";
+                    }
+                });
+        }
+    }
+
+</script>
+</body>
+</html>

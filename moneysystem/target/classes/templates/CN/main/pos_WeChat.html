@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>提现到微信</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/daterangepicker-bs3.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/areajson.js"></script>
+    <script  type="text/javascript" src="/js/date.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/hlw.jpg) no-repeat center ; height:500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row p0  m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu" style="min-height: 550px;">
+                <h4 class=" menu_title">交易</h4>
+                <div class="panel panel-default membercollhead">
+                    <div class="panel-heading" role="tab" id="heading1">
+                        <h4 class="panel-title">
+                            <a href="/CN/main/recharge" class="collapsed">
+                                <i></i> 充值
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>提现
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/CN/main/foreign_currency">外币提现</a></li>
+                                    <li><a href="/CN/main/pos_Bank">从银行提现</a></li>
+                                    <li><a href="javascript:;">从支付宝提现</a></li><!--href="/CN/main/pos_Alipay"-->
+                                    <li ><a href="javascript:;">从微信提现</a></li><!--href="/CN/main/pos_Alipay"-->
+                                    <li ><a href="javascript:;">现金提现</a></li><!--href="/CN/main/pos_Alipay"-->
+                                    <li ><a href="javascript:;">比特币提现</a></li><!--href="/CN/main/pos_Alipay"-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/CN/main/transfer_accounts" class="collapsed">
+                                    <i></i> 转账
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单 end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg">
+            <h3 class="page_title">提现到微信</h3>
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-primary">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <p >温馨提示：为了您的资金安全，请务必核对您提现的银行卡信息</p>
+                </div>
+                <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+            <div class="inblock w100">
+                <form action="" method="">
+                    <div class="form-group">
+                        <label class="col-form-label w100">选择支出账户<span class="warning">*</span></label>
+                        <select class="custom-select  w100" id="recharcount">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label w100">微信账号<span class="warning">*</span></label>
+                        <select class="custom-select  w100">
+                            <option value="3">张(*****6787)</option>
+                            <option value="4">张(*****6887)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label" for="inputje">金额<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入金额" id="inputje" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="inputbz">备注</label>
+                        <input class="form-control" placeholder="备注" id="inputbz" type="text">
+                    </div>
+                    <button type="button" class="btn btn-primary btn-lg btn-block f14">提 交</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+<script  type="text/javascript" >
+    $(function(){
+        loadcount();//获取下拉账户
+        loadbankcard();//获取下拉银行卡
+    })
+    // 通过json同步获取下拉账户
+    function loadcount() {
+        $.ajax({
+            url: '/count/queryCountByUserid',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    var html ='<option value="'+jsonObj[i].cardId+'">'+jsonObj[i].cardId+'('+currency_type (jsonObj[i].countType)+')'+'</option>';
+                    $("#recharcount").append(html);
+                }
+                if(jsonObj.length==0){
+                    sweetAlert({
+                            title: "请先申请账户，才能进行操作！",
+                            type: "warning",
+                            confirmButtonText: "去申请",
+                            closeOnConfirm: false
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/CN/my/my_account";
+                            }
+                        });
+                }
+
+            }
+        })
+    }
+
+    // 通过json同步获取下拉银行卡
+    function loadbankcard() {
+        $.ajax({
+            url: '/bank/query',
+            data: null,
+            type: 'post',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    var html ='<option value="'+jsonObj[i].bankCard+'">'+jsonObj[i].bankCard+'('+jsonObj[i].bankType+')'+'</option>';
+                    $("#bankaccount").append(html);
+                }
+                if(jsonObj.length==0){
+                    sweetAlert({
+                            title: "请先绑定银行卡户，才能进行操作！",
+                            type: "warning",
+                            confirmButtonText: "去绑定",
+                            closeOnConfirm: false
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/CN/my/bank_card";
+                            }
+                        });
+                }
+
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

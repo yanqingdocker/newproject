@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>资金密码</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/moment.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/pt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu" style="min-height: 595px;">
+                <h4 class=" menu_title">我的</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_account" class="collapsed">
+                                    <i></i>我的账户
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_money" class="collapsed">
+                                    <i></i>我的余额
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading3">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_loan" class="collapsed">
+                                    <i></i>我的借贷
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>我的资料
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/CN/my/authentication" id="changetext">基本信息</a></li>
+                                    <li><a href="/CN/my/change_phone">修改手机号</a></li>
+                                    <li><a href="/CN/my/login_psw">登录密码</a></li>
+                                    <li ><a href="/CN/my/pay_psw">资金密码</a></li>
+                                    <li ><a href="/CN/my/bank_card">银行卡绑定</a></li>
+                                    <li><a href="/CN/my/bind_account">支付宝绑定</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>我的消息
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/CN/my/message">发消息</a></li>
+                                    <li ><a href="/CN/my/inbox">收件箱</a></li>
+                                    <li ><a href="/CN/my/outbox">发件箱</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg">
+            <h4 class=" page_title">资金密码</h4>
+            <div class="row mt20">
+                <div class="inblock w100">
+                    <form id="myform">
+                        <div class="f16 mb20"><b style="color: #555">手机号码：</b><b class="red" id="telnum"></b></div>
+                        <input type="hidden" value="" id="phonenum" name="telphone">
+                        <div class="form-group">
+                            <label class="col-form-label w100" >验证码<span class="warning">*</span></label>
+                            <input class="form-control w50 l mr15" name="checknum"  placeholder="请输入验证码"id="inputnum" type="text">
+                            <button type="button" class="btn btn-primary f14" id="getcode">获取验证码</button>
+                            <div class=" w100 l mt5 mb5" id="telephonenameTip"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label w100 " >账户选择<span class="warning">*</span></label>
+                            <select class="custom-select  w100 " id="recharcount"></select>
+                        </div>
+                        <input type="hidden" id="counid" name="id">
+                        <div class="form-group">
+                            <label class="col-form-label w100 " >新资金密码<span class="warning">*</span></label>
+                            <input class="form-control" placeholder="请输入新密码" name="payPwd" type="password">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" >新资金密码确认<span class="warning">*</span></label>
+                            <input class="form-control" placeholder="请再次输入新密码" name="conformpaypwd" type="password">
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg btn-block " onclick="submitform()"> 提  交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+
+<script type="text/javascript">
+    // 通过json同步获取下拉账户
+    function loadcount() {
+        $.ajax({
+            url: '/count/queryCountByUserid',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    if(jsonObj[i].state==1) {
+                        var html = '<option value="' + jsonObj[i].id + '">' + jsonObj[i].cardId + '(' + currency_type(jsonObj[i].countType) + ')' + '</option>';
+                        $("#recharcount").append(html);
+                    }
+                }
+                // console.log(jsonObj[0].cardId+'('+jsonObj[0].countType+")")
+                // 用户没有申请账户时提示
+                if(jsonObj.length==0){
+                    sweetAlert({
+                            title: "暂无账户，请先申请账户，才能进行操作！",
+                            type: "warning",
+                            confirmButtonText: "去申请",
+                            closeOnConfirm: false
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/CN/my/my_account";
+                            }
+                        });
+                }
+
+            },
+        })
+    }
+    function submitform() {
+        $('#myform').data('bootstrapValidator').enableFieldValidators('checknum', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('payPwd', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('conformpaypwd', true);
+        $('#myform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#myform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var countnum=  $("#recharcount").val();
+            $("#counid").val(countnum);
+            $.ajax({
+                url: '/count/updateCountpwd',
+                type: 'post',
+                data: $("#myform").serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.code=="success") {
+                        sweetAlert("", "恭喜您！密码修改成功！", "success");
+                        setTimeout(function(){
+                            // 表单置空
+                            $("#myform").find("input").each(function(){
+                                this.value = "";//清空数据;
+                            });
+                            window.location.href = "/CN/my/pay_psw";},1500);
+                    }
+                    else {
+                        sweetAlert("", "密码修改失败！", "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "请求失败！", "error");
+                }
+            })
+
+        }
+    }
+
+    $(function () {
+        loadcount();
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        var telephonenum =$("#usertel").val();
+        $("#telnum").text(telephonenum);
+        $("#phonenum").val(telephonenum);
+
+        $('#myform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'checknum': {
+                    validators: {
+                        notEmpty: {
+                            message: '验证码不能为空'
+                        }
+                    }
+                },
+                'payPwd': {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            /*长度提示*/
+                            min: 6,
+                            max: 30,
+                            message: '密码长度必须在6到30之间'
+                        },
+                    }
+                },
+                'conformpaypwd': {
+                    message: '密码无效',
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        identical: {//相同
+                            field: 'payPwd',
+                            message: '两次密码不一致'
+                        }
+                    }
+                }
+            }
+        })
+
+
+        // 获取验证码
+        $("#getcode").click(function () {
+            $("#myform").data("bootstrapValidator").validateField('telphone');
+            //获取输入的手机号码
+            var phoNum = $("#usertel").val();
+            curCount = count;
+            // 向后台发送处理数据
+            $.ajax({
+                type: "post", // 用POST方式传输
+                dataType: 'json',
+                url: "/count/checkPhone", // 目标地址
+                data: { "telphone":phoNum },
+                error: function (data) {
+                    sweetAlert("", data.message, "error");
+                },
+                success: function (data) {
+                    // debugger;
+                    if (data.code=="fail") {
+                        $("#getcode").attr("disabled", false);
+                        $("#getcode").text("重发验证码");
+                        $("#telephonenameTip").html("<font color='red'>× 短信验证码发送失败，请重新发送</font>");
+                        return false;
+
+                    } else  if (data.code=="success") {
+                        // 设置按钮显示效果，倒计时
+                        $("#getcode").attr("disabled", "true");
+                        $("#getcode").text("请在" + curCount + "秒后重试");
+                        InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次
+                        $("#telephonenameTip").html("<font color='#339933'>√ 短信验证码已发到您的手机,请查收(20分钟内有效)</font>");
+                    }
+                }
+            });
+
+        });
+    })
+    //timer处理函数
+    function SetRemainTime() {
+        if (curCount == 0) {
+            window.clearInterval(InterValObj);// 停止计时器
+            $("#getcode").attr("disabled", false);
+            $("#getcode").text("重发验证码");
+            $("#telephonenameTip").text("");
+
+            code = ""; // 清除验证码。如果不清除，过时间后，输入收到的验证码依然有效
+        } else {
+            curCount--;
+            $("#getcode").text("请在" + curCount + "秒后重试");
+        }
+    }
+    var InterValObj; //timer变量，控制时间
+    var count = 60; //间隔函数，1秒执行
+    var curCount;//当前剩余秒数
+    var code = ""; //验证码
+    var codeLength = 6;//验证码长度
+</script>
+</body>
+</html>

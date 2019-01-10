@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>No-card Withdrawal Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/index.js"></script>
+    <script  type="text/javascript" src="/js/jquery.fadethis.min.js"></script>
+
+    <!--[if lte IE 9]>
+    <script type="text/javascript" src="/js/html5.min.js"></script>
+    <script type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/ENheader.js"></script>
+<!--header end-->
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/ENpt.jpg) no-repeat center ; height:500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+    <div class="container row p0 m mt20">
+        <div class=" m" >
+            <div class="row bank_logo white_bg pb30">
+                <div class="col-lg-6 tc mb20 slide-left"  data-plugin-options='{"speed":400,"replay":false}'>
+                    <a href="javascript:;" data-toggle="modal" data-target="#myModal"><img src="/images/icon_zh.png">
+                        <h3 class="fno mt30 mb10">BANK OF CHINA</h3>
+                    </a>
+                </div>
+                <div class="col-lg-6 tc mb20 slide-right"  data-plugin-options='{"speed":400,"replay":false}'>
+                    <a href="javascript:;" data-toggle="modal" data-target="#myModal"><img src="/images/icon_gh.png">
+                        <h3 class="fno mt30 mb10">ICBC</h3>
+                    </a>
+                </div>
+                <div class="col-lg-6 tc mb20 slide-left"  data-plugin-options='{"speed":400,"replay":false}'>
+                    <a href="javascript:;" data-toggle="modal" data-target="#myModal"><img src="/images/icon_nh.png">
+                        <h3 class="fno mt30 mb10">AGRICULTURAL BANK OF CHINA</h3>
+                    </a>
+                </div>
+                <div class="col-lg-6 tc mb20 slide-right"  data-plugin-options='{"speed":400,"replay":false}'>
+                    <a href="javascript:;" data-toggle="modal" data-target="#myModal"><img  src="/images/icon_jh.png">
+                        <h3 class="fno mt30 mb10">CHINA CONSTRUCTION BANK</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/ENfooter.js"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        $(".nav-tabs .nav-item").on({click:function(){
+            $(this).addClass("cur").siblings().removeClass("cur");
+        }
+        });
+        $(window).fadeThis();
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+    })
+</script>
+</body>
+</html>

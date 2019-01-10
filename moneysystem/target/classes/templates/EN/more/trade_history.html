@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Transaction List Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/ENheader.js"></script>
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/ENbwrs.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30" id="main_con">
+    <div class="container row  p0 m" >
+        <div class="col-lg-3 ">
+            <div class="panel panel-default bid_menu"  style="min-height: 535px;">
+                <h4 class=" menu_title">More</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/EN/more/financial" class="collapsed">
+                                    <i></i>Wisdom Finance
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>Living Payment
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/EN/more/phone_charge#main_con">Telephone Charge</a></li>
+                                    <li><a href="/EN/more/water_charge#main_con">Water Payment</a></li>
+                                    <li ><a href="/EN/more/ele_charge#main_con">Electricity Payment</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/EN/more/trade_list" class="collapsed">
+                                    <i></i>Transaction Record
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading3">
+                            <h4 class="panel-title">
+                                <a href="/EN/more/active_list" class="collapsed">
+                                    <i></i>Activity Record
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 r_whitebg">
+            <h3 class="page_title">Transaction Record</h3>
+            <div class="row mt20">
+                <div class="inblock w100">
+                    <table width="100%"  cellspacing="0" cellpadding="0" border="1" id="table"  class="table">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Account card number</th>
+                            <th>Currency type</th>
+                            <th>income/expenses</th>
+                            <th>Amount</th>
+                            <th>Business type</th>
+                            <th class="tc">Time</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/ENfooter.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#nav_more").addClass("cur");//导航栏添加焦点
+        $('#table').DataTable( {
+            "order": [ 6, "desc" ],
+            "serverSide": true,
+            searching: true,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            ajax: {
+                url: "/opera/queryByUserid",
+                dataSrc: '',
+                error : function() {
+                    window.location.href = "/login";
+                }
+            },
+            "fnDrawCallback"    : function(){
+                this.api().column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
+            },
+            "columns": [
+                {"data": "id" },
+                {"data": "countid" },
+                {"data": "countType" ,
+                    render:function(e,type,full,row){
+                        return currency_type(full.countType);
+                    }
+                },
+                {"data": "oi" ,
+                    render:function(e,type,full,row){
+                        if(full.oi=="0"){
+                            return "expenditure";
+                        }
+                        if(full.oi=="1"){
+                            return "income";
+                        }
+
+                    }
+                },
+                {"data": "num" ,
+                    render:function(e,type,full,row){
+                        if(full.oi=="0"){
+                            return "<span class='red'>"+full.num+"</span>";
+                        }
+                        if(full.oi=="1"){
+                            return "<span class='green'>"+full.num+"</span>";
+                        }
+
+                    }
+                },
+                {"data": "operaType" },
+                {"data": "operaTime" }
+            ]
+        } );
+    })
+
+</script>
+</body>
+</html>

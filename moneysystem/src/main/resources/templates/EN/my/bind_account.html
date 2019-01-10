@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Alipay Binding Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/ENheader.js"></script>
+<!--header end-->
+
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/ENpt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu">
+                <h4 class=" menu_title">My</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/EN/my/my_account" class="collapsed">
+                                    <i></i>My Account
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/EN/my/my_money" class="collapsed">
+                                    <i></i>My Balance
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel panel-default membercollhead">
+                            <div class="panel-heading" role="tab" id="heading3">
+                                <h4 class="panel-title">
+                                    <a href="/EN/my/my_loan" class="collapsed">
+                                        <i></i>My Lloan
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>My Information
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/EN/my/authentication" id="changetext">Basic Information</a></li>
+                                    <li><a href="/EN/my/change_phone">Modify Phone Number</a></li>
+                                    <li><a href="/EN/my/login_psw">login Password</a></li>
+                                    <li ><a href="/EN/my/pay_psw">Money Password</a></li>
+                                    <li ><a href="/EN/my/bank_card">Bank Card Binding</a></li>
+                                    <li><a href="/EN/my/bind_account">Alipay Binding</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>My Message
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/EN/my/message">Send</a></li>
+                                    <li ><a href="/EN/my/inbox">Inbox</a></li>
+                                    <li ><a href="/EN/my/outbox">Outbox</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg" style="min-height: 558px">
+            <h4 class=" page_title">Bind Alipay</h4>
+            <div class="row mt20">
+                <div class="inblock w100">
+                    <div class="bs-component mb20">
+                        <a class="btn btn-primary yellow_btn white" data-toggle="modal" data-target="#myModal_bind" >Bind alipay</a>
+                    </div>
+                    <table width="100%" id="table"  cellspacing="0" cellpadding="0" border="1"   class="table">
+                        <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th>Real Name</th>
+                            <!--<th>类型</th>-->
+                            <th>Binding Time</th>
+                            <th width="120" class="tc">Operation</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/ENfooter.js"></script>
+
+<!--绑定 模态框 （Modal） -->
+<div class="modal fade" id="myModal_bind" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myModalLabel"> Bind Alipay</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" id="hideselect">
+                    <div class="form-group">
+                        <label class="col-form-label">Alipay<span class="warning">*</span></label>
+                        <select class="custom-select  w100">
+                            <option value="1">Bind Alipay</option>
+                            <!--<option value="2">微信</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="tc" id="cede_step1" style="display: none">
+                    <h4 class="mb10">First step: Scan code landing Alipay</h4>
+                    <img  id="codeimg1"  />
+                    <p class="red mt10">Please open Alipay scanning QR code and request to login Alipay</p>
+                </div>
+                <div class="tc" id="cede_step2" style="display: none">
+                    <h4 class="mb10">Step 2: Scan code to get account information</h4>
+                        <img id="codeimg2" src="">
+                        <p class="red mt10">Please use Alipay to scan the QR code to allow access to account information</p>
+                </div>
+            </div>
+            <div class="modal-footer" id="buttonchg">
+                <button type="button" onclick="submitform()"  class="btn btn-primary w100">Apply for binding</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".nav-tabs .nav-item").on({click:function(){
+                $(this).addClass("cur").siblings().removeClass("cur");
+            }
+        });
+        $('#table').DataTable( {
+            "serverSide": true,
+            searching: false,
+            lengthChange: false,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            ajax: {
+                url: "/appliy/querybyUserid",
+                dataSrc: '',
+                error : function() {
+                    window.location.href = "/login";
+                }
+            },
+            "columns": [
+                {"data": "appliycount" },
+                {"data": "realname" ,},
+                {"data": "createtime" },
+                {"data": "id",
+                    render:function(e,type,full,row){
+                        return "<a href='javascript:;'  onclick='deletecount("+full.id+")'  class=\"icon_delete\" title=\"unsubscribe\"></a>";
+                    }
+                }
+            ]
+        } );
+    })
+    // 登录二维码第一步
+    function submitform() {
+        $.ajax({
+            url: '/appliy/scanlogin',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                $("#hideselect").hide();
+                $('#codeimg1').attr( 'src', 'data:image/jpg;base64,'+data+'' );
+                $("#cede_step1").show();
+                $("#buttonchg").html(" <button type=\"button\" onclick=\"scanallow()\"  class=\"btn btn-primary w100\">Confirm scanned, next</button>");
+
+            },
+            error: function () {
+                sweetAlert("", "Request failed", "error");
+            }
+        });
+
+    }
+    // 获取支付宝账户信息
+    function scanallow() {
+        sweetAlert({
+            title: "Landing, please wait.",
+            timer: 4500,
+            showConfirmButton: false
+        });
+        $.ajax({
+            url: '/appliy/scanAllow',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                if(data==""){
+                    sweetAlert("", "Please confirm that you have scanned the QR code", "warning");
+                    $("#cede_step1").show();
+                    $("#cede_step2").hide();
+                }
+                else{
+                    $("#cede_step2").show();
+                    $("#cede_step1").hide();
+                    $("#codeimg2").attr('src','data:image/jpg;base64,'+data+'');
+                    $("#buttonchg").html(" <button type=\"button\" onclick=\"bind()\"  class=\"btn btn-primary w100\">Confirm binding</button>");
+                }
+
+            },
+            error: function () {
+                sweetAlert("", "Request failed", "error");
+            }
+        });
+
+    }
+    // 获取支付宝账户信息
+    function bind() {
+        sweetAlert({
+            title: "Retrieving account information, please wait.",
+            timer: 4500,
+            showConfirmButton: false
+        });
+        $.ajax({
+            url: '/appliy/bind',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                // console.log(strToJson(data).code);
+                if(strToJson(data).code=="success"){
+                    sweetAlert("", "Congratulations on your successful AliPay binding.", "success");
+                    setTimeout(function(){ window.location.href = "/EN/my/bind_account";},1000);
+                }
+                else{
+                    sweetAlert("", "Alipay binding failed, please confirm scanning allowed account information QR code", "error");
+                }
+            },
+            error: function () {
+                sweetAlert("", "Request failed", "error");
+            }
+        });
+
+    }
+    // 解绑支付宝
+    function deletecount(userid) {
+        sweetAlert({
+                title: "Are you sure to unbind alipay?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Confirm",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false
+            },
+            function(){
+                $.ajax({
+                    url: '/appliy/unbindAppliy',
+                    data: {id:userid},
+                    type: 'post',
+                    success: function () {
+                        sweetAlert("", "Congratulations on your success in untying alipay.", "success");
+                        setTimeout(function(){ window.location.href = "/EN/my/bind_account";},1000);
+                    },
+                    error: function () {
+                        sweetAlert("", "Request failed", "error");
+                    }
+                });
+            });
+
+
+    }
+
+</script>
+</body>
+</html>

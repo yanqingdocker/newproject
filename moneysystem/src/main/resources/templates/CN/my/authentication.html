@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>基本信息</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/daterangepicker-bs3.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/areajson.js"></script>
+    <script  type="text/javascript" src="/js/date.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #province,#citys,#county{ height: 35px;}
+    </style>
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/pt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu">
+                <h4 class=" menu_title">我的</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_account" class="collapsed">
+                                    <i></i>我的账户
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_money" class="collapsed">
+                                    <i></i>我的余额
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading3">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_loan" class="collapsed">
+                                    <i></i>我的借贷
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>我的资料
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/CN/my/authentication" id="changetext">基本信息</a></li>
+                                    <li><a href="/CN/my/change_phone">修改手机号</a></li>
+                                    <li><a href="/CN/my/login_psw">登录密码</a></li>
+                                    <li ><a href="/CN/my/pay_psw">资金密码</a></li>
+                                    <li ><a href="/CN/my/bank_card">银行卡绑定</a></li>
+                                    <li><a href="/CN/my/bind_account">支付宝绑定</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>我的消息
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/CN/my/message">发消息</a></li>
+                                    <li ><a href="/CN/my/inbox">收件箱</a></li>
+                                    <li ><a href="/CN/my/outbox">发件箱</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg" >
+            <!--认证-->
+            <div id="auth_block">
+                <h3 class="page_title">会员认证</h3>
+                <div class="bs-component">
+                    <div class="alert alert-dismissible alert-primary">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <p >请认真完成账户认证，才能进行各项操作！</p>
+                    </div>
+                    <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+                <div class="inblock w100">
+                    <form id="authform">
+                        <div class="form-group">
+                            <label class="col-form-label">真实姓名<span class="warning">*</span></label>
+                            <input class="form-control" placeholder="请输入真实姓名" name="username" maxlength="50"  type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">身份证号码<span class="warning">*</span></label>
+                            <input class="form-control" placeholder="请输入身份证号码" name="idcard" maxlength="20"  type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">出生日期<span class="warning">*</span></label>
+                            <div class="input-prepend input-group " id="dateselect">
+                                <input type="text" readonly  name="birthday" id="txtEndDate"  class="form-control" value="" /><span class="add-on input-group-addon"><i class="icon_date"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">电子邮件<span class="warning">*</span></label>
+                            <input class="form-control" placeholder="请输入电子邮件" name="email"  type="text">
+                        </div>
+                        <!-- 暂无 港澳台 如需要可在city.json文件中添加-->
+                        <div class="form-group">
+                            <label class="col-form-label">地区<span class="warning">*</span></label>
+                            <div class="inblock w100">
+                                <select id="province" name="province" onchange="doProvAndCityRelation();">
+                                    <option id="choosePro" value="">请选择您所在省份</option>
+                                </select>
+                                <select id="citys" name="city" onchange="doCityAndCountyRelation();">
+                                    　　　　　　　　<option id='chooseCity' value=''>请选择您所在城市</option>
+                                    　　　　　　</select>
+                                <select id="county" name="county" field="county" >
+                                    　　　　　　　　<option id='chooseCounty' value=''>请选择您所在区/县</option>
+                                    　　　　　　</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">详细地址<span class="warning">*</span></label>
+                            <input class="form-control" placeholder="请输入详细地址" id="detailaddress" name="detailaddress" type="text">
+                        </div>
+                        <input type="hidden" id="realaddress" name="address">
+                        <button type="button" id="submitbtn" onclick="submitform();return false;" class="btn btn-primary btn-lg btn-block f14">提 交</button>
+                    </form>
+                </div>
+            </div>
+            <!--基本资料-->
+            <div  id="info_block" style="display: none;">
+                <h3 class="page_title">基本资料</h3>
+                <div class="inblock w100">
+                    <div class="form-group inblock w100">
+                        <label  class="l col-form-label">当前会员级别：</label>
+                        <div class="l ">
+                            <span id="vip_level" class="red"></span>
+                            <button type="button" id="upgrade_btn" onclick="upgrade()" class="btn btn-primary f14 ml15 " style="padding: 4px 10px;">升级VIP会员</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">手机号<span class="warning">*</span></label>
+                        <input class="form-control"  id="phone"  maxlength="50"  type="text" disabled="">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">真实姓名<span class="warning">*</span></label>
+                        <input class="form-control"  id="realname"  maxlength="50"  type="text" disabled="">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">身份证号码<span class="warning">*</span></label>
+                        <input class="form-control"  id="idcard" disabled=""  maxlength="20"  type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">出生日期<span class="warning">*</span></label>
+                        <div class="input-prepend input-group ">
+                            <input type="text" readonly  disabled="" class="form-control" value=""  id="birthday" /><span class="add-on input-group-addon"><i class="icon_date"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">电子邮件<span class="warning">*</span></label>
+                        <input class="form-control" id="email"  disabled=""    type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">地址<span class="warning">*</span></label>
+                        <input class="form-control" id="address"  disabled="" type="text">
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        $("#txtEndDate").calendar();
+        $.ajax({
+            url: '/user/getuser',
+            type: 'GET',
+            dataType: 'json',
+            success:function(data){
+
+                if(data.isauthentication==1){
+                    $("#auth_block").hide();
+                    $("#info_block").show();
+                    $("#phone").val(data.phone);
+                    $("#realname").val(data.username);
+                    $("#email").val(data.email);
+                    $("#birthday").val(data.birthday);
+                    $("#address").val(data.address);
+                    $("#idcard").val(data.idcard);
+                    if(data.leavel==0){
+                        $("#vip_level").html("普通会员");
+                    }
+                    else if(data.leavel==1){
+                        $("#vip_level").html("VIP会员");
+                        $("#upgrade_btn").hide();
+                    }
+
+
+                }
+            },
+            error: function () {
+                $("#auth_block").hide();
+                $("#info_block").hide();
+                sweetAlert({
+                        title: "请先登录！",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "去登录",
+                        cancelButtonText: "取消",
+                        closeOnConfirm: false
+                    },
+                    function(isConfirm){
+                        if (isConfirm) {
+                            window.location.href = "/CN/login";
+                        }
+                    });
+            }
+        })
+
+
+        $('#authform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'username': {
+                    validators: {
+                        notEmpty: {
+                            message: '姓名不可以为空'
+                        }
+                    }
+                },
+                'idcard': {
+                    validators: {
+                        notEmpty: {
+                            message: '身份证号码不可以为空'
+                        },
+                        stringLength: {
+                            min: 18,
+                            max: 18,
+                            message: '身份证号码长度18位'
+                        }
+                    }
+                },
+                'email': {
+                    validators: {
+                        notEmpty: {
+                            message: '电子邮件不能为空'
+                        },
+                        emailAddress: {
+                            message: '邮箱格式不正确'
+                        }
+                    }
+
+                },
+                'detailaddress': {
+                    validators: {
+                        notEmpty: {
+                            message: '地址不能为空'
+                        }
+                    }
+                },
+                'county':{
+                    validators:{
+                        notEmpty:{
+                            message:'地区不能为空'
+                        },
+                        callback: {
+                            message: '必须选择一个地区',
+                            callback: function(value, validator)
+                            {
+                                if (value == 0) {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    })
+
+
+    // 表单提交
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    function submitform() {
+        $('#authform').data('bootstrapValidator').enableFieldValidators('username', true);
+        $('#authform').data('bootstrapValidator').enableFieldValidators('idcard', true);
+        $('#authform').data('bootstrapValidator').enableFieldValidators('email', true);
+        $('#authform').data('bootstrapValidator').enableFieldValidators('detailaddress', true);
+        $('#authform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#authform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var addistr = $("#province").find("option:selected").text() + $("#citys").find("option:selected").text() + $("#county").find("option:selected").text() + $("#detailaddress").val();
+            $("#realaddress").val(addistr);
+            // console.log( $("#realaddress").val());
+            //ajax的形式提交表单
+            var str = $("#authform").serializeObject(); //此处调用的就是我们写好的引入的方法，会将带有name的input，全部转为JSON。
+            var datas = JSON.stringify(str);//返回一个新字符串
+            // console.log(str);
+            // console.log(datas);
+            $.ajax({
+                url: '/user/authentication',
+                data: {datas: datas},
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "恭喜您！认证成功！", "success");
+                        setTimeout(function () {
+                            window.location.href = "/CN/my/authentication";
+                        }, 1500);
+                    }
+                    else {
+                        sweetAlert("", "认证失败！请确认身份信息是否真实有效!", "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "请求失败！", "error");
+                }
+            });
+        }
+    }
+    //升级VIP
+    function upgrade() {
+        $.ajax({
+            url: '/user/applyVip',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                if (strToJson(data).code == "success") {
+                    sweetAlert("", "VIP申请成功，客服将在24小时内进行审核。", "success");
+                    setTimeout(function () {
+                        window.location.href = "/CN/my/authentication";
+                    }, 1500);
+                }
+                else {
+                    sweetAlert("", strToJson(data).message, "warning");
+                }
+            },
+            error: function () {
+                sweetAlert("", "请求失败！", "error");
+            }
+        });
+    }
+</script>
+</body>
+</html>

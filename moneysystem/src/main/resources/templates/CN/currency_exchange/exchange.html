@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>货币兑换</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/swiper.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.fadethis.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/echarts.common.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="index">
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/banp.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m white_bg pt30">
+        <div class="col-lg-12 " >
+            <div class="row "   >
+                <div class="col-lg-3 phone_mb20 cursor" data-toggle="modal" data-target="#myModal_dollar" onclick="modal_buy('USD')">
+                    <div class="wp80 m  " >
+                        <div class="card-body tc">
+                            <img style="width: 100px" src="/images/icon_my.png" >
+                            <h3 class="mt20 f18">买入美元</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 phone_mb20 cursor"  data-toggle="modal" data-target="#myModal_dollar" onclick="modal_buy('CNY')">
+                    <div class="wp80 m">
+                        <div class="card-body tc">
+                            <img style="width: 100px" src="/images/icon_rmb.png" >
+                            <h3 class="mt20 f18">买入人民币</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 phone_mb20 cursor" data-toggle="modal" data-target="#myModal_dh" onclick="modal_self()">
+                    <div class="wp80 m">
+                        <div class="card-body tc">
+                            <img style="width: 100px" src="/images/icon_dh.png" >
+                            <h3 class="mt20 f18">自选兑换</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 phone_mb20 cursor"  data-toggle="modal" data-target="#myModal_btb">
+                    <div class="wp80 m">
+                        <div class="card-body tc">
+                            <img style="width: 100px" src="/images/icon_btb.png" >
+                            <h3 class="mt20 f18">比特币兑换</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inblock w100 mt50" id="chartmain" style="width:100%; height: 400px; padding: 20px"></div>
+
+            <div class="bs-component title_tab inblock w100 mt50">
+                <ul class=" nav-tabs inblock w100">
+                    <!--<li class="nav-item cur">-->
+                    <!--<a class="nav-link  " href="exchange_list" target= "iframename "><i class="icon_jy"></i>交易明细列表</a>-->
+                    <!--</li>-->
+                    <li class="nav-item cur">
+                        <a class="nav-link" href="exchange_rate_list" target= "iframename "><i class="icon_hl"></i>最新汇率列表</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="row mt20">
+                <iframe name= "iframename " src="exchange_rate_list" style="padding: 0 20px; width: 100%; border:none;height: 555px" scrolling="yes" ></iframe>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+<!--美元 模态框 （Modal） -->
+<div class="modal fade" id="myModal_dollar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title buy_title" id="myModalLabel" > </h4>
+            </div>
+            <div class="modal-body">
+                <form id="buyform">
+                    <div class="form-group">
+                        <p class="tips"></p>
+                        <div class="row">
+                            <div class="col-lg-6 tc">
+                                <select class="custom-select  w100 recharcount zxaccount" id="beforecount"></select>
+                                <label class="col-form-label mt10">可兑余额：<b class="red" id="blance"></b></label>
+                                <input type="hidden" name="srcountid" id="srcountid">
+                            </div>
+                            <div class="col-lg-6 tc">
+                                <button type="button" class="btn btn-primary w100 mb10 fno" onclick="balance()"> 查询余额</button>
+                                <label class="col-form-label" >当日汇率：<b class="red rate" id="nowrate" ></b>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >兑换金额<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入要兑换的金额" name="srcmoney" id="srcmoney" oninput="exchange_money();" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >兑换后金额<span class="warning">*</span></label>
+                        <input class="form-control" value="" readonly id="exchangemoney" name="destmoney" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >兑换到目标账户<span class="warning">*</span></label>
+                        <input type="text" class="form-control" disabled id="destcountval">
+                        <input type="hidden"  id="destcountid"  name="destcountid" >
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >资金密码<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入资金" name="paypwd" type="password">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary w100" onclick="submitform()">提交 </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!--自选兑换 模态框 （Modal） -->
+<div class="modal fade" id="myModal_dh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" > 自选兑换</h4>
+            </div>
+            <div class="modal-body">
+                <form id="onuform">
+                    <div class="form-group">
+                        <div class="row">
+                            <p class="tips"></p>
+                            <div class="col-lg-5 tc pr0">
+                                <select class="custom-select w100 recharcount zxaccount  acountbefore" >
+
+                                </select>
+                                <input type="hidden" name="srcountid" id="beforeid">
+                                <label class="col-form-label mt10 " >
+                                    <a href="javascript:;" class="ratebtn" onclick="searchbalance()">查询</a>可兑余额：<b class="thisbalance red"></b></label>
+                            </div>
+                            <div class="col-lg-2 tc">
+                                <img src="/images/exchange.png" style="width: 35px">
+                            </div>
+                            <div class="col-lg-5 tc pl0">
+                                <select class="custom-select recharcount zxaccount acountbehind w100">
+
+                                </select>
+                                <input type="hidden"  id="behindid"  name="destcountid" >
+                                <label class="col-form-label mt10" >当日汇率：<b class="thisrate red"></b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">兑换金额<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入兑换金额" name="srcmoney"  type="text"  id="beforemoney">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">兑换后金额<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="0.00" name="destmoney" readonly type="text" id="aftermoney">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">资金密码<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入该账户的资金密码" name="paypwd"  type="password">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="onuform()" class="btn btn-primary w100">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!--自选兑换 模态框 （Modal） -->
+<!--<div class="modal fade" id="myModal_btb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+<!--<div class="modal-dialog">-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>-->
+<!--<h4 class="modal-title" > 比特币兑换</h4>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<div class="form-group">-->
+<!--<div class="row">-->
+<!--<div class="col-lg-5 tc pr0">-->
+<!--<select class="custom-select  w100">-->
+<!--<option value="1">456665445544（CNY）</option>-->
+<!--<option value="2">456665445544（CNY）</option>-->
+<!--</select>-->
+<!--<label class="col-form-label mt10">可兑余额：0.00</label>-->
+<!--</div>-->
+<!--<div class="col-lg-2 tc">-->
+<!--<img src="/images/exchange.png" style="width: 35px">-->
+<!--</div>-->
+<!--<div class="col-lg-5 tc pl0">-->
+<!--<select class="custom-select  w100">-->
+<!--<option value="1">美元</option>-->
+<!--<option value="2">人民币</option>-->
+<!--</select>-->
+<!--<label class="col-form-label mt10" >当日汇率：6.50</label>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label class="col-form-label" >兑换后金额<span class="warning">*</span></label>-->
+<!--<input class="form-control" placeholder="0.00"  disabled="" type="text">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label class="col-form-label" >资金密码<span class="warning">*</span></label>-->
+<!--<input class="form-control" placeholder=""  type="text">-->
+<!--</div>-->
+
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<button type="button" class="btn btn-primary w100">-->
+<!--提交-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--</div>-->
+
+<input type="hidden" id="realrate">
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+<input type="hidden" id="modoltype"><!--弹出窗口类型-->
+
+<script type="text/javascript">
+    $(function () {
+        loadcount();//加载账户列表
+        $("#nav_exchange").addClass("cur");//导航栏添加焦点
+        var before = $(".acountbefore option:selected").attr("data-id");
+        var behind = $(".acountbehind option:selected").attr("data-id");
+        if (before == behind) {
+            $(".tips").html("请选择不同的货币类型进行兑换");
+            $(".thisrate").html("1");
+            $("#realrate").val(1);
+        }
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chartmain'));
+        getChartData(myChart);
+        //使用制定的配置项和数据显示图表
+        // myChart.setOption(option);
+        $('#buyform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'srcmoney': {
+                    validators: {
+                        notEmpty: {
+                            message: '兑换金额不可以为空'
+                        },
+                        digits: {
+                            message: '该值只能包含数字。'
+                        },
+                        greaterThan: {
+                            value: 1,
+                            message: '兑换金额必须大于0'
+                        }
+                    }
+                },
+                'paypwd': {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        }
+                    }
+                }
+            }
+        })
+        $('#onuform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'srcmoney': {
+                    validators: {
+                        notEmpty: {
+                            message: '兑换金额不可以为空'
+                        },
+                        digits: {
+                            message: '该值只能包含数字。'
+                        },
+                        greaterThan: {
+                            value: 1,
+                            message: '兑换金额必须大于0'
+                        }
+                    }
+                },
+                'paypwd': {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        }
+                    }
+                }
+            }
+        })
+
+    })
+
+
+    //美元汇率信息
+    function getChartData(myChart) {
+        //echart的data数据格式是{对象,对象},{对象,对象}..,而不是字符串拼接,因此生成对象，放进数组
+        $.ajax({
+            url: "/rate/queryAll",
+            type: "get",
+            data: null,
+            dataType: "JSON",
+            error: function (data) {
+                $.Popup.error("表单数据不合法!");
+            },
+            success: function (data) {
+                var arr = new Array();
+                var obj = new Array();//美元人民币
+                var rmb = new Array();//人民币美元
+                var datetime = new Array();
+                for (var i=0;i<data.length;i++)
+                {
+                    arr.push(data[i]);
+                    // console.log(arr);
+                }
+                for (var j=0;j<data.length;j++)
+                {
+                    var jsondata =arr[j];
+                    // console.log(jsondata);
+                    obj.push(jsondata.USDCNY.buyPic);//美元买入价
+                    var rmbfix=1/jsondata.USDCNY.sellPic;
+                    rmb.push(rmbfix.toFixed(4));//人民币卖出价
+                    datetime.push(jsondata.USDCNY.date.substring(5,10));
+
+                }
+
+                var  option = {
+                    title : {
+                        text: '最近一周汇率变化',
+//                    subtext: '汇率变化'
+                        textStyle: {
+                            color: '#333' //标题颜色
+                        }
+                    },
+                    tooltip : {
+                        trigger: 'axis',
+                        dataView: {
+                            readOnly: true,
+                            optionToContent: function (opt) {
+                                var axisData = opt.xAxis[0].data;
+                                var series = opt.series;
+
+                                var tableDom = document.createElement("table");
+                                tableDom.setAttribute("id", "data_table");
+                                tableDom.setAttribute("class", "table_data_table");
+                                // <table id="test" class="table-bordered table-striped" style="width:100%;text-align:center"
+                                var table = '<thead><tr>'
+                                    + '<td>日期</td>'
+                                    + '<td>' + series[0].name + '</td>'
+                                    + '<td>' + series[1].name + '</td>'
+                                    + '</tr></thead><tbody>';
+                                for (var i = 0, l = axisData.length; i < l; i++) {
+                                    table += '<tr>'
+                                        + '<td>' + axisData[i] + '</td>'
+                                        + '<td>' + series[0].data[i] + '</td>'
+                                        + '<td>' + series[1].data[i] + '</td>'
+                                        + '</tr>';
+                                }
+                                table += '</tbody>';
+                                tableDom.innerHTML = table;
+                                return tableDom;
+                            }
+                        }
+                    },
+                    legend: {
+                        data:['美元人民币','人民币美元']
+                    },
+                    toolbox: {
+                        show: true,
+                        orient: 'vertical',
+                        left: 'right',
+                        top: 'center',
+                        feature: {
+                            // mark: {show: true},
+                            dataView: {show: true, readOnly: false},
+                            magicType: {show: true, type: ['line', 'bar']},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : true,//不从零刻度开始
+                            data : datetime,
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type: 'value',
+                            // min: 0,
+                            // max: 6.4,
+                            interval:0.5,
+                            splitArea: {
+                                show: true
+                            }
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'美元人民币',
+                            type:'line',
+                            data:obj,
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            label:{
+                                normal:{
+                                    show:true,            //显示数字
+                                    position: 'top'        //这里可以自己选择位置
+                                }
+                            },
+                            markLine : {
+                                data : [
+                                    {type : 'average', name: '平均值'}
+                                ]
+                            },
+                            itemStyle:{
+                                normal:{
+                                    color: "#0390ee" //图标颜色
+                                }
+                            },
+                            lineStyle:{
+                                normal:{
+                                    width:2,  //连线粗细
+                                    color: "#0390ee"  //连线颜色
+                                }
+                            }
+
+                        },
+                        {
+                            name:'人民币美元',
+                            type:'line',
+                            data:rmb,
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            label:{
+                                normal:{
+                                    show:true,            //显示数字
+                                    position: 'top'        //这里可以自己选择位置
+                                }
+                            },
+                            markLine : {
+                                data : [
+                                    {type : 'average', name : '平均值'}
+                                ]
+                            }
+                        }
+                    ]
+                };
+                // console.log(option.xAxis[0].data);
+                // console.log(option.series[0].data);
+                myChart.setOption(option);
+
+            }
+        });
+
+    }
+    // 通过json同步获取下拉账户
+    function loadcount() {
+        $.ajax({
+            url: '/count/queryCountByUserid',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    if(jsonObj[i].state==1){
+                        var html ='<option data-id="'+jsonObj[i].countType+'" value="'+jsonObj[i].id+'">'+jsonObj[i].cardId+'('+currency_type(jsonObj[i].countType)+')'+'</option>';
+                        $(".recharcount").append(html);
+                    }
+
+                }
+
+
+            }
+        })
+    }
+
+    // 账户余额
+    function balance() {
+        var countid= $("#beforecount").val();
+        $.ajax({
+            url: '/count/queryCount',
+            data: {id:countid},
+            type: 'get',
+            success: function (data) {
+                $("#blance").html(strToJson(data).blance.toFixed(4));
+            }
+        })
+    }
+
+    //自选兑换自动获取账户余额
+    $(".acountbefore").change(function () {
+        var countid= $(".acountbefore").val();
+        $.ajax({
+            url: '/count/queryCount',
+            data: {id:countid},
+            type: 'get',
+            success: function (data) {
+                $(".thisbalance").html(strToJson(data).blance.toFixed(4));
+            }
+        })
+    });
+    //自选兑换查询账户余额
+    function searchbalance() {
+        var countid= $(".acountbefore").val();
+        $.ajax({
+            url: '/count/queryCount',
+            data: {id:countid},
+            type: 'get',
+            success: function (data) {
+                $(".thisbalance").html(strToJson(data).blance.toFixed(4));
+            }
+        })
+    };
+    // 自选兑换账户改变，汇率同时改变
+    $(".zxaccount").change(function () {
+        $("#beforemoney").val("");
+        $("#aftermoney").val("");
+        $(".tips").html("");
+        var before = $(".acountbefore option:selected").attr("data-id");
+        var behind = $(".acountbehind option:selected").attr("data-id");
+        var types = before + behind;
+        var turntype = behind + before;
+        if (before == behind) {
+            $(".tips").html("请选择不同的货币类型进行兑换");
+            $(".thisrate").html("1");
+            $("#realrate").val(1);
+        }
+
+        else if (allrate(types)=="1") {
+            $.ajax({
+                url: "/rate/getSingleRate",
+                type: "get",
+                data: {type: types},
+                dataType: "JSON",
+                success: function (data) {
+                    $(".thisrate").html(data.buyPic);
+                    $("#realrate").val($(".thisrate").html());
+                },
+                error: function (data) {
+                    //终止请求动作.
+                    data.abort();
+
+                }
+            });
+        }
+        else if(allrate(turntype)=="1") {
+
+            $.ajax({
+                url: "/rate/getSingleRate",
+                type: "get",
+                data: {type: turntype},
+                dataType: "JSON",
+                success: function (data) {
+                    var realrate=data.sellPic;
+                    $(".thisrate").html(realrate);
+                    var  rate=  $(".thisrate").html();
+                    $("#realrate").val(1/rate);
+                },
+                error: function (data) {
+                    //终止请求动作.
+                    data.abort();
+
+                }
+            });
+        }
+    }) ;
+    // 自选兑换，兑换后金额
+    $("#beforemoney").change(function () {
+        var before= $("#beforemoney").val();
+        // var rate= $(".thisrate").html();
+        var sellrate=$("#realrate").val();
+        var changeafter=before*sellrate;
+        var value= Math.round(changeafter*10000)/10000;
+        $("#aftermoney").val(decimal(value,2));//四舍五入保留两位小数点
+    });
+    // 自选兑换表单提交
+    function onuform() {
+        $('#onuform').data('bootstrapValidator').validateField('srcmoney', true);
+        $('#onuform').data('bootstrapValidator').validateField('paypwd', true);
+        $('#onuform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#onuform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var beforereal = $(".acountbefore").val();
+            $("#beforeid").val(beforereal);
+            var beforereal = $(".acountbehind").val();
+            $("#behindid").val(beforereal);
+            //ajax的形式提交表单
+            var str = $("#onuform").serializeObject(); //此处调用的就是我们写好的引入的方法，会将带有name的input，全部转为JSON。
+            var datas = JSON.stringify(str);//返回一个新字符串
+            $.ajax({
+                url: '/count/exchange',
+                data: {datas: datas},
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "恭喜您！兑换成功！", "success");
+                        setTimeout(function () {
+                            window.location.href = "/CN/more/trade_list";
+                        }, 1500);
+                    }
+                    else {
+                        sweetAlert("", strToJson(data).message, "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "请求失败！", "error");
+                }
+            });
+        }
+    }
+
+    // 自选兑换查询是否在汇率表中
+    function allrate(type){
+        var value="";
+        $.ajax({
+            url: "/rate/queryAll",
+            type: "get",
+            data: null,
+            dataType: "JSON",
+            async: false,
+            error: function (data) {
+                $.Popup.error("表单数据不合法!");
+            },
+            success: function (data) {
+                var arr = new Array();
+                //取最新的一条记录
+                for (var i = data.length-1; i < data.length; i++) {
+                    arr.push(data[i]);
+                }
+                var obj=arr[0];
+                for( key in obj){
+                    // 注意在json中获取，要用 data[key]   不要用data.key
+                    var code=obj[key].code;
+                    if(type==code){
+                        value=1;
+                    }
+
+                }
+            }
+
+        });
+        return value;
+    }
+    // 单个弹框账户改变，汇率同时改变
+    $("#beforecount ").change(function () {
+        balance();//改变账户时自动查询余额；
+        $("#srcmoney").val("");
+        $("#exchangemoney").val("");
+        $(".tips").html("");
+        var before = $("#beforecount option:selected").attr("data-id");
+        var behind =  $("#modoltype").val();
+        var types = before + behind;
+        var turntype = behind + before;
+        if (before == behind) {
+            $(".tips").html("请选择不同的货币单位");
+            $("#nowrate").html("1");
+            $("#realrate").val(1);
+        }
+
+        else if (allrate(types)=="1") {
+            $.ajax({
+                url: "/rate/getSingleRate",
+                type: "get",
+                data: {type: types},
+                dataType: "JSON",
+                success: function (data) {
+                    $("#nowrate").html(data.buyPic);
+                    $("#realrate").val($("#nowrate").html());
+                },
+                error: function (data) {
+                    //终止请求动作.
+                    data.abort();
+
+                }
+            });
+        }
+        else if(allrate(turntype)=="1") {
+
+            $.ajax({
+                url: "/rate/getSingleRate",
+                type: "get",
+                data: {type: turntype},
+                dataType: "JSON",
+                success: function (data) {
+                    var realrate=data.sellPic;
+                    $("#nowrate").html(realrate);
+                    var  rate=  $("#nowrate").html();
+                    $("#realrate").val(1/rate);
+                },
+                error: function (data) {
+                    //终止请求动作.
+                    data.abort();
+
+                }
+            });
+        }
+    }) ;
+    // 点击自选弹出框
+    function modal_self() {
+        //判断未申请操作
+        if($("#beforecount option").length==0){
+            sweetAlert({
+                    title: "请先申请账户，才能进行操作！",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "取消",
+                    confirmButtonText: "去申请",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        window.location.href = "/CN/my/my_account";
+                    }
+                });
+        }
+    }
+    // 点击弹出框
+    function modal_buy(title){
+        //判断未申请操作
+        if($("#beforecount option").length==0){
+            sweetAlert({
+                    title: "请先申请账户，才能进行操作！",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "取消",
+                    confirmButtonText: "去申请",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        window.location.href = "/CN/my/my_account";
+                    }
+                });
+        }
+        $("#modoltype").val(title);
+        $("#beforecount").change();
+        // 表单置空
+        $("#buyform").find("input").each(function(){
+            this.value = "";//清空数据;
+        });
+        switch(title)
+        {
+            case "CNY":
+                $(".buy_title").html("买入人民币");
+                $("#dollatrate").hide();
+                $("#rmbtrate").show();
+                break;
+            case "USD":
+                $(".buy_title").html("买入美元");
+                $("#dollatrate").show();
+                $("#rmbtrate").hide();
+                break;
+            default:
+        }
+        balance();
+        $("#beforecount option").each(function (){
+            if($(this).attr("data-id")==title){
+                var txt = $(this).text();
+                var realvalue=$(this).val();
+                $("#destcountval").val(txt);
+                $("#destcountid").val(realvalue);
+            }
+        });
+    }
+    // 买入**表单提交
+    function submitform() {
+        $('#buyform').data('bootstrapValidator').validateField('srcmoney', true);
+        $('#buyform').data('bootstrapValidator').validateField('paypwd', true);
+        $('#buyform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#buyform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var beforereal = $("#beforecount").val();
+            $("#srcountid").val(beforereal);
+            //ajax的形式提交表单
+            var str = $("#buyform").serializeObject(); //此处调用的就是我们写好的引入的方法，会将带有name的input，全部转为JSON。
+            var datas = JSON.stringify(str);//返回一个新字符串
+            $.ajax({
+                url: '/count/exchange',
+                data: {datas: datas},
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "恭喜您！兑换成功！", "success");
+                        setTimeout(function () {
+                            window.location.href = "/CN/more/trade_list";
+                        }, 1500);
+                    }
+                    else {
+                        sweetAlert("", strToJson(data).message, "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "请求失败！", "error");
+                }
+            });
+        }
+    }
+
+    // 兑换金额换算
+    function exchange_money() {
+        var changebefor=  $("#srcmoney").val();//兑换金额
+        var sellrate=$("#realrate").val();
+        var changeafter=changebefor*sellrate;
+        var value= Math.round(changeafter*10000)/10000;
+        $("#exchangemoney").val(decimal(value,2));//四舍五入保留两位小数点
+
+    }
+</script>
+</body>
+</html>

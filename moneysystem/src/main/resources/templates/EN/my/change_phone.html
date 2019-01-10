@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>修改手机号</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/moment.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .area_num_select.area_select {
+            background: #0390ee;padding: 0 15px;border-radius: 4px;margin-left: 0;
+        }
+        .area_num_select.area_select .area_option {
+            top:45px;border: 1px solid #ddd ;
+        }
+        .area_num_select.area_select h4 {
+            height: 38px;
+            line-height: 38px}
+    </style>
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/pt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu" style="min-height: 595px;">
+                <h4 class=" menu_title">我的</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_account" class="collapsed">
+                                    <i></i>我的账户
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_money" class="collapsed">
+                                    <i></i>我的余额
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading3">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_loan" class="collapsed">
+                                    <i></i>我的借贷
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>我的资料
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/CN/my/authentication" id="changetext">基本信息</a></li>
+                                    <li><a href="/CN/my/change_phone">修改手机号</a></li>
+                                    <li><a href="/CN/my/login_psw">登录密码</a></li>
+                                    <li ><a href="/CN/my/pay_psw">资金密码</a></li>
+                                    <li ><a href="/CN/my/bank_card">银行卡绑定</a></li>
+                                    <li><a href="/CN/my/bind_account">支付宝绑定</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>我的消息
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/CN/my/message">发消息</a></li>
+                                    <li ><a href="/CN/my/inbox">收件箱</a></li>
+                                    <li ><a href="/CN/my/outbox">发件箱</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg">
+            <h4 class=" page_title">修改手机号</h4>
+            <div class="row mt20">
+                <div class="inblock w100">
+                    <form id="myform">
+                        <div class="f16 mb20"><b style="color: #555">旧手机号码：</b><b class="red" id="telnum"></b></div>
+                        <div class="form-group">
+                            <label class="col-form-label w100 " >新手机号码<span class="warning">*</span></label>
+                            <div id="area_select" class="area_select area_num_select l mr10 mb15">
+                                <h4><span>选择国家</span> <i></i></h4>
+                                <div id="area_option" class="area_option" style="display: none">
+                                    <a data-id="">中国大陆(默认)</a>
+                                    <a data-id="852">中国香港</a>
+                                    <a data-id="855 ">柬埔寨</a>
+                                    <a data-id="65 ">新加坡</a>
+                                    <a data-id="60 ">马来西亚</a>
+                                    <a data-id="66 ">泰国</a>
+                                    <a data-id="95 ">缅甸</a>
+                                    <a data-id="62 ">印度尼西亚</a>
+                                    <a data-id="63 ">菲律宾</a>
+                                    <a data-id="84 ">越南</a>
+                                    <a data-id="856 ">老挝</a>
+                                    <a data-id="673 ">文莱</a>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control l " name="phone" id="phone" placeholder="请输入新手机号码"  style="width:51%;margin-left: 0" oninput="phonenum()"/>
+                            <input type="hidden" name="newphone"  id="newphone" >
+                            <input type="hidden" id="areanum">
+                        </div>
+                        <div class="form-group mb30">
+                            <label class="col-form-label w100" >验证码<span class="warning">*</span></label>
+                            <input class="form-control w50 l mr15" name="checknum"  placeholder="请输入验证码"  type="text">
+                            <button type="button" class="btn btn-primary f14" id="getcode">获取验证码</button>
+                            <div class=" w100 l mt5 mb5" id="telephonenameTip"></div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="submitform()"> 提  交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+
+<script type="text/javascript">
+    // 模拟重写select
+    $("#area_select").click(function (event) {
+        $("#area_option").toggle();
+        event.stopImmediatePropagation();//取消事件冒泡；
+    });
+    $('#area_option a').on('click',function(){
+        var selTxt=$(this).text();
+        $('#area_select h4 span').text(selTxt);
+        var areanum=$(this).attr('data-id');
+        $("#areanum").val(areanum);
+        var number=$("#phone").val()
+        $("#Telephone").val($("#areanum").val()+number);
+    });
+    $(document).bind("click",function(){
+        $("#area_option").hide();
+    });
+    // 输入电话号码实时赋值
+    function phonenum() {
+        var number=$("#phone").val()
+        $("#Telephone").val($("#areanum").val()+number);
+    }
+    function submitform() {
+        $('#myform').data('bootstrapValidator').enableFieldValidators('checknum', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('newphone', true);
+        $('#myform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#myform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            $.ajax({
+                url: '/user/updatephone',
+                type: 'post',
+                data: $("#myform").serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.code=="success") {
+                        sweetAlert("", "恭喜您！手机号修改成功！", "success");
+                        setTimeout(function(){
+                            window.location.href = "/CN/my/authentication";},1500);
+                    }
+                    else {
+                        sweetAlert("", data.message, "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "请求失败！", "error");
+                }
+            })
+
+        }
+    }
+
+    $(function () {
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        var telephonenum =$("#usertel").val();
+        $("#telnum").text(telephonenum);
+        $('#myform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'checknum': {
+                    validators: {
+                        notEmpty: {
+                            message: '验证码不能为空'
+                        }
+                    }
+                },
+                'phone': {
+                    message: '香港及国外手机请先选择下拉框',
+                    validators: {
+                        notEmpty: {
+                            message: '手机号不可以为空'
+                        },
+                        digits: {
+                            message: '手机号只能是数字'
+                        }
+                    }
+                }
+
+            }
+        })
+
+
+        // 获取验证码
+        $("#getcode").click(function () {
+            //获取输入的手机号码
+            var phoNum = $("#newphone").val();
+            console.log(phoNum);
+            curCount = count;
+            // 向后台发送处理数据
+            $.ajax({
+                type: "post", // 用POST方式传输
+                dataType: 'json',
+                url: " /user/checkPhone", // 目标地址
+                data: { "telphone":phoNum },
+                error: function (data) {
+                    sweetAlert("", strToJson(data).message, "error");
+                },
+                success: function (data) {
+                    // debugger;
+                    if (data.code=="fail") {
+                        $("#getcode").attr("disabled", false);
+                        $("#getcode").text("重发验证码");
+                        $("#telephonenameTip").html("<font color='red'>× 短信验证码发送失败，请重新发送</font>");
+                        return false;
+
+                    } else {
+                        // 设置按钮显示效果，倒计时
+                        $("#getcode").attr("disabled", "true");
+                        $("#getcode").text("请在" + curCount + "秒后重试");
+                        InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次
+                        $("#telephonenameTip").html("<font color='#339933'>√ 短信验证码已发到您的手机,请查收(20分钟内有效)</font>");
+                    }
+                }
+            });
+
+        });
+    })
+    //timer处理函数
+    function SetRemainTime() {
+        if (curCount == 0) {
+            window.clearInterval(InterValObj);// 停止计时器
+            $("#getcode").attr("disabled", false);
+            $("#getcode").text("重发验证码");
+            $("#telephonenameTip").text("");
+
+            code = ""; // 清除验证码。如果不清除，过时间后，输入收到的验证码依然有效
+        } else {
+            curCount--;
+            $("#getcode").text("请在" + curCount + "秒后重试");
+        }
+    }
+    var InterValObj; //timer变量，控制时间
+    var count = 60; //间隔函数，1秒执行
+    var curCount;//当前剩余秒数
+    var code = ""; //验证码
+    var codeLength = 6;//验证码长度
+</script>
+</body>
+</html>

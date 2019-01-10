@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Exchange Rate List Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="white_bg">
+
+<div class="inblock w100">
+    <table width="100%"  cellspacing="0" cellpadding="0" border="1" id="table"  class="table">
+        <thead>
+        <tr>
+            <th class="tc" width="80">Number</th>
+            <th>Exchange Method</th>
+            <th>Selling Price</th>
+            <th>Buy Price</th>
+            <th class="tc" width="200">Update Time</th>
+        </tr>
+        </thead>
+        <tbody id="trblock">
+
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: "/rate/queryAll",
+            type: "get",
+            data: null,
+            dataType: "JSON",
+            error: function (data) {
+                $.Popup.error("Form data is illegal");
+            },
+            success: function (data) {
+                var arr = new Array();
+                //取最新的一条记录
+                for (var i = data.length-1; i < data.length; i++) {
+                    arr.push(data[i]);
+                }
+                var html="";
+                var obj=arr[0];
+                var num=1;
+                for( key in obj){
+                    // console.log(obj[key]);
+                    // 注意在json中获取，要用 data[key]   不要用data.key
+                    html='<tr>+\n' +
+                        '     <td  class="tc" >'+num+'</td>+\n' +
+                        '     <td>'+obj[key].code+'</td>+\n' +
+                        '     <td>'+obj[key].buyPic+'</td>+\n' +
+                        '     <td>'+obj[key].sellPic+'</td>+\n' +
+                        '     <td>'+obj[key].date+' '+obj[key].datatime+'</td>+\n' +
+                        '     </tr>'
+                    $("#trblock").append(html);
+                    num=num+1;
+                }
+
+
+
+            }
+        });
+
+
+    })
+
+</script>
+</body>
+</html>

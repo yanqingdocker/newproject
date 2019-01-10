@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Transfer Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/moment.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/ENheader.js"></script>
+<!--header end-->
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/ENpt.jpg) no-repeat center ; height:500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row p0  m">
+        <div class="col-lg-3 col-xs-12 ">
+            <div class="panel panel-default bid_menu" style="min-height: 720px;">
+                <h4 class=" menu_title">Transaction</h4>
+                <div class="panel panel-default membercollhead">
+                    <div class="panel-heading" role="tab" id="heading1">
+                        <h4 class="panel-title">
+                            <a href="/EN/main/recharge" class="collapsed">
+                                <i></i> Recharge
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>Withdrawals
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/EN/main/foreign_currency">Foreign Currency Withdrawal</a></li>
+                                    <li><a href="/EN/main/pos_Bank">Withdrawals To Bank</a></li>
+                                    <li><a href="javascript:;">Withdrawals To Alipay</a></li> <!--href="/EN/main/pos_Alipay" -->
+                                    <li ><a href="javascript:;">Withdrawals To WeChat</a></li><!--href="/EN/main/pos_WeChat" -->
+                                    <li ><a href="javascript:;">Cash Withdrawals</a></li><!--href="/EN/main/pos_cash" -->
+                                    <li ><a href="javascript:;">Bitcoin Withdrawals</a></li><!--href="/EN/main/pos_bitcoin" -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/EN/main/transfer_accounts" class="collapsed">
+                                    <i></i> Transfer
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单 end-->
+
+        <div class="col-lg-9  col-xs-12 r_whitebg">
+            <h3 class="page_title">Transfer</h3>
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-primary">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <p >Tips: For your financial safety, be sure to check the account information you want to transfer</p>
+                </div>
+                <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+            <div class="inblock w100">
+                <form id="transform">
+                    <div class="form-group">
+                        <label class="col-form-label w100">Choose an expenditure account<span class="warning">*</span></label>
+                        <select class="custom-select  w100" id="recharcount" field="count"></select>
+                        <input type="hidden" id="realcount" name="countid">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >Transfer To Account Mobile Number<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="Please enter the transfer account mobile number (only for this platform member mobile phone number)" name="receivecount" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >Transfer Amount<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="Please enter the transfer amount" name="moneynum"  type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >Payment Password<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="Please enter the payment password for this account" name="payPwd"  type="password">
+                    </div>
+                    <button type="button" class="btn btn-primary btn-lg btn-block f14" onclick="submitform()">提 交</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/ENfooter.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $("#nav_transfer").addClass("cur");//导航栏添加焦点
+        loadcount();//获取下拉账户
+        $('#transform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'receivecount': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Phone number cannot be empty'
+                        },
+                        regexp: {
+                            regexp: /^1[356789][0-9]{9}$/,
+                            message: 'please enter a valid phone number'
+                        },
+                    }
+                },
+                'moneynum': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Transfer amount cannot be empty'
+                        },
+                        digits: {
+                            message: 'Transfer amount can only contain numbers'
+                        }
+                    }
+                },
+                'payPwd': {
+                    validators: {
+                        notEmpty: {
+                            message: 'password can not be blank'
+                        }
+                    }
+                },
+                'count':{
+                    validators:{
+                        notEmpty:{
+                            message:'Please select an expense account'
+                        },
+                        callback: {
+                            message: 'Must choose a spending account',
+                            callback: function(value, validator)
+                            {
+                                if (value == 0) {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    })
+    // 通过json同步获取下拉账户
+    function loadcount() {
+        $.ajax({
+            url: '/count/queryCountByUserid',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    if(jsonObj[i].state==1) {
+                        var html = '<option value="' + jsonObj[i].id + '">' + jsonObj[i].cardId + '(' + jsonObj[i].countType + ')' + '</option>';
+                        $("#recharcount").append(html);
+                    }
+                }
+                // console.log(jsonObj[0].cardId+'('+jsonObj[0].countType+")")
+                if(jsonObj.length==0){
+                    sweetAlert({
+                            title: "Please apply for an account before you can operate",
+                            type: "warning",
+                            confirmButtonText: "Application",
+                            closeOnConfirm: false
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/EN/my/my_account";
+                            }
+                        });
+                }
+
+            },
+        })
+    }
+
+    function submitform() {
+        $('#transform').data('bootstrapValidator').enableFieldValidators('receivecount', true);
+        $('#transform').data('bootstrapValidator').enableFieldValidators('moneynum', true);
+        $('#transform').data('bootstrapValidator').enableFieldValidators('payPwd', true);
+        $('#transform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#transform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var real = $("#recharcount").val();
+            $("#realcount").val(real);
+            // console.log( $("#realcount").val());
+            //ajax的形式提交表单
+            $.ajax({
+                url: '/count/switch',
+                data: $('#transform').serialize(),
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "Congratulations on your successful transfer", "success");
+                        setTimeout(function () {
+                            window.location.href = "/EN/more/trade_list";
+                        }, 1500);
+                    }
+                    else {
+                        sweetAlert("", strToJson(data).message, "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "Request failed", "error");
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

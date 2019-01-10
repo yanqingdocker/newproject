@@ -1,0 +1,3 @@
+2018-12-21 18:59:09.540  INFO 4984 --- [restartedMain] cn.com.caogen.MoneyApplication           : Starting MoneyApplication on LLH-USR with PID 4984 (E:\pc\yanqingrepository\moneysystem\target\classes started by hdocker in E:\pc\yanqingrepository\moneysystem)
+2018-12-21 18:59:09.545  INFO 4984 --- [restartedMain] cn.com.caogen.MoneyApplication           : No active profile set, falling back to default profiles: default
+2018-12-21 18:59:09.589  INFO 4984 --- [restartedMain] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1c2aa686: startup date [Fri Dec 21 18:59:09 CST 2018]; root of context hierarchy

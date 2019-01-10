@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Telephone Charge Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/moment.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/ENheader.js"></script>
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/ENbwrs.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m" id="main_con">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu"  style="min-height: 475px;">
+                <h4 class=" menu_title">More</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/EN/more/financial" class="collapsed">
+                                    <i></i>Wisdom Finance
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>Living Payment
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/EN/more/phone_charge#main_con">Telephone Charge</a></li>
+                                    <li><a href="/EN/more/water_charge#main_con">Water Payment</a></li>
+                                    <li ><a href="/EN/more/ele_charge#main_con">Electricity Payment</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/EN/more/trade_list" class="collapsed">
+                                    <i></i>Transaction Record
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading3">
+                            <h4 class="panel-title">
+                                <a href="/EN/more/active_list" class="collapsed">
+                                    <i></i>Activity Record
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg">
+            <h3 class="page_title">Telephone Charge</h3>
+            <div class="inblock w100 ">
+                <form id="subform">
+                    <div class="form-group">
+                        <label class="col-form-label" >Choose an expenditure account<span class="warning">*</span></label>
+                        <select class="custom-select  w100" id="recharcount" field="count"></select>
+                        <input  name="countId" type="hidden" id="realid">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >Recharge Amount<span class="warning">*</span></label>
+                        <input class="form-control icon_money" placeholder="Please enter the amount of recharge" name="cardNum" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Recharge Mobile Phone Number<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="Please enter the recharged cell phone number" name="phone" type="text">
+                    </div>
+                    <button type="button" class="btn btn-primary btn-lg btn-block f14" onclick="submitform()">提 交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/ENfooter.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $(".nav-tabs .nav-item").on({click:function(){
+                $(this).addClass("cur").siblings().removeClass("cur");
+            }
+        });
+        loadcount();//获取下拉账户
+        $("#nav_more").addClass("cur");//导航栏添加焦点
+        $('#subform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'cardNum': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The amount of the recharge can not be empty'
+                        },
+                        digits: {
+                            message: 'The amount of the recharge can only include the number'
+                        }
+                    }
+                },
+                'phone': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The cell phone number can not be empty'
+                        },
+                        regexp: {
+                            regexp: /^1[356789][0-9]{9}$/,
+                            message: 'The phone number is incorrect'
+                        }
+                    }
+                },
+                'count':{
+                    validators:{
+                        notEmpty:{
+                            message:'Please choose an expenditure account'
+                        },
+                        callback: {
+                            message: 'You must choose an expenditure account',
+                            callback: function(value, validator)
+                            {
+                                if (value == 0) {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    })
+    // 通过json同步获取下拉账户
+    function loadcount() {
+        $.ajax({
+            url: '/count/queryCountByUserid',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    if(jsonObj[i].state==1) {
+                        var html = '<option value="' + jsonObj[i].id + '">' + jsonObj[i].cardId + '(' + jsonObj[i].countType + ')' + '</option>';
+                        $("#recharcount").append(html);
+                    }
+                }
+                // console.log(jsonObj[0].cardId+'('+jsonObj[0].countType+")")
+                // 用户没有申请账户时提示
+                if(jsonObj.length==0){
+                    sweetAlert({
+                            title: "Please apply for an account before proceeding",
+                            type: "warning",
+                            confirmButtonText: "Application",
+                            closeOnConfirm: false
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/EN/my/my_account";
+                            }
+                        });
+                }
+            },
+        })
+    }
+
+    // 话费代缴
+    function submitform() {
+        $('#subform').data('bootstrapValidator').enableFieldValidators('cardNum', true);
+        $('#subform').data('bootstrapValidator').enableFieldValidators('phone', true);
+        $('#subform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#subform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var real = $("#recharcount").val();
+            $("#realid").val(parseInt(real));
+            console.log(parseInt(real));
+            $.ajax({
+                url: '/mobile/payMent',
+                data: $('#subform').serialize(),
+                type: 'post',
+                success: function (data) {
+                    if (data.code == "success") {
+                        sweetAlert("", "Congratulations on your successful recharge", "success");
+                        setTimeout(function () {
+                            window.location.href = "/EN/more/trade_history";
+                        }, 1500);
+                    }
+                    else {
+                        sweetAlert("", "Recharge failed", "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "Request failed", "error");
+                }
+            });
+        }
+    }
+
+</script>
+</body>
+</html>

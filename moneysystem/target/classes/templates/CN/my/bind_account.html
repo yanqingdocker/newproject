@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>支付宝绑定</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/pt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu">
+                <h4 class=" menu_title">我的</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_account" class="collapsed">
+                                    <i></i>我的账户
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/my/my_money" class="collapsed">
+                                    <i></i>我的余额
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading3">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_loan" class="collapsed">
+                                    <i></i>我的借贷
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>我的资料
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/CN/my/authentication" id="changetext">基本信息</a></li>
+                                    <li><a href="/CN/my/change_phone">修改手机号</a></li>
+                                    <li><a href="/CN/my/login_psw">登录密码</a></li>
+                                    <li ><a href="/CN/my/pay_psw">资金密码</a></li>
+                                    <li ><a href="/CN/my/bank_card">银行卡绑定</a></li>
+                                    <li><a href="/CN/my/bind_account">支付宝绑定</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>我的消息
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/CN/my/message">发消息</a></li>
+                                    <li ><a href="/CN/my/inbox">收件箱</a></li>
+                                    <li ><a href="/CN/my/outbox">发件箱</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg" style="min-height: 558px">
+            <h4 class=" page_title">支付宝绑定</h4>
+            <div class="row mt20">
+                <div class="inblock w100">
+                    <div class="bs-component mb20">
+                        <a class="btn btn-primary yellow_btn white" data-toggle="modal" data-target="#myModal_bind" >绑定支付宝</a>
+                    </div>
+                    <table width="100%" id="table"  cellspacing="0" cellpadding="0" border="1"   class="table">
+                        <thead>
+                        <tr>
+                            <th>账号</th>
+                            <th>真实姓名</th>
+                            <!--<th>类型</th>-->
+                            <th>绑定时间</th>
+                            <th width="120" class="tc">操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+
+<!--绑定 模态框 （Modal） -->
+<div class="modal fade" id="myModal_bind" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myModalLabel"> 绑定支付宝</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" id="hideselect">
+                    <div class="form-group">
+                        <label class="col-form-label">支付宝<span class="warning">*</span></label>
+                        <select class="custom-select  w100">
+                            <option value="1">支付宝绑定</option>
+                            <!--<option value="2">微信</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="tc" id="cede_step1" style="display: none">
+                    <h4 class="mb10">第一步：扫码登陆支付宝</h4>
+                    <img  id="codeimg1"  />
+                    <p class="red mt10">请打开支付宝扫描二维码，请求登录支付宝！</p>
+                </div>
+                <div class="tc" id="cede_step2" style="display: none">
+                    <h4 class="mb10">第二步：扫码获取账户信息</h4>
+                        <img id="codeimg2" src="">
+                        <p class="red mt10">请使用支付宝扫描二维码，允许获取账户信息！</p>
+                </div>
+            </div>
+            <div class="modal-footer" id="buttonchg">
+                <button type="button" onclick="submitform()"  class="btn btn-primary w100">申请绑定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".nav-tabs .nav-item").on({click:function(){
+                $(this).addClass("cur").siblings().removeClass("cur");
+            }
+        });
+        $('#table').DataTable( {
+            "serverSide": true,
+            searching: false,
+            lengthChange: false,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            ajax: {
+                url: "/appliy/querybyUserid",
+                dataSrc: '',
+                error : function() {
+                    window.location.href = "/login";
+                }
+            },
+            "columns": [
+                {"data": "appliycount" },
+                {"data": "realname" ,},
+                {"data": "createtime" },
+                {"data": "id",
+                    render:function(e,type,full,row){
+                        return "<a href='javascript:;'  onclick='deletecount("+full.id+")'  class=\"icon_delete\" title=\"解绑\"></a>";
+                    }
+                }
+            ]
+        } );
+    })
+    // 登录二维码第一步
+    function submitform() {
+        $.ajax({
+            url: '/appliy/scanlogin',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                $("#hideselect").hide();
+                $('#codeimg1').attr( 'src', 'data:image/jpg;base64,'+data+'' );
+                $("#cede_step1").show();
+                $("#buttonchg").html(" <button type=\"button\" onclick=\"scanallow()\"  class=\"btn btn-primary w100\">确认已扫描，下一步</button>");
+
+            },
+            error: function () {
+                sweetAlert("", "请求失败！", "error");
+            }
+        });
+
+    }
+    // 获取支付宝账户信息
+    function scanallow() {
+        sweetAlert({
+            title: "正在登陆中，请稍等..",
+            timer: 4500,
+            showConfirmButton: false
+        });
+        $.ajax({
+            url: '/appliy/scanAllow',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                if(data==""){
+                    sweetAlert("", "请确认已扫描登陆二维码！", "warning");
+                    $("#cede_step1").show();
+                    $("#cede_step2").hide();
+                }
+                else{
+                    $("#cede_step2").show();
+                    $("#cede_step1").hide();
+                    $("#codeimg2").attr('src','data:image/jpg;base64,'+data+'');
+                    $("#buttonchg").html(" <button type=\"button\" onclick=\"bind()\"  class=\"btn btn-primary w100\">确认绑定</button>");
+                }
+
+            },
+            error: function () {
+                sweetAlert("", "请求失败！", "error");
+            }
+        });
+
+    }
+    // 获取支付宝账户信息
+    function bind() {
+        sweetAlert({
+            title: "正在获取账户信息，请稍等..",
+            timer: 4500,
+            showConfirmButton: false
+        });
+        $.ajax({
+            url: '/appliy/bind',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                // console.log(strToJson(data).code);
+                if(strToJson(data).code=="success"){
+                    sweetAlert("", "恭喜您，支付宝绑定成功！", "success");
+                    setTimeout(function(){ window.location.href = "/CN/my/bind_account";},1000);
+                }
+                else{
+                    sweetAlert("", "支付宝绑定失败,请确认扫描允许获取账户信息二维码！", "error");
+                }
+            },
+            error: function () {
+                sweetAlert("", "请求失败！", "error");
+            }
+        });
+
+    }
+    // 解绑支付宝
+    function deletecount(userid) {
+        sweetAlert({
+                title: "确定解绑支付宝吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },
+            function(){
+                $.ajax({
+                    url: '/appliy/unbindAppliy',
+                    data: {id:userid},
+                    type: 'post',
+                    success: function () {
+                        sweetAlert("", "恭喜您，支付宝解绑成功！", "success");
+                        setTimeout(function(){ window.location.href = "/CN/my/bind_account";},1000);
+                    },
+                    error: function () {
+                        sweetAlert("", "请求失败！", "error");
+                    }
+                });
+            });
+
+
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Bank Card Binding Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/ENheader.js"></script>
+<!--header end-->
+
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/ENpt.jpg) no-repeat center ; height:500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu">
+                <h4 class=" menu_title">My</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/EN/my/my_account" class="collapsed">
+                                    <i></i>My Account
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/EN/my/my_money" class="collapsed">
+                                    <i></i>My Balance
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel panel-default membercollhead">
+                            <div class="panel-heading" role="tab" id="heading3">
+                                <h4 class="panel-title">
+                                    <a href="/EN/my/my_loan" class="collapsed">
+                                        <i></i>My Lloan
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>My Information
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/EN/my/authentication" id="changetext">Basic Information</a></li>
+                                    <li><a href="/EN/my/change_phone">Modify Phone Number</a></li>
+                                    <li><a href="/EN/my/login_psw">login Password</a></li>
+                                    <li ><a href="/EN/my/pay_psw">Money Password</a></li>
+                                    <li ><a href="/EN/my/bank_card">Bank Card Binding</a></li>
+                                    <li><a href="/EN/my/bind_account">Alipay Binding</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>My Message
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/EN/my/message">Send</a></li>
+                                    <li ><a href="/EN/my/inbox">Inbox</a></li>
+                                    <li ><a href="/EN/my/outbox">Outbox</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg" style="min-height: 558px">
+            <h3 class="page_title">My Bank Card</h3>
+            <div class="row mt20">
+
+                <div class="inblock w100">
+                    <div class="bs-component mb20">
+                        <a class="btn btn-primary yellow_btn white"  data-toggle="modal" data-target="#myModal_bind" >Binding bank card</a>
+                    </div>
+                    <table width="100%"  cellspacing="0" cellpadding="0" border="1"  id="table"  class="table">
+                        <thead>
+                        <tr>
+                            <th>Bank Card Number</th>
+                            <th>Bank Type</th>
+                            <th>Cardholder Name</th>
+                            <th>Bank Address</th>
+                            <th width="150" class="tc">Binding Time </th>
+                            <th width="120" class="tc">Operation</th>
+                        </tr>
+                        </thead>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/ENfooter.js"></script>
+
+
+<!--绑定 模态框 （Modal） -->
+<div class="modal fade" id="myModal_bind" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myModalLabel"> Binding Cank Card</h4>
+            </div>
+            <div class="modal-body">
+                <form id="cardform">
+                    <div class="form-group">
+                        <label class="col-form-label" >Bank Card Number<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="Please enter the bank card number" onchange="showbank();" name="bankcard" id="bankcard" maxlength="50" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >Opening Bank<span class="warning">*</span></label>
+                        <div class="inblock  w100"  id="hovershow">
+                            <img src="" id="banklogo"><input type="hidden" id="bankname" name="banktype">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >Name Of The Open Card<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="Please enter the name of the card holder" name="username" maxlength="50" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >ID Number<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="Please enter the ID card number of the card" name="idcard" maxlength="20" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >Bank Reservation<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="Please enter a bank reserved phone" name="phone" maxlength="11" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >Bank Address</label>
+                        <input class="form-control" placeholder="Please enter the address of the account opening" name="address" maxlength="100" type="text">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="submitform()" class="btn btn-primary w100">
+                    Submit
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".nav-tabs .nav-item").on({click:function(){
+                $(this).addClass("cur").siblings().removeClass("cur");
+            }
+        });
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        $('#table').DataTable( {
+            "serverSide": true,
+            searching: true,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            ajax: {
+                url: "/bank/query",
+                dataSrc: '',
+                type:"post",
+                error : function() {
+                    window.location.href = "/EN/login";
+                }
+            },
+            "columns": [
+                {"data": "bankCard" },
+                {"data": "bankType" },
+                {"data": "username" },
+                {"data": "cardAddress" },
+                {"data": "createTime" },
+                {"data": "id" ,
+                    render:function(e,type,full,row){
+                        return "<a href='javascript:;' class='red'  onclick='logoutCount("+e+")'>Untie</a>";
+                    }
+                }
+            ]
+        } );
+
+// 校验
+        $('#cardform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'bankcard': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The bank card number can not be empty'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 30,
+                            message: 'The bank card number should not be less than 6 or more than 30.'
+                        }
+                    }
+                },
+                'username': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The name can not be empty'
+                        }
+                    }
+                },
+                'idcard': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The ID number can not be empty'
+                        },
+                        stringLength: {
+                            min: 18,
+                            max: 18,
+                            message: 'The length of the ID card number is 18 bits'
+                        }
+                    }
+                },
+                'phone': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The phone number can not be empty'
+                        },
+                        stringLength: {
+                            min: 11,
+                            max: 11,
+                            message: 'The length of the phone number is 11 bits'
+                        },
+                        digits: {
+                            message: 'Cell phone numbers can only contain numbers'
+                        }
+                    }
+                }
+            }
+        })
+    })
+
+    // 获取银行
+    function showbank() {
+        var cardnum=$("input[name='bankcard']").val();
+        $.ajax({
+            url: '/bank/getType',
+            data: {bankcardid:cardnum},
+            type: 'get',
+            success: function (data) {
+                if(strToJson(data).code=="success")
+                {
+                    var jsonObj = strToJson(data).message;
+                    var jsondata = $.parseJSON(jsonObj);//json字符串转数组
+                    $("#bankname").val(jsondata.bankType);
+                    $("#banklogo").attr("src",jsondata.logUrl);
+                }
+                if(strToJson(data).code=="fail"){
+                    $("#banklogo").attr("src","");
+                    sweetAlert("", "Bank card number verification is not passed. Please enter the correct bank card number.", "error");
+                }
+            },
+            error: function () {
+                sweetAlert("", "This interface is being maintained...", "error");
+            }
+        })
+    }
+    // 解绑银行卡
+    function logoutCount(countid){
+        $.ajax({
+            type: "post", // 用POST方式传输
+            dataType: 'json',
+            url: "/bank/unbind", // 目标地址
+            data: { id :countid },
+            success: function (data) {
+                if (data.code=="success") {
+                    sweetAlert("", "Congratulations on your success", "success");
+                    setTimeout(function(){ window.location.href = "/EN/my/bank_card";},1500);
+                } else {
+                    sweetAlert({
+                        title:"operation failed!",
+                        text: data.message,
+                        type: "error",
+                        showCancelButton: true,
+                        confirmButtonText: "Confirm",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    });
+                }
+            }
+        });
+    }
+
+    // 提交银行卡绑定表单
+    function submitform() {
+        $('#cardform').data('bootstrapValidator').enableFieldValidators('bankcard', true);
+        $('#cardform').data('bootstrapValidator').enableFieldValidators('username', true);
+        $('#cardform').data('bootstrapValidator').enableFieldValidators('idcard', true);
+        $('#cardform').data('bootstrapValidator').enableFieldValidators('phone', true);
+        $('#cardform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#cardform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            //ajax的形式提交表单
+            var str = $("#cardform").serializeObject(); //此处调用的就是我们写好的引入的方法，会将带有name的input，全部转为JSON。
+            var datas = JSON.stringify(str);//返回一个新字符串
+            // console.log(str);
+            // console.log(datas);
+            $.ajax({
+                url: '/bank/bindBankCard',
+                data: {datas: datas},
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "Congratulations on your successful bank card binding", "success");
+                        setTimeout(function () {
+                            window.location.href = "/EN/my/bank_card";
+                        }, 1500);
+                    }
+                    else {
+                        sweetAlert("", strToJson(data).message, "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "Request failed", "error");
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

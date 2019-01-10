@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>收件箱</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/pt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m" id="main_con">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu">
+                <h4 class=" menu_title">我的</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_account" class="collapsed">
+                                    <i></i>我的账户
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_money" class="collapsed">
+                                    <i></i>我的余额
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading3">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_loan" class="collapsed">
+                                    <i></i>我的借贷
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>我的资料
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/CN/my/authentication" id="changetext">基本信息</a></li>
+                                    <li><a href="/CN/my/change_phone">修改手机号</a></li>
+                                    <li><a href="/CN/my/login_psw">登录密码</a></li>
+                                    <li ><a href="/CN/my/pay_psw">资金密码</a></li>
+                                    <li ><a href="/CN/my/bank_card">银行卡绑定</a></li>
+                                    <li><a href="/CN/my/bind_account">支付宝绑定</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>我的消息
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/CN/my/message">发消息</a></li>
+                                    <li ><a href="/CN/my/inbox">收件箱</a></li>
+                                    <li ><a href="/CN/my/outbox">发件箱</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg" style="min-height: 556px">
+            <h4 class=" page_title">收件箱</h4>
+            <div class="inblock w100">
+                <table width="100%"  cellspacing="0" cellpadding="0" border="1" id="table"  class="table">
+                    <thead>
+                    <tr>
+                        <th width="60"> </th>
+                        <th width="80">发件人</th>
+                        <th >标题</th>
+                        <th width="200">内容</th>
+                        <th class="tc" width="150">发件时间</th>
+                        <th class="tc" width="120">操作</th>
+                    </tr>
+                    </thead>
+
+                </table>
+                <div class="batch_play inblock">
+                    <div class="checkcustom ml10 mr10 inblock">
+                        <input rel='box_check_all' id="box_check_all" type="checkbox" name="" /><label class="box_check_all" for="box_check_all">全选</label>
+                    </div>
+                    <div class="inblock"> <a href="javascript:;" onclick="deletbatch()" class="blue">删除</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+
+
+<!--详细消息 模态框 （Modal） -->
+<div class="modal fade" id="myModal_dollar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myModalLabel"> 邮件内容</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-form-label" >发件人：</label> <span id="sendphone"></span>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" >时间：</label> <span id="sendtime"></span>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label inblock" >主题：</label><p class="inblock" id="sendtitle"></p>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" >内容：</label>
+                    <div class="w100 inblock" >
+                        <p id="sendcontent"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+    $(function () {
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        $('#table').DataTable( {
+            "serverSide": true,
+            searching: true,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            ajax: {
+                url: "/message/queryreceive",
+                dataSrc: '',
+                error : function() {
+                    window.location.href = "/CN/login";
+                }
+            },
+            "columns": [
+                {"data": "id" ,
+                    render:function(e){
+                        var html="<div class='checkcustom tc'> " +
+                            "<input type='checkbox'  id='checkx"+e+"' name='checklist' value='"+e+"'> " +
+                            "<label for='checkx"+e+"' ></label></div>";
+                        return html;
+                    }
+                },
+                {"data": "username" },
+                {"data": "title" ,
+                    render:function(e,type,full,row){
+                        var html="<a href='javascript:;' title='"+e+"' data-toggle=\"modal\" data-target=\"#myModal_dollar\" class='blue text_overflow width120' onclick='detail_msg("+full.id+")'>"+e+"</a>";
+                        return html;
+                    }
+                },
+                {"data": "content" ,
+                    render:function(e,type,full,row){
+                        var html="<p class='text_overflow width220'>"+e+"</p>";
+                        return html;
+                    }
+                },
+                {"data": "createTime" },
+                {"data": "id",
+                    render:function(e,type,full,row){
+                        if(full.visiable==1){
+                            return "<a href='javascript:;'  onclick='deletemsg("+full.id+")'  class=\"icon_delete\" title=\"删除\"></a> | <a href='javascript:;'  class='gray' id='statusmsg'>已读</a>";
+                        }
+                        else{
+                            return "<a href='javascript:;'  onclick='deletemsg("+full.id+")'  class=\"icon_delete\" title=\"删除\"></a> | <a href='javascript:;'  onclick='readmsg("+full.id+")' class='blue' id='statusmsg' title='标记已读'>未读</a>";
+                        }
+
+                    }
+                }
+            ]
+        } );
+    })
+    // 点击check添加样式
+    $(document).on('click','.checkcustom label',function(){
+        $(this).toggleClass("on");
+    });
+
+    /*check全选*/
+    $("input[rel='box_check_all']").on("click",function(){
+        if($(this).prop("checked")===true){
+            $("input[name='checklist']").prop("checked",$(this).prop("checked")).siblings().addClass("on")
+
+        }else{
+            $("input[name='checklist']").prop("checked",false).siblings().removeClass("on")
+        }
+    });
+
+
+    // 批量删除邮件markreceive
+    function deletbatch(){
+        var idlist = '';
+        $('input:checkbox[name=checklist]:checked').each(function(k){
+            if(k == 0){
+                idlist = $(this).val();
+            }else{
+                idlist += ','+$(this).val();
+            }
+            console.log(idlist)
+        });
+        $.ajax({
+            type: "get", // 用POST方式传输
+            dataType: 'json',
+            url: "/message/batchdelete", // 目标地址
+            data: { ids :idlist },
+            success: function (data) {
+                if (data.code=="success") {
+                    sweetAlert("", "恭喜您！删除成功！", "success");
+                    setTimeout(function(){ window.location.href = "/CN/my/inbox";},1500);
+                } else {
+                    sweetAlert({
+                        title:"删除失败！!",
+                        text: "请选择要删除的邮件！",
+                        type: "error",
+                        showCancelButton: true,
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    });
+                }
+            }
+        });
+    }
+
+    // 标记已读邮件
+    function readmsg(msgid){
+        $.ajax({
+            type: "post", // 用POST方式传输
+            dataType: 'json',
+            url: "/message/markreceive", // 目标地址
+            data: { id :msgid },
+            success: function (data) {
+                if (data.code=="success") {
+                    sweetAlert("", "恭喜您！标记已读成功！", "success");
+                    setTimeout(function(){ window.location.href = "/CN/my/inbox";},1000);
+                } else {
+                    sweetAlert({
+                        title:"标记失败!",
+                        text: data.message,
+                        type: "error",
+                        showCancelButton: true,
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    });
+                }
+            }
+        });
+    }
+    // 删除邮件
+    function deletemsg(msgid){
+        $.ajax({
+            type: "get", // 用POST方式传输
+            dataType: 'json',
+            url: "/message/delete", // 目标地址
+            data: { id :msgid },
+            success: function (data) {
+                if (data.code=="success") {
+                    sweetAlert("", "恭喜您！删除成功！", "success");
+                    setTimeout(function(){ window.location.href = "/CN/my/inbox";},1500);
+                } else {
+                    sweetAlert({
+                        title:"删除失败！!",
+                        text: "请选择要删除的邮件！",
+                        type: "error",
+                        showCancelButton: true,
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    });
+                }
+            }
+        });
+    }
+
+    function chagestatus(msgid) {
+        $.ajax({
+            type: "post", // 用POST方式传输
+            dataType: 'json',
+            url: "/message/markreceive", // 目标地址
+            data: { id :msgid },
+            success: function (data) {
+                //标记已读
+
+            }
+        });
+    }
+    $(".close").click(function () {
+        window.location.href = "/CN/my/inbox#main_con";
+    });
+    // 读取详细信息
+    function detail_msg(msgid) {
+        $.ajax({
+            type: "get", // 用POST方式传输
+            dataType: 'json',
+            url: "/message/queryMessage", // 目标地址
+            data: { id :msgid },
+            success: function (data) {
+                $("#sendphone").html(data.username);
+                $("#sendtime").html(data.createTime);
+                $("#sendtitle").html(data.title);
+                $("#sendcontent").html(data.content);
+                chagestatus(msgid);
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>登录页</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/jquery.qrcode.js"></script>
+    <script  type="text/javascript" src="/js/qrcode.js"></script>
+    <script  type="text/javascript" src="/js/json.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+
+    <![endif]-->
+
+</head>
+<body class="login_bg">
+<div class="m " style="width: 455px;margin-top: 6%">
+    <div class="login_logo tc"><a href="/"><img src="/images/logo.png" ></a></div>
+    <div class="w100 inblock"  id="nocode">
+        <form id="registerForm">
+            <div class="login_form">
+                <div class="form-group  login_input mb15">
+                    <div class="inblock w100">
+                        <i class="icon user"></i>
+                        <div id="area_select" class="area_select area_num_select l">
+                            <h4><span>选择国家</span> <i></i></h4>
+                            <div id="area_option" class="area_option" style="display: none">
+                                <a data-id="">中国大陆(默认)</a>
+                                <a data-id="852">中国香港</a>
+                                <a data-id="855">柬埔寨</a>
+                                <a data-id="65 ">新加坡</a>
+                                <a data-id="60 ">马来西亚</a>
+                                <a data-id="66 ">泰国</a>
+                                <a data-id="95 ">缅甸</a>
+                                <a data-id="62 ">印度尼西亚</a>
+                                <a data-id="63 ">菲律宾</a>
+                                <a data-id="84 ">越南</a>
+                                <a data-id="856 ">老挝</a>
+                                <a data-id="673 ">文莱</a>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control r" name="phone" id="phone" placeholder="手机号" onkeydown="javascript: if(event.keyCode == 13) save();" style="width:60%;margin-left: 0" oninput="phonenum()"/>
+                        <input type="hidden" name="telphone"  id="Telephone" >
+                        <input type="hidden" id="areanum">
+                    </div>
+                </div>
+                <div class="form-group login_input mb15">
+                    <i class="icon password"></i>
+                    <input type="password" class="form-control" name="password" onkeydown="enter_down( event);"   placeholder="密码"/>
+                </div>
+
+
+                <div class="w100 inblock ">
+                    <div class="l ">
+                        <!--<div class="custom-control custom-checkbox">-->
+                        <!--<input type="checkbox" class="custom-control-input" name="RememberMe" id="customCheck1" >-->
+                        <!--<label class="custom-control-label white"  for="customCheck1">记住密码</label>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="r">
+                        <a href="/CN/find_psw" class="white">忘记密码</a><span class="white mr5 ml5">|</span><a href="/CN/register" class="white">注册</a>
+                    </div>
+                </div>
+                <div class="bs-component mt10"><button type="button"  class="btn btn-primary btn-lg btn-block red_bg register_btn" id="saveID" onclick="save()">登  录</button></div>
+                <div class="w100 inblock mt10 ">
+                    <div class="l ">
+                        <a class="white" href="#">使用帮助</a>
+                    </div>
+                    <div class="r">
+
+                        <a  class="white" href="#" onclick="loadownPhone()">下载手机版</a><span class="white mr5 ml5">|</span> <a href="#" class="white" onclick="codeup()">扫码登录</a>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="code" class="w100 inblock" style="display:none">
+        <div class="login_form" align="center">
+            <div id="codepictuer" class="inblock w100">
+            <!--<img src="http://192.168.31.106/eweima/63dbf247-7f7e-4514-92a9-e3da349c716f.png" id="QrCodeImg" style=""/>-->
+                <div  class="CodeImg" id="CodeImg"></div>
+            </div>
+            <div class="w100 inblock mt10 ">
+                <div class="l ">
+                    <a class="white" href="#">使用帮助</a>
+                </div>
+                <div class="r">
+
+                    <a class="white" href="#" onclick="loadownPhone()">下载手机版</a><span class="white mr5 ml5">|</span> <a href="#" class="white" onclick="phoneup()">扫码登录</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <p class="tc mt30 g9">© 2018 Copyright 南方国际货币兑换</p>
+    <p class="tc g9 pb20">客服热线：+8550968888088</p>
+</div>
+<div id="phoneCode" style="display: none">
+    <div class="alert alert-dismissible alert-primary" style="background: #fff;">
+        <button type="button" class="close" >&times;</button>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class=" f18 ml5 mb5">手机扫码下载</h3>
+                <div class="Android type" id="Android" ></div>
+                <div class="iPhone type" id="iPhone" style="display: none"></div>
+            </div>
+            <div class="col-lg-6">
+                <div class="phone cur pt5">
+                    <i class="icon_Android "></i>Android
+                    <p>仅支持4.3以上系统</p>
+                </div>
+                <div class="phone pt15">
+                    <i class="icon_iPhone"></i>iPhone
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+    // 模拟重写select
+    $("#area_select").click(function (event) {
+        $("#area_option").toggle();
+        event.stopImmediatePropagation();//取消事件冒泡；
+    });
+    $('#area_option a').on('click',function(){
+        var selTxt=$(this).text();
+        $('#area_select h4 span').text(selTxt);
+        var areanum=$(this).attr('data-id');
+        $("#areanum").val(areanum);
+        var number=$("#phone").val()
+        $("#Telephone").val($("#areanum").val()+number);
+        console.log(("#Telephone").val)
+
+    });
+    $(document).bind("click",function(){
+        $("#area_option").hide();
+    });
+    // 输入电话号码实时赋值
+    function phonenum() {
+        var number=$("#phone").val()
+        $("#Telephone").val($("#areanum").val()+' '+number);
+    }
+    function save() {
+        $('#registerForm').data('bootstrapValidator').enableFieldValidators('phone', true);
+        $('#registerForm').data('bootstrapValidator').enableFieldValidators('password', true);
+        $('#registerForm').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#registerForm').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            $.ajax({
+                type: "post", // 用POST方式传输
+                dataType: 'json',
+                url: "/user/login", // 目标地址
+                data:  $("#registerForm").serialize(),
+                error: function (data) {
+                    sweetAlert("", "请求失败！", "error");
+                },
+                success: function (data) {
+                    if (data.code=="fail") {
+                        sweetAlert("", data.message, "error");
+                        // $('#loginbtn').prop('disabled', false);
+                    }
+                    else {
+                        sweetAlert({
+                                title: "登陆成功！",
+                                text: "1秒后自动跳转。",
+                                type: "success",
+                                showConfirmButton: false
+                            },
+                            function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.href = "/CN/index";
+                                }
+                            });
+                        setTimeout(function(){ window.location.href = "/CN/index";},1000);
+                    }
+                }
+            })
+        }
+    }
+    $(function () {
+        //生成二维码
+        $.ajax({
+            type: "get", // 用POST方式传输
+            dataType: 'json',
+            url: "/util/getAndriodUrl", // 目标地址
+            data: null,
+            error: function (data) {
+                sweetAlert("", "请求失败！", "error");
+            },
+            success: function (data) {
+                $("#Android").qrcode(data.message); //生成二维码
+            }
+        });
+        $.ajax({
+            type: "get", // 用POST方式传输
+            dataType: 'json',
+            url: "/util/getIosUrl", // 目标地址
+            data: null,
+            error: function (data) {
+                sweetAlert("", "请求失败！", "error");
+            },
+            success: function (data) {
+                $("#iPhone").qrcode(data.message); //生成二维码
+            }
+        });
+        $('#registerForm').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'phone': {
+                    message: '香港及国外手机请先选择下拉框',
+                    validators: {
+                        notEmpty: {
+                            message: '手机号不可以为空'
+                        },
+                        digits: {
+                            message: '手机号只能是数字'
+                        },
+                    }
+                },
+                'password': {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            /*长度提示*/
+                            min: 6,
+                            max: 30,
+                            message: '密码长度必须在6到30之间'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: '密码由数字字母下划线和.组成'
+                        }
+                    }
+                }
+            }
+        })
+
+    })
+
+    function enter_down(event) {
+        if(event.keyCode== "13") {
+            stopDefault(event);
+            save();
+
+        }
+    }
+    function stopDefault(e) {
+        //如果提供了事件对象，则这是一个非IE浏览器
+        if(e && e.preventDefault) {
+            //阻止默认浏览器动作(W3C)
+            e.preventDefault();
+        } else {
+            //IE中阻止函数器默认动作的方式
+            window.event.returnValue = false;
+        }
+        return false;
+    }
+
+    //手机扫码下载
+    function loadownPhone() {
+        $("#phoneCode").show();
+
+    }
+    $("#phoneCode .close").click(function () {
+        $("#phoneCode").hide()
+    })
+    $("#phoneCode .phone").click(function () {
+        $(this).addClass("cur").siblings().removeClass("cur");
+        $("#phoneCode .type").hide().eq($(this).index()).show();
+    })
+    function codeup() {
+        $("#code").show();
+
+        $("#nocode").hide();
+        codeshow();
+    }
+    function phoneup() {
+        $("#code").hide();
+        $("#nocode").show();
+    }
+
+    function codeshow() {
+        var uuid;
+        $.get("/code/getcode", function(data, status) {
+            var obj=JSON.parse(data);
+            //存储UUID
+            uuid=obj.uuid;
+            //显示二维码
+            //$("#QrCodeImg").attr("src", "http://192.168.31.106/eweima/"+obj.uuid+".png");
+            $("#CodeImg").qrcode(obj.key);
+            //开始验证登录
+            validateLogin();
+        });
+        function validateLogin(){
+            $.get("/code/check?uuid=" + uuid , function(data, status) {
+                if(data == ""){
+                    validateLogin();
+                }else{
+                    var obj = JSON.parse(data);
+                    //alert("登录成功了:" + obj.telphone);
+
+                    $.ajax({
+                        type: "post", // 用POST方式传输
+                        dataType: 'json',
+                        url: "/user/login", // 目标地址
+                        data:  obj,
+                        error: function (data) {
+                            sweetAlert("", "请求失败！", "error");
+                        },
+                        success: function (data) {
+                            if (data.code=="fail") {
+                                sweetAlert("", data.message, "error");
+                                // $('#loginbtn').prop('disabled', false);
+                            }
+                            else {
+                                sweetAlert({
+                                        title: "登陆成功！",
+                                        text: "1秒后自动跳转。",
+                                        type: "success",
+                                        showConfirmButton: false
+                                    },
+                                    function(isConfirm){
+                                        if (isConfirm) {
+                                            window.location.href = "/CN/index";
+                                        }
+                                    });
+                                setTimeout(function(){ window.location.href = "/CN/index";},1000);
+                            }
+                        }
+                    })
+
+
+                }
+            });
+        }
+
+
+
+     }
+
+
+
+
+</script>
+
+
+</body>
+</html>

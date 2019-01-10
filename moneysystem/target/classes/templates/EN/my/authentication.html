@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Basic Information Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/daterangepicker-bs3.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/moment.js"></script>
+    <script type="text/javascript" src="/js/daterangepicker.js"></script>
+    <script  type="text/javascript" src="/js/areajson.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #province,#citys,#county{ height: 35px;}
+    </style>
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/ENheader.js"></script>
+<!--header end-->
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/ENpt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu">
+                <h4 class=" menu_title">My</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/EN/my/my_account" class="collapsed">
+                                    <i></i>My Account
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/EN/my/my_money" class="collapsed">
+                                    <i></i>My Balance
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel panel-default membercollhead">
+                            <div class="panel-heading" role="tab" id="heading3">
+                                <h4 class="panel-title">
+                                    <a href="/EN/my/my_loan" class="collapsed">
+                                        <i></i>My Lloan
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>My Information
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/EN/my/authentication" id="changetext">Basic Information</a></li>
+                                    <li><a href="/EN/my/change_phone">Modify Phone Number</a></li>
+                                    <li><a href="/EN/my/login_psw">login Password</a></li>
+                                    <li ><a href="/EN/my/pay_psw">Money Password</a></li>
+                                    <li ><a href="/EN/my/bank_card">Bank Card Binding</a></li>
+                                    <li><a href="/EN/my/bind_account">Alipay Binding</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>My Message
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/EN/my/message">Send</a></li>
+                                    <li ><a href="/EN/my/inbox">Inbox</a></li>
+                                    <li ><a href="/EN/my/outbox">Outbox</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg" >
+            <!--认证-->
+            <div id="auth_block">
+                <h3 class="page_title">Member Of The Certification</h3>
+                <div class="bs-component">
+                    <div class="alert alert-dismissible alert-primary">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <p >Please complete the account certification carefully before any operation can be carried out</p>
+                    </div>
+                    <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+                <div class="inblock w100">
+                    <form id="authform">
+                        <div class="form-group">
+                            <label class="col-form-label">Real Name<span class="warning">*</span></label>
+                            <input class="form-control" placeholder="Please enter your real name" name="username" maxlength="50"  type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">ID Number<span class="warning">*</span></label>
+                            <input class="form-control" placeholder="Please enter your ID number" name="idcard" maxlength="20"  type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Date Of Birth<span class="warning">*</span></label>
+                            <div class="input-prepend input-group ">
+                                <input type="text" readonly  name="birthday" id="startime" class="form-control" value="" /><span class="add-on input-group-addon"><i class="icon_date"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">E-mail<span class="warning">*</span></label>
+                            <input class="form-control" placeholder="Please enter email" name="email"  type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Region<span class="warning">*</span></label>
+                            <div class="inblock w100">
+                                <select id="province" name="province" onchange="doProvAndCityRelation();">
+                                    <option id="choosePro" value="">Please select your province</option>
+                                </select>
+                                <select id="citys" name="city" onchange="doCityAndCountyRelation();">
+                                    　　　　　　　　<option id='chooseCity' value=''>Please select your city</option>
+                                    　　　　　　</select>
+                                <select id="county" name="county" field="county" >
+                                    　　　　　　　　<option id='chooseCounty' value=''>Please choose your district / county</option>
+                                    　　　　　　</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Detailed Address<span class="warning">*</span></label>
+                            <input class="form-control" placeholder="Please enter the detailed address" id="detailaddress" name="detailaddress" type="text">
+                        </div>
+                        <input type="hidden" id="realaddress" name="address">
+                        <button type="button" id="submitbtn" onclick="submitform();return false;" class="btn btn-primary btn-lg btn-block f14">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <!--基本资料-->
+            <div  id="info_block" style="display: none;">
+                <h3 class="page_title">Basic Information</h3>
+                <div class="inblock w100">
+                    <div class="form-group inblock w100">
+                        <label  class="l col-form-label mt10">Current Membership Level：</label>
+                        <div class="l ">
+                            <span id="vip_level" class="red"></span>
+                            <button type="button" id="upgrade_btn" onclick="upgrade()"  class="btn btn-primary f14 ml15 " style="padding: 4px 10px;">Upgrade VIP Members</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Phone Number<span class="warning">*</span></label>
+                        <input class="form-control"  id="phone"  maxlength="50"  type="text" disabled="">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Real Name<span class="warning">*</span></label>
+                        <input class="form-control"  id="realname"  maxlength="50"  type="text" disabled="">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">ID Number<span class="warning">*</span></label>
+                        <input class="form-control"  id="idcard" disabled=""  maxlength="20"  type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Date Of Birth<span class="warning">*</span></label>
+                        <div class="input-prepend input-group ">
+                            <input type="text" readonly  disabled="" class="form-control" value=""  id="birthday" /><span class="add-on input-group-addon"><i class="icon_date"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">E-mail<span class="warning">*</span></label>
+                        <input class="form-control" id="email"  disabled=""    type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Address<span class="warning">*</span></label>
+                        <input class="form-control" id="address"  disabled="" type="text">
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/ENfooter.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        $("#startime").attr("value",show());
+        $('#startime').daterangepicker({  startDate:show(),singleDatePicker: true }, function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+        $.ajax({
+            url: '/user/getuser',
+            type: 'GET',
+            dataType: 'json',
+            success:function(data){
+
+                if(data.isauthentication==1){
+                    $("#auth_block").hide();
+                    $("#info_block").show();
+                    $("#phone").val(data.phone);
+                    $("#realname").val(data.username);
+                    $("#email").val(data.email);
+                    $("#birthday").val(data.birthday);
+                    $("#address").val(data.address);
+                    $("#idcard").val(data.idcard);
+
+                }
+            },
+            error: function () {
+                $("#auth_block").hide();
+                $("#info_block").hide();
+                sweetAlert({
+                        title: "Please login first",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "login",
+                        cancelButtonText: "cancel",
+                        closeOnConfirm: false
+                    },
+                    function(isConfirm){
+                        if (isConfirm) {
+                            window.location.href = "/EN/login";
+                        }
+                    });
+            }
+        })
+
+
+        $('#authform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'username': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Name cannot be empty'
+                        }
+                    }
+                },
+                'idcard': {
+                    validators: {
+                        notEmpty: {
+                            message: 'ID number cannot be empty'
+                        },
+                        stringLength: {
+                            min: 18,
+                            max: 18,
+                            message: 'ID number 18 digits'
+                        }
+                    }
+                },
+                'email': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Email cannot be empty'
+                        },
+                        emailAddress: {
+                            message: 'E-mail format is incorrect'
+                        }
+                    }
+
+                },
+                'detailaddress': {
+                    validators: {
+                        notEmpty: {
+                            message: 'The address cannot be empty'
+                        }
+                    }
+                },
+                'county':{
+                    validators:{
+                        notEmpty:{
+                            message:'Region cannot be empty'
+                        },
+                        callback: {
+                            message: 'Must choose a region',
+                            callback: function(value, validator)
+                            {
+                                if (value == 0) {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    })
+
+    // 当前日期
+    function show(){
+        var mydate = new Date();
+        var str = "" + mydate.getFullYear() + "-";
+        str += (mydate.getMonth()+1) + "-";
+        str += mydate.getDate();
+        return str;
+    };
+
+    // 表单提交
+
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    function submitform() {
+        $('#authform').data('bootstrapValidator').enableFieldValidators('username', true);
+        $('#authform').data('bootstrapValidator').enableFieldValidators('idcard', true);
+        $('#authform').data('bootstrapValidator').enableFieldValidators('email', true);
+        $('#authform').data('bootstrapValidator').enableFieldValidators('detailaddress', true);
+        $('#authform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#authform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var addistr = $("#province").find("option:selected").text() + $("#citys").find("option:selected").text() + $("#county").find("option:selected").text() + $("#detailaddress").val();
+            $("#realaddress").val(addistr);
+            // console.log( $("#realaddress").val());
+            //ajax的形式提交表单
+            var str = $("#authform").serializeObject(); //此处调用的就是我们写好的引入的方法，会将带有name的input，全部转为JSON。
+            var datas = JSON.stringify(str);//返回一个新字符串
+            // console.log(str);
+            // console.log(datas);
+            $.ajax({
+                url: '/user/authentication',
+                data: {datas: datas},
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "Congratulations on your successful certification.", "success");
+                        setTimeout(function () {
+                            window.location.href = "/EN/my/authentication";
+                        }, 1500);
+                    }
+                    else {
+                        sweetAlert("", "Authentication failed. Please confirm the identity information is authentic and valid", "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "Request failed", "error");
+                }
+            });
+        }
+    }
+    //升级VIP
+    function upgrade() {
+        $.ajax({
+            url: '/user/applyVip',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                if (strToJson(data).code == "success") {
+                    sweetAlert("", "VIP application is successful. Customer service will be reviewed within 24 hours. ", "success");
+                    setTimeout(function () {
+                        window.location.href = "/EN/my/authentication";
+                    }, 1500);
+                }
+                else {
+                    sweetAlert("", strToJson(data).message, "warning");
+                }
+            },
+            error: function () {
+                sweetAlert("", "Request failed", "error");
+            }
+        });
+    }
+</script>
+</body>
+</html>

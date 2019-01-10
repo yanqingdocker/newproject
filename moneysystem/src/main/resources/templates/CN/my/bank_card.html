@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>银行卡绑定</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/pt.jpg) no-repeat center ; height:500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu">
+                <h4 class=" menu_title">我的</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_account" class="collapsed">
+                                    <i></i>我的账户
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_money" class="collapsed">
+                                    <i></i>我的余额
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead" >
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>我的资料
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel panel-default membercollhead">
+                            <div class="panel-heading" role="tab" id="heading3">
+                                <h4 class="panel-title">
+                                    <a href="/CN/my/my_loan" class="collapsed">
+                                        <i></i>我的借贷
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/CN/my/authentication" id="changetext">基本信息</a></li>
+                                    <li><a href="/CN/my/change_phone">修改手机号</a></li>
+                                    <li><a href="/CN/my/login_psw">登录密码</a></li>
+                                    <li ><a href="/CN/my/pay_psw">资金密码</a></li>
+                                    <li ><a href="/CN/my/bank_card">银行卡绑定</a></li>
+                                    <li><a href="/CN/my/bind_account">支付宝绑定</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>我的消息
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/CN/my/message">发消息</a></li>
+                                    <li ><a href="/CN/my/inbox">收件箱</a></li>
+                                    <li ><a href="/CN/my/outbox">发件箱</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg" style="min-height: 558px">
+            <h3 class="page_title">我的银行卡</h3>
+            <div class="row mt20">
+
+                <div class="inblock w100">
+                    <div class="bs-component mb20">
+                        <a class="btn btn-primary yellow_btn white"  data-toggle="modal" data-target="#myModal_bind" >绑定银行卡</a>
+                    </div>
+                    <table width="100%"  cellspacing="0" cellpadding="0" border="1"  id="table"  class="table">
+                        <thead>
+                        <tr>
+                            <th>银行卡号</th>
+                            <th>银行类型</th>
+                            <th>持卡人姓名</th>
+                            <th>银行地址</th>
+                            <th width="150" class="tc">绑定时间</th>
+                            <th width="120" class="tc">操作</th>
+                        </tr>
+                        </thead>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+
+
+<!--绑定 模态框 （Modal） -->
+<div class="modal fade" id="myModal_bind" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myModalLabel"> 绑定银行卡</h4>
+            </div>
+            <div class="modal-body">
+                <form id="cardform">
+                    <div class="form-group">
+                        <label class="col-form-label" >银行卡号<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入银行卡号" onchange="showbank();" name="bankcard" id="bankcard" maxlength="50" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >开户行<span class="warning">*</span></label>
+                        <div class="inblock  w100"  id="hovershow">
+                            <img src="" id="banklogo"><input type="hidden" id="bankname" name="banktype">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >开卡人姓名<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入开卡人姓名" name="username" maxlength="50" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >身份证号码<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入开卡人身份证号码" name="idcard" maxlength="20" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >银行预留电话<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="请输入银行预留电话" name="phone" maxlength="11" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >开户行地址</label>
+                        <input class="form-control" placeholder="请输入开户行地址" name="address" maxlength="100" type="text">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="submitform()" class="btn btn-primary w100">
+                    提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".nav-tabs .nav-item").on({click:function(){
+                $(this).addClass("cur").siblings().removeClass("cur");
+            }
+        });
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        $('#table').DataTable( {
+            "serverSide": true,
+            searching: true,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            ajax: {
+                url: "/bank/query",
+                dataSrc: '',
+                type:"post",
+                error : function() {
+                    window.location.href = "/CN/login";
+                }
+            },
+            "columns": [
+                {"data": "bankCard" },
+                {"data": "bankType" },
+                {"data": "username" },
+                {"data": "cardAddress" },
+                {"data": "createTime" },
+                {"data": "id" ,
+                    render:function(e,type,full,row){
+                        return "<a href='javascript:;' class=\"icon_delete\" title=\"解绑\"  onclick='logoutCount("+e+")'></a>";
+                    }
+                }
+            ]
+        } );
+
+// 校验
+        $('#cardform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'bankcard': {
+                    validators: {
+                        notEmpty: {
+                            message: '银行卡号不可以为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 30,
+                            message: '银行卡号长度不能小于6位或超过30位'
+                        }
+                    }
+                },
+                'username': {
+                    validators: {
+                        notEmpty: {
+                            message: '姓名不可以为空'
+                        }
+                    }
+                },
+                'idcard': {
+                    validators: {
+                        notEmpty: {
+                            message: '身份证号码不可以为空'
+                        },
+                        stringLength: {
+                            min: 18,
+                            max: 18,
+                            message: '身份证号码长度18位'
+                        }
+                    }
+                },
+                'phone': {
+                    validators: {
+                        notEmpty: {
+                            message: '手机号码不可以为空'
+                        },
+                        stringLength: {
+                            min: 11,
+                            max: 11,
+                            message: '手机号码长度11位'
+                        },
+                        digits: {
+                            message: '手机号码只能包含数字。'
+                        }
+                    }
+                }
+            }
+        })
+    })
+
+    // 获取银行
+    function showbank() {
+        var cardnum=$("input[name='bankcard']").val();
+        $.ajax({
+            url: '/bank/getType',
+            data: {bankcardid:cardnum},
+            type: 'get',
+            success: function (data) {
+                if(strToJson(data).code=="success")
+                {
+                    var jsonObj = strToJson(data).message;
+                    var jsondata = $.parseJSON(jsonObj);//json字符串转数组
+                    $("#bankname").val(jsondata.bankType);
+                    $("#banklogo").attr("src",jsondata.logUrl);
+                }
+                if(strToJson(data).code=="fail"){
+                    $("#banklogo").attr("src","");
+                    sweetAlert("", "银行卡号验证不通过，请输入正确的银行卡号！", "error");
+                }
+            },
+            error: function () {
+                sweetAlert("", "此接口正在维护中...", "error");
+            }
+        })
+    }
+    // 解绑银行卡
+    function logoutCount(countid){
+        $.ajax({
+            type: "post", // 用POST方式传输
+            dataType: 'json',
+            url: "/bank/unbind", // 目标地址
+            data: { id :countid },
+            success: function (data) {
+                if (data.code=="success") {
+                    sweetAlert("", "恭喜您！解绑成功！", "success");
+                    setTimeout(function(){ window.location.href = "/CN/my/bank_card";},1500);
+                } else {
+                    sweetAlert({
+                        title:"操作失败!",
+                        text: data.message,
+                        type: "error",
+                        showCancelButton: true,
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    });
+                }
+            }
+        });
+    }
+
+    // 提交银行卡绑定表单
+    function submitform() {
+        $('#cardform').data('bootstrapValidator').enableFieldValidators('bankcard', true);
+        $('#cardform').data('bootstrapValidator').enableFieldValidators('username', true);
+        $('#cardform').data('bootstrapValidator').enableFieldValidators('idcard', true);
+        $('#cardform').data('bootstrapValidator').enableFieldValidators('phone', true);
+        $('#cardform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#cardform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            //ajax的形式提交表单
+            var str = $("#cardform").serializeObject(); //此处调用的就是我们写好的引入的方法，会将带有name的input，全部转为JSON。
+            var datas = JSON.stringify(str);//返回一个新字符串
+            // console.log(str);
+            // console.log(datas);
+            $.ajax({
+                url: '/bank/bindBankCard',
+                data: {datas: datas},
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "恭喜您！银行卡绑定成功！", "success");
+                        setTimeout(function () {
+                            window.location.href = "/CN/my/bank_card";
+                        }, 1500);
+                    }
+                    else {
+                        sweetAlert("", strToJson(data).message, "error");
+                    }
+                },
+                error: function () {
+                    sweetAlert("", "请求失败！", "error");
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

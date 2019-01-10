@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>我的余额</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/moment.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/pt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class="container p0 m0 fix-frist-top pt30">
+    <div class="col-lg-3 col-xs-12">
+        <div class="panel panel-default bid_menu">
+            <h4 class=" menu_title">我的</h4>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default membercollhead">
+                    <div class="panel-heading" role="tab" id="heading1">
+                        <h4 class="panel-title">
+                            <a href="/CN/my/my_account" class="collapsed">
+                                <i></i>我的账户
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default membercollhead">
+                    <div class="panel-heading" role="tab" id="heading2">
+                        <h4 class="panel-title">
+                            <a href="/CN/my/my_money" class="collapsed">
+                                <i></i>我的余额
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default membercollhead">
+                    <div class="panel-heading" role="tab" id="heading3">
+                        <h4 class="panel-title">
+                            <a href="/CN/my/my_loan" class="collapsed">
+                                <i></i>我的借贷
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default membercollhead">
+                    <div class="panel-heading" role="tab" id="heading4">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                <i></i>我的资料
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                        <div class="">
+                            <ul>
+                                <li><a href="/CN/my/authentication" id="changetext">基本信息</a></li>
+                                <li><a href="/CN/my/change_phone">修改手机号</a></li>
+                                <li><a href="/CN/my/login_psw">登录密码</a></li>
+                                <li ><a href="/CN/my/pay_psw">资金密码</a></li>
+                                <li ><a href="/CN/my/bank_card">银行卡绑定</a></li>
+                                <li><a href="/CN/my/bind_account">支付宝绑定</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default membercollhead">
+                    <div class="panel-heading" role="tab" id="heading5">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                <i></i>我的消息
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                        <div class="">
+                            <ul>
+                                <li ><a href="/CN/my/message">发消息</a></li>
+                                <li ><a href="/CN/my/inbox">收件箱</a></li>
+                                <li ><a href="/CN/my/outbox">发件箱</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--左侧菜单end-->
+    <div class="col-lg-9 col-xs-12 r_whitebg" style="min-height: 558px">
+        <h4 class=" page_title">我的余额</h4>
+        <div class=" money_block  p0 m">
+            <div class="row  " >
+                <div class=" rmb  pl20 pt15">
+                    <div class="mb20 f14  red">账户<span id="rmb_count"></span>（人民币）</div>
+                    <b class="f36 white " id="rmb_balance">未申请账户</b>
+                </div>
+            </div>
+            <div class="row  " >
+                <div class=" dollar  pl20 pt15">
+                    <div class="mb20 f14  green">账户<span id="dollar_count"></span>（美元）</div>
+                    <b class="f36 white "  id="dollar_balance">未申请账户</b>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        // 获取账户余额
+        $.ajax({
+            url:'/count/queryCountByUserid',
+            data:null,
+            type:'get',
+            success:function(data){
+                var item=strToJson(data);
+                for (var i=0;i<item.length;i++){
+                    if(item[i].countType=="CNY"){
+                        $("#rmb_count").html(item[i].cardId);
+                        if(item[i].state==1){
+                            var rmbbalance=item[i].blance;
+                            $("#rmb_balance").html(rmbbalance.toFixed(2));
+                        }
+                        else { $("#rmb_balance").html("<span class='f22'>当前该账户不可用</span>");}
+
+                    }
+                    else if(item[i].countType=="USD") {
+                        $("#dollar_count").html(item[i].cardId);
+                        if(item[i].state==1) {
+                            var dollarcount = item[i].blance;
+                            $("#dollar_balance").html(dollarcount.toFixed(2));
+                        }
+                        else { $("#dollar_balance").html("<span class='f22'>当前该账户不可用</span>");}
+                    }
+
+                }
+
+
+            },
+            error: function () {
+                sweetAlert("","请求失败！", "error");
+            }
+        });
+
+    })
+</script>
+</body>
+</html>

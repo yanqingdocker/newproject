@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Inbox Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/ENheader.js"></script>
+<!--header end-->
+
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/ENpt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m" id="main_con">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu">
+                <h4 class=" menu_title">My</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/EN/my/my_account" class="collapsed">
+                                    <i></i>My Account
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/EN/my/my_money" class="collapsed">
+                                    <i></i>My Balance
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel panel-default membercollhead">
+                            <div class="panel-heading" role="tab" id="heading3">
+                                <h4 class="panel-title">
+                                    <a href="/EN/my/my_loan" class="collapsed">
+                                        <i></i>My Lloan
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>My Information
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/EN/my/authentication" id="changetext">Basic Information</a></li>
+                                    <li><a href="/EN/my/change_phone">Modify Phone Number</a></li>
+                                    <li><a href="/EN/my/login_psw">login Password</a></li>
+                                    <li ><a href="/EN/my/pay_psw">Money Password</a></li>
+                                    <li ><a href="/EN/my/bank_card">Bank Card Binding</a></li>
+                                    <li><a href="/EN/my/bind_account">Alipay Binding</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>My Message
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/EN/my/message">Send</a></li>
+                                    <li ><a href="/EN/my/inbox">Inbox</a></li>
+                                    <li ><a href="/EN/my/outbox">Outbox</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg" style="min-height: 556px">
+            <h4 class=" page_title">Inbox</h4>
+            <div class="inblock w100">
+                <table width="100%"  cellspacing="0" cellpadding="0" border="1" id="table"  class="table">
+                    <thead>
+                    <tr>
+                        <th width="60"> </th>
+                        <th width="80">Sender</th>
+                        <th >Title</th>
+                        <th width="200">Content</th>
+                        <th class="tc" width="150">Delivery Time</th>
+                        <th class="tc" width="120">Operation</th>
+                    </tr>
+                    </thead>
+
+                </table>
+                <div class="batch_play inblock">
+                    <div class="checkcustom ml10 mr10 inblock">
+                        <input rel='box_check_all' id="box_check_all" type="checkbox" name="" /><label class="box_check_all" for="box_check_all">Select All</label>
+                    </div>
+                    <div class="inblock"> <a href="javascript:;" onclick="deletbatch()" class="blue">Delete</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/ENfooter.js"></script>
+
+
+<!--详细消息 模态框 （Modal） -->
+<div class="modal fade" id="myModal_dollar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myModalLabel"> Email content</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-form-label" > Sender：</label> <span id="sendphone"></span>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" >Time：</label> <span id="sendtime"></span>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label inblock" >Theme：</label><p class="inblock" id="sendtitle"></p>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" >Content：</label>
+                    <div class="w100 inblock" >
+                        <p id="sendcontent"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+    $(function () {
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        $('#table').DataTable( {
+            "serverSide": true,
+            searching: true,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            ajax: {
+                url: "/message/queryreceive",
+                dataSrc: '',
+                error : function() {
+                    window.location.href = "/EN/login";
+                }
+            },
+            "columns": [
+                {"data": "id" ,
+                    render:function(e){
+                        var html="<div class='checkcustom tc'> " +
+                            "<input type='checkbox'  id='checkx"+e+"' name='checklist' value='"+e+"'> " +
+                            "<label for='checkx"+e+"' ></label></div>";
+                        return html;
+                    }
+                },
+                {"data": "username" },
+                {"data": "title" ,
+                    render:function(e,type,full,row){
+                        var html="<a href='javascript:;' title='"+e+"' data-toggle=\"modal\" data-target=\"#myModal_dollar\" class='blue text_overflow width120' onclick='detail_msg("+full.id+")'>"+e+"</a>";
+                        return html;
+                    }
+                },
+                {"data": "content" ,
+                    render:function(e,type,full,row){
+                        var html="<p class='text_overflow width220'>"+e+"</p>";
+                        return html;
+                    }
+                },
+                {"data": "createTime" },
+                {"data": "id",
+                    render:function(e,type,full,row){
+                        if(full.visiable==1){
+                            return "<a href='javascript:;'  onclick='deletemsg("+full.id+")'  class=\"icon_delete\" title=\"delete\"></a> | <a href='javascript:;'  class='gray' id='statusmsg'>Read</a>";
+                        }
+                        else{
+                            return "<a href='javascript:;'  onclick='deletemsg("+full.id+")'  class=\"icon_delete\" title=\"delete\"></a> | <a href='javascript:;'  onclick='readmsg("+full.id+")' class='blue' id='statusmsg' title='Tag read'>unread</a>";
+                        }
+
+                    }
+                }
+            ]
+        } );
+    })
+    // 点击check添加样式
+    $(document).on('click','.checkcustom label',function(){
+        $(this).toggleClass("on");
+    });
+
+    /*check全选*/
+    $("input[rel='box_check_all']").on("click",function(){
+        if($(this).prop("checked")===true){
+            $("input[name='checklist']").prop("checked",$(this).prop("checked")).siblings().addClass("on")
+
+        }else{
+            $("input[name='checklist']").prop("checked",false).siblings().removeClass("on")
+        }
+    });
+
+
+    // 批量删除邮件markreceive
+    function deletbatch(){
+        var idlist = '';
+        $('input:checkbox[name=checklist]:checked').each(function(k){
+            if(k == 0){
+                idlist = $(this).val();
+            }else{
+                idlist += ','+$(this).val();
+            }
+            console.log(idlist)
+        });
+        $.ajax({
+            type: "get", // 用POST方式传输
+            dataType: 'json',
+            url: "/message/batchdelete", // 目标地址
+            data: { ids :idlist },
+            success: function (data) {
+                if (data.code=="success") {
+                    sweetAlert("", "Congratulations on your successful removal", "success");
+                    setTimeout(function(){ window.location.href = "/EN/my/inbox";},1500);
+                } else {
+                    sweetAlert({
+                        title:"Failed to delete",
+                        text: "Please select the message to delete",
+                        type: "error",
+                        showCancelButton: true,
+                        confirmButtonText: "Confirm",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    });
+                }
+            }
+        });
+    }
+
+    // 标记已读邮件
+    function readmsg(msgid){
+        $.ajax({
+            type: "post", // 用POST方式传输
+            dataType: 'json',
+            url: "/message/markreceive", // 目标地址
+            data: { id :msgid },
+            success: function (data) {
+                if (data.code=="success") {
+                    sweetAlert("", "Congratulations on your successful marking.", "success");
+                    setTimeout(function(){ window.location.href = "/EN/my/inbox";},1000);
+                } else {
+                    sweetAlert({
+                        title:"Mark failed",
+                        text: data.message,
+                        type: "error",
+                        showCancelButton: true,
+                        confirmButtonText: "Confirm",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    });
+                }
+            }
+        });
+    }
+    // 删除邮件
+    function deletemsg(msgid){
+        $.ajax({
+            type: "get", // 用POST方式传输
+            dataType: 'json',
+            url: "/message/delete", // 目标地址
+            data: { id :msgid },
+            success: function (data) {
+                if (data.code=="success") {
+                    sweetAlert("", "Congratulations on your successful removal.", "success");
+                    setTimeout(function(){ window.location.href = "/EN/my/inbox";},1500);
+                } else {
+                    sweetAlert({
+                        title:"Failed to delete",
+                        text: "Please select the message to delete",
+                        type: "error",
+                        showCancelButton: true,
+                        confirmButtonText: "Confirm",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    });
+                }
+            }
+        });
+    }
+
+    function chagestatus(msgid) {
+        $.ajax({
+            type: "post", // 用POST方式传输
+            dataType: 'json',
+            url: "/message/markreceive", // 目标地址
+            data: { id :msgid },
+            success: function (data) {
+                //标记已读
+
+            }
+        });
+    }
+    $(".close").click(function () {
+        window.location.href = "/EN/my/inbox#main_con";
+    });
+    // 读取详细信息
+    function detail_msg(msgid) {
+        $.ajax({
+            type: "get", // 用POST方式传输
+            dataType: 'json',
+            url: "/message/queryMessage", // 目标地址
+            data: { id :msgid },
+            success: function (data) {
+                $("#sendphone").html(data.username);
+                $("#sendtime").html(data.createTime);
+                $("#sendtitle").html(data.title);
+                $("#sendcontent").html(data.content);
+                chagestatus(msgid);
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Recharge Form Page</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/daterangepicker-bs3.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/areajson.js"></script>
+    <script  type="text/javascript" src="/js/date.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/ENheader.js"></script>
+<!--header end-->
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/ENhlw.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu" style="min-height: 550px;">
+                <h4 class=" menu_title">Transaction</h4>
+                <div class="panel panel-default membercollhead">
+                    <div class="panel-heading" role="tab" id="heading1">
+                        <h4 class="panel-title">
+                            <a href="/EN/main/recharge" class="collapsed">
+                                <i></i> Recharge
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>Withdrawals
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/EN/main/foreign_currency">Foreign Currency Withdrawal</a></li>
+                                    <li><a href="/EN/main/pos_Bank">Withdrawals To Bank</a></li>
+                                    <li><a href="javascript:;">Withdrawals To Alipay</a></li> <!--href="/EN/main/pos_Alipay" -->
+                                    <li ><a href="javascript:;">Withdrawals To WeChat</a></li><!--href="/EN/main/pos_WeChat" -->
+                                    <li ><a href="javascript:;">Cash Withdrawals</a></li><!--href="/EN/main/pos_cash" -->
+                                    <li ><a href="javascript:;">Bitcoin Withdrawals</a></li><!--href="/EN/main/pos_bitcoin" -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/EN/main/transfer_accounts" class="collapsed">
+                                    <i></i> Transfer
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单 end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg">
+            <h3 class="page_title">Recharge</h3>
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-primary">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <p >Please check the accounts carefully, and we will process your request for the first time.</p>
+                </div>
+                <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+            <div class="inblock w100">
+                <form id="rechargeform" action="/pay/recharge" method="post">
+                    <div class="form-group">
+                        <label class="col-form-label w100">Select a recharge account<span class="warning">*</span></label>
+                        <select class="custom-select  w100" id="recharcount" field="count">
+
+                        </select>
+                        <input type="hidden" id="realcount" name="cardid">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="inputje">Recharge amount<span class="warning">*</span></label>
+                        <input class="form-control" placeholder="Please enter the amount of recharge" id="inputje" name="tradeMoney" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="rechartype">Recharge method</label>
+                        <input class="form-control" name="payType" disabled=""  value="" id="rechartype" type="text">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block f14">Submit</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/ENfooter.js"></script>
+
+<script type="text/javascript">
+    $("#recharcount").change(function(){
+        var real = $("#recharcount").val();
+        $("#realcount").val(real);
+    });
+    $(function(){
+        $("#nav_recharge").addClass("cur");//导航栏添加焦点
+        loadcount();//获取下拉账户
+        var typeval=GetQueryString("payType");
+        switch(typeval)
+        {
+            case '1':
+                $("#rechartype").val("Bank");
+                $(".page_title").html("Bank Recharge");
+                $("#bank_account").show();
+                break;
+            case '2':
+                $("#rechartype").val("Alipay");
+                $(".page_title").html("Recharge on Alipay");
+                break;
+            case '3':
+                $("#rechartype").val("WeChat");
+                $(".page_title").html("WeChat recharge");
+                break;
+            case '4':
+                $("#rechartype").val("Bitcoin");
+                $(".page_title").html("Bitcoin recharge");
+                break;
+            default:
+
+        }
+        $('#rechargeform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'tradeMoney': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Transfer amount cannot be empty'
+                        },
+                        digits: {
+                            message: 'Transfer amount can only contain numbers'
+                        },
+                        greaterThan: {
+                            value: 1,
+                            message: 'The amount of recharge must be more than 1'
+                        }
+                    }
+                }
+            }
+        })
+    })
+    // 通过json同步获取下拉账户
+    function loadcount() {
+        $.ajax({
+            url: '/count/queryCountByUserid',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    var html ='<option value="'+jsonObj[i].id+'">'+jsonObj[i].cardId+'('+jsonObj[i].countType+')'+'</option>';
+                    $("#recharcount").append(html);
+                }
+                $("#realcount").val($("#recharcount").val());
+                if(jsonObj.length==0){
+                    sweetAlert({
+                            title: "Please apply for an account before you can operate",
+                            type: "warning",
+                            cancelButtonText: "Cancel",
+                            confirmButtonText: "Application",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/EN/my/my_account";
+                            }
+                        });
+                }
+
+            }
+        })
+    }
+</script>
+</body>
+</html>

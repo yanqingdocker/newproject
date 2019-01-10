@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>我的账户</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css.css"/>
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/areajson.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--header star-->
+<script  type="text/javascript" src="/js/header.js"></script>
+<!--header end-->
+
+<div class=" p0 m0 fix-frist-top phone_frist-top">
+    <div class="turn swiper-container " style="background:url(/images/pt.jpg) no-repeat center ; height: 500px; width:100%;background-size: cover" ></div>
+</div>
+<!--banner end-->
+
+<div class=" p0 m0 fix-frist-top pt30">
+    <div class="container row  p0 m">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default bid_menu">
+                <h4 class=" menu_title">我的</h4>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_account" class="collapsed">
+                                    <i></i>我的账户
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_money" class="collapsed">
+                                    <i></i>我的余额
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading3">
+                            <h4 class="panel-title">
+                                <a href="/CN/my/my_loan" class="collapsed">
+                                    <i></i>我的借贷
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading4">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4" class="">
+                                    <i></i>我的资料
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class=" collapse in" role="tabpanel" aria-labelledby="heading4" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li><a href="/CN/my/authentication" id="changetext">基本信息</a></li>
+                                    <li><a href="/CN/my/change_phone">修改手机号</a></li>
+                                    <li><a href="/CN/my/login_psw">登录密码</a></li>
+                                    <li ><a href="/CN/my/pay_psw">资金密码</a></li>
+                                    <li ><a href="/CN/my/bank_card">银行卡绑定</a></li>
+                                    <li><a href="/CN/my/bind_account">支付宝绑定</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default membercollhead">
+                        <div class="panel-heading" role="tab" id="heading5">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5" class="">
+                                    <i></i>我的消息
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class=" collapse in" role="tabpanel" aria-labelledby="heading5" aria-expanded="true">
+                            <div class="">
+                                <ul>
+                                    <li ><a href="/CN/my/message">发消息</a></li>
+                                    <li ><a href="/CN/my/inbox">收件箱</a></li>
+                                    <li ><a href="/CN/my/outbox">发件箱</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--左侧菜单end-->
+        <div class="col-lg-9 col-xs-12 r_whitebg" style="min-height: 558px">
+            <h4 class=" page_title">我的账户</h4>
+            <div class="bs-component">
+                <button type="button" class="btn btn-primary yellow_btn" data-toggle="modal" data-target="#myModal" onclick="tipsalert()">账户申请</button>
+            </div>
+            <div class="inblock w100 mt20">
+                <table width="100%"  cellspacing="0" cellpadding="0" border="1"   class="table" id="table">
+                    <thead>
+                    <tr>
+                        <th>账户卡号</th>
+                        <th>货币类型</th>
+                        <th width="180">创建时间</th>
+                        <th width="120" >状态</th>
+                        <th class="tc" width="100" >操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--通用脚本-->
+<script  type="text/javascript" src="/js/footer.js"></script>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myModalLabel"> 账户申请</h4>
+            </div>
+            <form id="modalform" >
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-form-label w100" >货币类型<span class="warning">*</span></label>
+                        <select class="custom-select  w100 account"  id="selectval" field="monneytype">
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">设置支付密码<span class="warning">*</span></label>
+                        <input class="form-control"  maxlength="50" type="password" name="payPwd" id="paypswid">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" onclick="submitform()" class="btn btn-primary">
+                        提交
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".nav-tabs .nav-item").on({click:function(){
+                $(this).addClass("cur").siblings().removeClass("cur");
+            }
+        });
+        loadaccount();//加载平台货币类型
+        $("#nav_my").addClass("cur");//导航栏添加焦点
+        $('#table').DataTable( {
+            "serverSide": true,
+            searching: false,
+            lengthChange: false,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: false,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            ajax: {
+                url: "/count/queryCountByUserid",
+                dataSrc: '',
+                error : function() {
+                    window.location.href = "/CN/login";
+                }
+            },
+            "columns": [
+                {"data": "cardId" },
+                {"data": "countType" ,
+                    render:function(e,type,full,row){
+                        return currency_type(full.countType);
+                    }
+                },
+                {"data": "createTime" },
+                {"data": "state",
+                    render:function(e,type,full,row){
+                        if(e==1){
+                            return "<span class='gray'>正常</span>";
+                        }
+                        else{  return "<span class='red'>异常</span>";}
+
+                    }
+                },
+                {"data": "id" ,
+                    render:function(e,type,full,row){
+                        return "<a href='javascript:;' class=\"icon_delete\" title=\"注销账户\"  onclick='logoutCount("+e+")'></a>";
+                    }
+                }
+            ]
+        } );
+
+        $('#modalform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'payPwd': {
+                    validators: {
+                        notEmpty: {
+                            message: '资金密码不可以为空'
+                        }
+                    }
+                },
+                'monneytype':{
+                    validators:{
+                        notEmpty:{
+                            message:'货币类型不能为空'
+                        },
+                        callback: {
+                            message: '必须选择一个货币类型',
+                            callback: function(value, validator)
+                            {
+                                if (value == 0) {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    })
+    // 加载平台货币类型
+    function loadaccount() {
+        $.ajax({
+            url: '/count/queryMoneyType',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                console.log(jsonObj.length);
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    var html ='<option data-id="'+jsonObj[i]+'" value="'+jsonObj[i]+'">'+jsonObj[i]+'('+currency_type(jsonObj[i])+')'+'</option>';
+                    $(".account").append(html);
+
+                }
+
+
+            }
+        });
+    }
+    // 注销账户
+    function logoutCount(countid){
+        sweetAlert({
+                title: "确定删除吗？",
+                text: "你将无法恢复该账号",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    $.ajax({
+                        type: "post", // 用POST方式传输
+                        dataType: 'json',
+                        url: "/count/logoutCount", // 目标地址
+                        data: { id :countid },
+                        success: function (data) {
+                            if (data.code=="success") {
+                                sweetAlert("", "恭喜您！注销成功！", "success");
+                                setTimeout(function(){ window.location.href = "/CN/my/my_account";},1500);
+                            } else {
+                                sweetAlert({
+                                    title:"操作失败!",
+                                    text: data.message,
+                                    type: "error",
+                                    showCancelButton: true,
+                                    confirmButtonText: "确定",
+                                    cancelButtonText: "取消",
+                                    closeOnConfirm: false,
+                                    closeOnCancel: true
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+
+    }
+    // 申请账户
+    function submitform() {
+        $('#modalform').data('bootstrapValidator').enableFieldValidators('payPwd', true);
+        $('#modalform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#modalform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var valuea = $('#selectval').val();
+            var paypswval = $('#paypswid').val();
+            $.ajax({
+                type: "post", // 用POST方式传输
+                dataType: 'json',
+                url: "/count/createCount", // 目标地址
+                data: {countType: valuea,payPwd:paypswval},
+                error: function (data) {
+
+                },
+                success: function (data) {
+                    if (data.code == "success") {
+                        sweetAlert("", "恭喜您！申请成功！", "success");
+                        setTimeout(function () {
+                            window.location.href = "/CN/my/my_account";
+                        }, 1500);
+                    } else {
+                        sweetAlert({
+                            title: "操作失败!",
+                            text: data.message,
+                            type: "error",
+                            showCancelButton: true,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+    // 未认证提示
+    function tipsalert() {
+        if($("#isauth").val()==0){
+            sweetAlert({
+                    title: "请先实名认证，才能进行操作！",
+                    type: "warning",
+                    confirmButtonText: "去认证",
+                    closeOnConfirm: false
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        window.location.href = "/CN/my/authentication";
+                    }
+                });
+        }
+    }
+
+</script>
+</body>
+</html>
