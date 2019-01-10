@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>汇率修改</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <!-- CSS App -->
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/echarts.common.min.js"></script>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">系统首页</a></li>
+        <li class="breadcrumb-item">汇率修改</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">汇率修改</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <div class="inblock w100">
+                    <table width="100%"  cellspacing="0" cellpadding="0" border="1" id="table"  class="table datatable table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="tc" width="80">编号</th>
+                            <th>兑换方式</th>
+                            <th>卖出价</th>
+                            <th>买入价</th>
+                            <th class="tc" width="200">更新时间</th>
+                            <th class="tc">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="trblock">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Javascript -->
+
+<!--角色控制 模态框 （Modal） -->
+<div class="modal fade" id="myrate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myroleLabel"><b id="titlename" class="blue"></b> 汇率修改</h4>
+            </div>
+            <div class="modal-body">
+                <form id="myform" >
+                    <div class="form-group">
+                        <label class="col-form-label" >卖出价<span class="warning">*</span></label>
+                        <input class="form-control" type="text"  name="sellPic" placeholder="请输入卖出价">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >买出价<span class="warning">*</span></label>
+                        <input class="form-control" type="text"  name="buyPic"  placeholder="请输入买入价">
+                    </div>
+                    <input type="hidden" id="ratetype" name="type">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary w100" onclick="rateform()">确认修改 </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div><!-- /.modal -->
+<script type="text/javascript">
+    $(function(){
+        ratetable()//汇率table
+        //弹出框赋值
+        var modal = $("#myrate");
+        modal.on("show.bs.modal", function(e) {
+            // 这里的btn就是触发元素，即你点击的删除按钮
+            var btn = $(e.relatedTarget),
+                ratetype = btn.data("id");
+            $("#ratetype").val(ratetype);
+            ratename = btn.data("name");
+            $("#titlename").html(ratename);
+        })
+
+
+        // 表单验证
+        $('#myform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'sellPic': {
+                    validators: {
+                        notEmpty: {
+                            message: '卖出价汇率不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[0-9_\.]+$/,
+                            message: '汇率只能填写数字。'
+                        },
+                        greaterThan: {
+                            value: 0.00001,
+                            message: '汇率必须大于0'
+                        }
+                    }
+                },
+                'buyPic': {
+                    validators: {
+                        notEmpty: {
+                            message: '买入价汇率不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[0-9_\.]+$/,
+                            message: '汇率只能填写数字。'
+                        },
+                        greaterThan: {
+                            value: 0.00001,
+                            message: '汇率必须大于0'
+                        }
+                    }
+                }
+            }
+        })
+    })
+    //汇率table
+    function ratetable() {
+        $.ajax({
+            url: "/rate/queryAll",
+            type: "get",
+            data: null,
+            dataType: "JSON",
+            error: function (data) {
+                $.Popup.error("表单数据不合法!");
+            },
+            success: function (data) {
+                var arr = new Array();
+                //取最新的一条记录
+                for (var i = data.length-1; i < data.length; i++) {
+                    arr.push(data[i]);
+                }
+                var html="";
+                var len=arr.length-1;
+                var obj=arr[len];
+                var num=1;
+                for( key in obj){
+                    // console.log(obj[key]);
+                    // 注意在json中获取，要用 data[key]   不要用data.key
+
+
+                    html='<tr>'
+                        +'<td  class="tc" >'+num+'</td>'
+                        +'<td>'+obj[key].currency+'</td>'
+                        +'<td>'+obj[key].buyPic+'</td>'
+                        +'<td>'+obj[key].sellPic+'</td>'
+                        +'<td>'+obj[key].date+' '+obj[key].datatime+'</td>'
+                        +'<td class="tc"><a href=\"javascript:;\"  data-toggle=\"modal\" data-target=\"#myrate\" data-id="'+obj[key].code+'" data-name="'+obj[key].currency+'" class="changebtn" >修改</a></td>'
+                        +'</tr>'
+                    $("#trblock").append(html);
+                    num=num+1;
+                }
+
+            }
+        });
+    }
+    function rateform() {
+        $('#myform').data('bootstrapValidator').enableFieldValidators('sellPic', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('buyPic', true);
+        $('#myform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#myform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            sweetAlert({
+                    title: "确定修改汇率吗？",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: "post", // 用POST方式传输
+                            dataType: 'json',
+                            url: "/rate/update", // 目标地址
+                            data: $('#myform').serialize(),
+                            success: function (data) {
+                                if (data.code == "success") {
+                                    sweetAlert("", "恭喜您！修改成功！", "success");
+                                    setTimeout(function () {
+                                        window.location.href = "/exchangeRate/rate_change";
+                                    }, 1500);
+                                }
+                                else if (data.code == "403") {
+                                    sweetAlert({
+                                        title: "",
+                                        text: "您的账号权限不足，无法操作此页面！",
+                                        type: "warning",
+                                        showCancelButton: false,
+                                        confirmButtonText: "确定",
+                                        closeOnConfirm: true
+                                    });
+                                }
+                                else {
+                                    sweetAlert({
+                                        title: "修改失败!",
+                                        text: "",
+                                        type: "error",
+                                        showCancelButton: true,
+                                        confirmButtonText: "确定",
+                                        cancelButtonText: "取消",
+                                        closeOnConfirm: true,
+                                        closeOnCancel: true
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+        }
+    }
+
+
+
+</script>
+</body>
+
+</html>

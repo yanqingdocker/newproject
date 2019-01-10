@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>借贷申请</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <!-- CSS Libs -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <!-- CSS App -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/mainframe">系统首页</a></li>
+        <li class="breadcrumb-item">借贷管理</li>
+        <li class="breadcrumb-item active">借贷申请</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">借贷申请</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <div class="bs-component">
+                    <div class="alert alert-dismissible alert-primary">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <p >温馨提示：借贷申请仅限本平台VIP会员，普通会员请先升级VIP会员！</p>
+                    </div>
+                    <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
+                </div>
+                <form id="myform"  class="form-horizontal w100" >
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">担保人<span class="warning">*</span></label>
+                        <select class="select_input col-sm-3 ml15 "  id="select_warrantor">
+                        </select>
+                        <input class="form-control" type="hidden" id="warrantor" name="warrantor" >
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">会员账号<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text"  name="borrowerphone" placeholder="请输入会员账号（手机号）" id="borrowerphone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">真实姓名<span class="warning">*</span></label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" name="borrower" readonly id="borrower">
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="button" class="btn btn-default" style="margin: 0" onclick="search_real()">验证查询</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">借款货币类型<span class="warning">*</span></label>
+                        <select class="select_input col-sm-3 ml15 "  id="select_money">
+                        </select>
+                        <input class="form-control" type="hidden" name="moneytype" id="moneytype">
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">借款金额<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="num" placeholder="请输入借款金额">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">借款期限（天）<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="term" placeholder="请输入借款天数">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default" onclick="submitform()">提 交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        loadaccount()//加载货币类型
+        loadwarrantor()//加载担保人
+        $('#myform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'borrowerphone': {
+                    message: '会员账号不能为空',
+                    validators: {
+                        notEmpty: {
+                            message: '会员账号不能为空'
+                        }
+                    }
+                },
+                'num': {
+                    message: '借款金额不能为空',
+                    validators: {
+                        notEmpty: {
+                            message: '借款金额不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[0-9_\.]+$/,
+                            message: '金额只能由数字组成。'
+                        }
+                    }
+                },
+                'term': {
+                    message: '借款期限不能为空',
+                    validators: {
+                        notEmpty: {
+                            message: '借款期限不能为空'
+                        }
+                    }
+                }
+            }
+        })
+    })
+    // 添加担保人
+    function submitform() {
+        $('#myform').data('bootstrapValidator').validateField('borrower');
+        $('#myform').data('bootstrapValidator').validateField('borrowerphone');
+        $('#myform').data('bootstrapValidator').validateField('num');
+        $('#myform').data('bootstrapValidator').validateField('term');
+        $('#myform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#myform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            $("#warrantor").val( $("#select_warrantor").val());
+            $("#moneytype").val($("#select_money").val()) ;
+
+            var str = $("#myform").serializeObject(); //此处调用的就是我们写好的引入的方法，会将带有name的input，全部转为JSON。
+            var datas = JSON.stringify(str);//返回一个新字符串
+            $.ajax({
+                url: '/borrow/add',
+                data: {datas: datas},
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "恭喜您！借贷申请成功！", "success");
+                        setTimeout(function () {
+                            window.location.href = "/loanManage/loan_list?status=0";
+                        }, 1500);
+                    }
+                    else if (data.code == "403") {
+                        sweetAlert({
+                                title: "",
+                                text: "您的账号权限不足，无法操作此页面！",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    window.location.href = "/mainframe";
+                                }
+                            });
+                    }
+                    else {
+                        sweetAlert("", strToJson(data).message, "error");
+                    }
+
+                },
+                error: function () {
+                    sweetAlert("", "请求失败，仅限本平台VIP会员！", "error");
+                }
+            });
+        }
+    }
+    // 加载平台货币类型
+    function loadaccount() {
+        $.ajax({
+            url: '/count/queryMoneyType',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                if (data.code == "403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else {
+                    var jsonObj = $.parseJSON(data);//json字符串转数组
+                    console.log(jsonObj.length);
+                    for (var i = 0; i < jsonObj.length; i++) {
+                        var html = '<option data-id="' + jsonObj[i] + '" value="' + jsonObj[i] + '">' + jsonObj[i] + '(' + currency_type(jsonObj[i]) + ')' + '</option>';
+                        $("#select_money").append(html);
+
+                    }
+
+                }
+            },
+            error: function (data) {
+                handleAjaxError();//超时登录或接口异常
+            }
+        });
+    }
+    // 加载担保人
+    function loadwarrantor() {
+        $.ajax({
+            url: '/warrantor/queryAll',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                if (data.code == "403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else {
+                    var jsonObj = $.parseJSON(data);//json字符串转数组
+                    for (var i = 0; i < jsonObj.length; i++) {
+                        var html = '<option value="' + jsonObj[i].username + '">' + jsonObj[i].username + '(' + jsonObj[i].job + ')' + '</option>';
+                        $("#select_warrantor").append(html);
+
+                    }
+
+                }
+            },
+            error: function (data) {
+                handleAjaxError();//超时登录或接口异常
+            }
+        });
+    }
+
+    //查询真实姓名
+    function search_real() {
+        $('#myform').data('bootstrapValidator').validateField('borrowerphone');
+        var phone = $("#borrowerphone").val();
+        $.ajax({
+            url: '/user/queryByphone',
+            data: {telphone: phone},
+            type: 'post',
+            success: function (data) {
+                var obj = strToJson(data);
+                if (obj.code == "fail") {
+                    sweetAlert("", obj.message, "error");
+                }
+                else if (obj.code == "403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else {
+                    if (obj.isauthentication == 0) {
+                        sweetAlert("", "您未实名认证，请先前往网站进行自助实名认证！", "error");
+                    }
+                    else if (obj.leavel == 0) {
+                        sweetAlert({
+                                title: "",
+                                text: "您当前是普通会员，请先升级VIP会员才能进行借款！",
+                                type: "error",
+                                showCancelButton: true,
+                                confirmButtonText: "去升级",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    window.location.href = "/member/member_list";
+                                }
+                            });
+                    }
+                    $("#borrower").val(obj.username);
+                }
+            }
+        });
+    }
+</script>
+</body>
+
+</html>

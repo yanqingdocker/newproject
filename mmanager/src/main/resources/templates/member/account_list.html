@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>账户管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <!-- CSS App -->
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <style>
+        .ml165{ margin-left: 165px;}
+        .ml60{ margin-left: 60px;}
+        .w180{ width: 180px}
+    </style>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/mainframe">系统首页</a></li>
+        <li class="breadcrumb-item">会员管理</li>
+        <li class="breadcrumb-item active">账户管理</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">账户管理</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <table class="datatable table table-striped" id="table" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>会员名</th>
+                        <th>账户ID</th>
+                        <th>货币类型</th>
+                        <th>余额</th>
+                        <th>账户状态</th>
+                        <th>创建时间</th>
+                        <!--<th>操作</th>-->
+                    </tr>
+                    </thead>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="html" style="display: none"></div>
+
+<script type="text/javascript">
+    var oTable;
+    $(function() {
+        oTable = $("#table").dataTable({
+            "order": [6, "desc" ],
+            "serverSide": true,
+            searching: true,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+
+            "fnDrawCallback"    : function(){
+                this.api().column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
+            },
+            ajax: {
+                url: "/count/queryAllCount",
+                dataSrc: function (data) {
+                    if (data.code=="403") {
+                        sweetAlert({
+                                title: "",
+                                text: "您的账号权限不足，无法操作此页面！",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.href = "/mainframe";
+                                }
+                            });
+                    }
+                    else{
+                        var arrObj=data[0];
+                        var datas=[]
+                        for( key in arrObj){
+                            var obj= arrObj[key];
+                            datas.push(obj[0])
+                        }
+
+                        return datas;
+
+                        ;}
+                },
+                error: handleAjaxError //接口返回异常，超时登录
+
+            },
+            "columns": [
+                {"data": "id"},
+                {"data": "username"},
+                {"data": "cardId"},
+                {"data": "countType"},
+                {"data": "blance",
+                    render:function(e,type,full,row){
+                        var balance=full.blance;
+                        return balance.toFixed(4);
+                    }
+                },
+                {"data": "state",
+                    render:function(e,type,full,row){
+                        if(full.state==1){
+                            return "<span class='green'>正常</span>";
+                        }
+                        else{
+                            return "<span class='red'>冻结</span>";
+                        }
+                    }
+                },
+                {"data": "createTime"},
+
+            ],
+            //多语言配置
+            //set the initial value
+            "fnCreatedRow": function(nRow, columns, iDataIndex) {
+                $('td:eq(1)', nRow).html("<span class='row-details row-details-close' data_id='" + columns.userId + "'></span>&nbsp;" + columns.username);
+            }
+        });
+
+        $('.table').on('click', ' tbody td .row-details',
+            function() {
+
+                var nTr = $(this).parents('tr')[0];
+                if (oTable.fnIsOpen(nTr)) //判断是否已打开
+                {
+                    /* This row is already open - close it */
+                    $(this).addClass("row-details-close").removeClass("row-details-open");
+                    oTable.fnClose(nTr);
+                } else {
+                    /* Open this row */
+                    $(this).addClass("row-details-open").removeClass("row-details-close");
+                    //  alert($(this).attr("data_id"));
+                    //oTable.fnOpen( nTr,
+                    // 调用方法显示详细信息 data_id为自定义属性 存放配置ID
+                    fnFormatDetails(nTr, $(this).attr("data_id"));
+
+                }
+            });
+    });
+
+    function fnFormatDetails(nTr, pdataId) {
+        $(".html").html("");
+        //根据配置Id 异步查询数据
+        $.ajax({
+            url: '/count/queryAllCount',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = $.parseJSON(data);//json字符串转数组
+                var arrObj=jsonObj[0];
+                var sOut=''
+                for( key in arrObj){
+                    // console.log(key)
+                    if (pdataId ==key) {
+                        var obj= arrObj[key];
+                        var html='';
+                        for(var i=0;i<obj.length;i++){
+                            console.log(obj[i].countType)
+                            html = '<div class="w100 inblock tl mt5 mb5 ">' +
+                                '<div class="l ml165"><b>'+obj[i].countType+'账户：</b> <span style="width:70%">' + obj[i].cardId + '</span></div>' +
+                                '<div class="l ml60 w180"><b >余额：</b> <span style="width:70%">' + obj[i].blance + '</span></div>' +
+                                '<div class="l ml30"><b >状态：</b> <span style="width:70%">' + states(obj[i].state) + '</span>' +
+                                '<button class="ml15" onclick="changestatus('+obj[i].id+','+obj[i].state+')">修改状态</button></div>' +
+                                '<div class="l ml60"><b >创建时间：</b> <span style="width:70%">' + obj[i].createTime + '</span></div></div>';
+
+                            $(".html").append(html);
+                        }
+                        sOut= $(".html").html();
+                        oTable.fnOpen(nTr, sOut, 'details');
+                    }
+                }
+            }
+        });
+
+    }
+    function states(val) {
+        switch (val) {
+            case '1':
+                return "正常"
+                break;
+            case '0':
+                return "冻结"
+                break;
+        }
+
+    }
+    var realstute=0; //默认状态
+    function changestatus(id,state) {
+        if(state==1){
+            realstute=0
+        }
+        else{ realstute=1}
+        $.ajax({
+            url: '/count/startOrstopCount',
+            data: {id:id,state:realstute},
+            type: 'post',
+            success: function (data) {
+                if (strToJson(data).code == "success") {
+                    sweetAlert("", "恭喜您！操作成功！", "success");
+                    setTimeout(function () {
+                        window.location.href = "/member/account_list";
+                    }, 1500);
+                }
+                else if (data.code=="403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function(isConfirm){
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else {
+                    sweetAlert("", strToJson(data).message, "error");
+                }
+
+            },
+            error: function () {
+                sweetAlert("", "请求失败！", "error");
+            }
+        });
+    }
+</script>
+</body>
+
+</html>

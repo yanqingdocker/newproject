@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.caogen.mapper.ServiceBranchMapper" >
+
+    <resultMap id="BaseResultMap" type="cn.com.caogen.entity.ServiceBranch" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="branchname" property="branchname" jdbcType="VARCHAR" />
+        <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="servicephone" property="servicephone" jdbcType="VARCHAR" />
+        <result column="administrator" property="administrator" jdbcType="VARCHAR" />
+
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    id,branchname,createtime,address,servicephone,administrator
+     </sql>
+    <insert id="add" parameterType="cn.com.caogen.entity.ServiceBranch">
+        insert into servicebranch (branchname,createtime,address,servicephone,administrator) values (#{branchname,jdbcType=VARCHAR},#{createtime,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{servicephone,jdbcType=VARCHAR},#{administrator,jdbcType=VARCHAR});
+    </insert>
+    <update id="update" parameterType="cn.com.caogen.entity.ServiceBranch">
+        update servicebranch set
+        <if test="branchname != null">
+            branchname=#{branchname},
+        </if>
+        <if test="address !=null">
+            address=#{address},
+        </if>
+        <if test="servicephone !=null">
+            servicephone=#{servicephone},
+        </if>
+        <if test="administrator !=null">
+            administrator=#{administrator}
+        </if>
+        where id=#{id}
+    </update>
+
+    <select id="queryAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from servicebranch
+    </select>
+    <delete id="delete" parameterType="int">
+        delete from servicebranch where id=#{id}
+    </delete>
+
+    <select id="queryById" resultMap="BaseResultMap" parameterType="int">
+        select <include refid="Base_Column_List"/> from servicebranch where id=#{id}
+    </select>
+
+
+</mapper>

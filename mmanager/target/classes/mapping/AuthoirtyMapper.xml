@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.caogen.mapper.AuthoirtyMapper" >
+
+    <resultMap id="BaseResultMap" type="cn.com.caogen.entity.Authoirty" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="authoirtyname" property="authoirtyname" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+       id,authoirtyname,url
+     </sql>
+    <insert id="add" parameterType="cn.com.caogen.entity.Authoirty">
+        insert into authoirty (authoirtyname,url) values
+        (#{authoirtyname,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR});
+    </insert>
+
+    <delete id="delete" parameterType="int[]">
+        delete from authoirty where id in
+        <foreach collection="array" item="arr" index="no" open="("
+                 separator="," close=")">
+            #{arr}
+        </foreach>
+    </delete>
+
+
+    <select id="queryAll"  resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List"/> from authoirty
+
+    </select>
+    <select id="queryById" resultMap="BaseResultMap" parameterType="int">
+        select <include refid="Base_Column_List"/> from authoirty where id=#{id}
+
+    </select>
+    <update id="update" parameterType="cn.com.caogen.entity.Authoirty" >
+        update authoirty set authoirtyname=#{authoirtyname},url=#{url} where id=#{id}
+    </update>
+
+
+</mapper>

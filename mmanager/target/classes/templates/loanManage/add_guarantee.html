@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>添加担保人</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <!-- CSS Libs -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <!-- CSS App -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/mainframe">系统首页</a></li>
+        <li class="breadcrumb-item">借贷管理</li>
+        <li class="breadcrumb-item active">添加担保人</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">添加担保人</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <form id="myform"  class="form-horizontal w100" >
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">担保人<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                        <input class="form-control" type="text"  name="username" id="username"  placeholder="请输入担保人名字" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">职位<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                        <input class="form-control" type="text" name="job" placeholder="请输入担保人职位">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">联系电话<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                        <input class="form-control" type="text" name="phone" placeholder="请输入担保人电话">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default" onclick="submitform()">提 交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#myform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'username': {
+                    validators: {
+                        notEmpty: {
+                            message: '担保人名字不能为空'
+                        }
+                    }
+                },
+                'job': {
+                    message: '担保人职位不能为空',
+                    validators: {
+                        notEmpty: {
+                            message: '担保人职位不能为空'
+                        }
+                    }
+                },
+                'phone': {
+                    message: '担保人电话不能为空',
+                    validators: {
+                        notEmpty: {
+                            message: '担保人电话不能为空'
+                        }
+                    }
+                }
+            }
+        })
+    })
+    // 添加担保人
+    function submitform() {
+        $('#myform').data('bootstrapValidator').validateField('username');
+        $('#myform').data('bootstrapValidator').validateField('job');
+        $('#myform').data('bootstrapValidator').validateField('phone');
+        $('#myform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#myform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var str = $("#myform").serializeObject(); //此处调用的就是我们写好的引入的方法，会将带有name的input，全部转为JSON。
+            var datas = JSON.stringify(str);//返回一个新字符串
+            $.ajax({
+                url: '/warrantor/add',
+                data: {datas: datas},
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "恭喜您！添加成功！", "success");
+                        setTimeout(function () {
+                            window.location.href = "/loanManage/guarantee_list";
+                        }, 1500);
+                    }
+                    else if (data.code == "403") {
+                        sweetAlert({
+                                title: "",
+                                text: "您的账号权限不足，无法操作此页面！",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    window.location.href = "/mainframe";
+                                }
+                            });
+                    }
+                    else {
+                        sweetAlert("", strToJson(data).message, "error");
+                    }
+
+                },
+                error: function () {
+                    sweetAlert("", "请求失败！", "error");
+                }
+            });
+        }
+    }
+
+</script>
+</body>
+
+</html>

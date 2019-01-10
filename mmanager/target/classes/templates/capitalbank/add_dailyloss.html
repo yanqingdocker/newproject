@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>添加日常收支</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <!-- CSS App -->
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/caculator.js"></script>
+    <style>
+        .checkbox3 label{ display: inline-block}
+
+    </style>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/mainframe">系统首页</a></li>
+        <li class="breadcrumb-item">资金库</li>
+        <li class="breadcrumb-item">添加日常收支</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">添加日常收支</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body inblock w100 pb30">
+                <form id="myform" class="form-horizontal w100" >
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">项目名称<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="projectname" maxlength="300" type="text" name="projectname" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">选择收支<span class="warning">*</span></label>
+                        <div class="col-sm-10" style="margin-top: 8px;">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="networkradio" name="customRadio" class="custom-control-input" checked="" value="1">
+                                <label class="custom-control-label" for="networkradio">收入</label>
+                            </div>
+                            <div class="custom-control custom-radio ml15">
+                                <input type="radio" id="shareholder" name="customRadio" class="custom-control-input"  value="0">
+                                <label class="custom-control-label" for="shareholder">支出</label>
+                            </div>
+                        </div>
+                        <input type="hidden" name="oi" id="oival">
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">币种类型<span class="warning">*</span></label>
+                        <select class="select_input col-sm-3 ml15 " id="currency_type"  field="moneytype">
+
+                        </select>
+                        <input type="hidden" name="moneytype" id="moneytype">
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">金额<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="num"  maxlength="50" type="text" name="num" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="remark" name="remark" ></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default" onclick="submitform()">提 交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        loadaccount();//加载货币类型
+        $('#myform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'moneytype':{
+                    validators:{
+                        notEmpty:{
+                            message:'货币类型不能为空'
+                        },
+                        callback: {
+                            message: '必须选择一个货币类型',
+                            callback: function(value, validator)
+                            {
+                                if (value == 0) {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+
+                            }
+                        }
+                    }
+                },
+                'projectname': {
+                    validators: {
+                        notEmpty: {
+                            message: '项目名称不能为空'
+                        }
+                    }
+                },
+                'num': {
+                    validators: {
+                        notEmpty: {
+                            message: '额不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[0-9_\.]+$/,
+                            message: '金额只能由数字组成。'
+                        }
+                    }
+                }
+
+            }
+        });
+
+    });
+
+    // 加载平台货币类型
+    function loadaccount() {
+        $.ajax({
+            url: '/count/queryMoneyType',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                var jsonObj = strToJson(data);
+                for (var i=0;i<jsonObj.length;i++)
+                {
+                    var html = '<option data-id="' + jsonObj[i] + '" value="' + jsonObj[i] + '">' + jsonObj[i] + '(' + currency_type(jsonObj[i]) + ')' + '</option>';
+                    $("#currency_type").append(html);
+
+                }
+
+
+            },
+            error: function (data) {
+                handleAjaxError();//超时登录或接口异常
+            }
+        });
+    }
+
+    function submitform() {
+        $('#myform').data('bootstrapValidator').enableFieldValidators('projectname', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('moneytype', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('num', true);
+        $('#myform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#myform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            $("#oival").val($(":radio:checked").val());
+            var type = $("#currency_type").val();
+            $("#moneytype").val(type);
+            var inconmetype=income_type(parseFloat($('#oival').val()));
+            var details="<div class='tl' style='margin-left: 70px; margin-right: 70px;'><b>项目名称：</b>"+$('#projectname').val()+"<b class='pl15'>收支类型：</b>"+inconmetype+"<br/><b>币种类型：</b>"+ $("#moneytype").val()+"<b class='pl15'>金额：</b>"+$('#num').val()+"<br/><b>备注：</b>"+$('#remark').val()+"</div>";
+            sweetAlert({
+                    title: "确定添加以下信息吗？",
+                    text: details,
+                    html: true ,
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: '/loss/add',
+                            data: $("#myform").serialize(),
+                            type: 'post',
+                            error: function (data) {
+                                sweetAlert("", "请求失败！", "error");
+                            },
+                            success: function (data) {
+                                if (strToJson(data).code == "success") {
+                                    sweetAlert("", "恭喜您！添加成功！", "success");
+                                    setTimeout(function () {
+                                        window.location.href = "/capitalbank/daily_loss";
+                                    }, 1500);
+                                }
+                                else if(strToJson(data).code=="403") {
+                                    sweetAlert({
+                                            title: "",
+                                            text: "您的账号权限不足，无法操作此页面！",
+                                            type: "warning",
+                                            showCancelButton: false,
+                                            confirmButtonText: "确定",
+                                            cancelButtonText: "取消",
+                                            closeOnConfirm: false,
+                                            closeOnCancel: true
+                                        },
+                                        function(isConfirm){
+                                            if (isConfirm) {
+                                                window.location.href = "/mainframe";
+                                            }
+                                        });
+                                }
+                                else {
+                                    sweetAlert("", strToJson(data).message, "error");
+                                }
+                            }
+                        })
+                    }
+                });
+
+        }
+    }
+</script>
+</body>
+
+</html>

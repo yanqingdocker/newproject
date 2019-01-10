@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>柜台交易记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <!-- CSS Libs -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <!-- CSS App -->
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/date.js"></script>
+    <style>
+        .tabbutton a{ padding: 8px 20px;}
+    </style>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/mainframe">系统首页</a></li>
+        <li class="breadcrumb-item">柜台现金</li>
+        <li class="breadcrumb-item active">柜台交易记录</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">柜台交易记录</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header ">
+
+            </div>
+            <div class="card-body relative">
+                <form id="myform" style="margin-bottom: 15px;">
+                    <div class="row">
+                        <div class="col-lg-2 mb0" id="network" style="display: none">
+                            <div class="form-group  ">
+                                <label class="col-form-label">选择网点<span class="warning">*</span></label>
+                                <div class="input-prepend input-group dateselect w100" >
+                                    <select class="select_input  w100"  id="select_network">
+                                        <option value="全部" selected>全部</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <input  type="hidden" id="branchname" name="branchname" value="">
+                        <input  type="hidden" id="page" name="page" value="1">
+                        <input  type="hidden" id="num" name="num" value="10">
+                        <div class="col-lg-3 mb0">
+                            <div class="form-group  ">
+                                <label class="col-form-label">开始时间<span class="warning">*</span></label>
+                                <div class="input-prepend input-group dateselect " >
+                                    <input type="text" readonly  name="starttime" id="txtstarDate"  class="form-control " value="" /><span class="add-on input-group-addon"><i class="icon_date"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb0">
+                            <div class="form-group  ">
+                                <label class="col-form-label">结束时间<span class="warning">*</span></label>
+                                <div class="input-prepend input-group dateselect " >
+                                    <input type="text" readonly  name="endtime"  class="form-control " id="txtEndDate" value="" /><span class="add-on input-group-addon"><i class="icon_date"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="moneytype" name="type">
+                        <div class="col-lg-2 mb0 tr">
+                            <button type="button" style="margin-top: 26px" class="btn btn-default" onclick="submitform('USD')">查询美金交易</button>
+                        </div>
+                        <div class="col-lg-2 mb0 tL">
+                            <button type="button" style="margin-top: 26px" class="btn btn-default" onclick="submitform('CNY')">查询人民币交易</button>
+                        </div>
+
+                    </div>
+                </form>
+                <div class="inblock w100" id="dollar_num" style="display: none">
+                    <h4 class="green l ">
+                        <span id="totalsr"></span> <b id="inNum"></b>
+                    </h4>
+                    <h4 class="red l ml30">
+                        <span id="totalzc"></span> <b id="outNum"></b>
+                    </h4>
+                </div>
+                <div class="inblock w100" style="position: relative">
+                    <form id="queryForm" style="position: absolute;right: 0;top: 0;z-index: 999">
+
+                            <input type='checkbox'  id='end' name='end' value='1' checked onclick="alreadydo()">
+                            <label >已结算</label>&nbsp&nbsp
+                            <input type='checkbox'  id='noend' name='noend' value='1' checked onclick="nodo()" >
+                            <label >未结算</label>
+
+                        <div  class="inblock ">
+                            <input type="text" id="keyword" name="keyword" size="40" style="height: 33px;" class="form-control input-sm" placeholder="请输入客户姓名">
+                        </div>
+                        <button type="button" class="btn btn-default" id="btn-query">
+                            <i class="fa fa-search"></i> 查询客户
+                        </button>
+                    </form>
+                    <table class="datatable table table-striped" id="table" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th width="30"></th>
+                            <th>序号</th>
+                            <th>账户操作人</th>
+                            <th>账户ID</th>
+                            <th>汇率</th>
+                            <th>收入/支出</th>
+                            <th>交易金额</th>
+                            <th>货币类型</th>
+                            <th>交易类型</th>
+                            <th>是否结算</th>
+                            <th>操作IP</th>
+                            <th>流水号</th>
+                            <th>创建时间</th>
+                            <th>交易网点</th>
+                            <th>客户姓名</th>
+                            <th>客户联系电话</th>
+                            <th>持卡人</th>
+                            <th>开户行</th>
+                            <th>卡号</th>
+                            <th>备注</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <div class="batch_play inblock">
+                        <div class="checkcustom ml10 mr10 inblock checkbox3 checkbox-success checkbox-check checkbox-round  checkbox-light">
+                            <input rel='box_check_all' id="box_check_all" type="checkbox" name="" /><label class="box_check_all blue" for="box_check_all"><a>全选</a></label>
+                        </div>
+                        <div class="inblock"> <a href="javascript:;" onclick="batchSettle()" class=" mr10">批量结算</a></div>
+                    </div>
+                </div>
+                <table class="datatable table table-striped" id="newtable"  cellspacing="0" width="100%" style="border-bottom: 1px solid #e7e7e7;display: none">
+                    <thead>
+                    <tr>
+                        <th width="30"></th>
+                        <th>序号</th>
+                        <th>账户操作人</th>
+                        <th>账户ID</th>
+                        <th>汇率</th>
+                        <th>收入/支出</th>
+                        <th>交易金额</th>
+                        <th>货币类型</th>
+                        <th>交易类型</th>
+                        <th>是否结算</th>
+                        <th>操作IP</th>
+                        <th>流水号</th>
+                        <th>创建时间</th>
+                        <th>交易网点</th>
+                        <th>客户姓名</th>
+                        <th>客户联系电话</th>
+                        <th>持卡人</th>
+                        <th>开户行</th>
+                        <th>卡号</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody id="mytable">
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#txtstarDate").calendar();
+        $("#txtEndDate").calendar();
+        loadnetwork();//加载网点
+        information();//获取成员信息
+
+        var table=$('#table').DataTable({
+            "order": [ 10, "desc" ],
+            "serverSide": true,
+            searching: false,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            pagingType: "full_numbers",
+            serverSide: true, //启用服务器端分页
+            search: false,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中....",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                serverSide: true, //启用服务器端分页
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            "fnDrawCallback"    : function(){
+                this.api().column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
+            },
+            ajax: {
+                url: "/opera/queryCashLog",
+                "data": function (d) {  //data里的赋值都相当于传参
+                    console.log(d);
+
+                    for (var key in d) {
+                        if(key.indexOf("start")==0){
+                            d['page'] = d['start']/d['length'];  //page传参
+                        }
+                        if(key.indexOf("length")==0){
+                            d['num'] = d['length'];  //num传参
+
+                        }
+                        if (key.indexOf("columns") == 0 || key.indexOf("search") == 0) { //以columns开头的参数删除 如果不要order 判断中再加 key.indexOf("order") == 0 ||
+                            delete d[key];
+                        }
+
+
+                    }
+                    d = $.extend(d, {
+                        noend:$("#noend").val()
+                    });
+                    d = $.extend(d, {
+                        end:$("#end").val()
+                    });
+                    d = $.extend(d, {
+                        search:$("#keyword").val()
+                    });
+                    d = $.extend(d, {
+                        state:"1"
+                    });
+
+                    return d;
+                },
+                "dataType": "json",
+                "dataFilter": function (json) { //json是服务器端返回的数据
+                    json = JSON.parse(json);
+                    // console.log(json);
+                    var returnData = {};
+                    returnData.draw =0;  //从0开始才能翻页
+                    returnData.recordsTotal = json.count; //返回数据全部记录
+                    returnData.recordsFiltered = json.count; //后台不实现过滤功能，每次查询均视作全部结果
+                    returnData.data = json.data; //返回的数据列表
+                    return JSON.stringify(returnData); //这几个参数都是datatable需要的，必须要
+                },
+                dataSrc: function (json) {
+                    if (json.data.code=="403") {
+                        sweetAlert({
+                                title: "",
+                                text: "您的账号权限不足，无法操作此页面！",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.href = "/mainframe";
+                                }
+                            });
+                    }
+                    else{ return json.data;}
+                },
+                error: handleAjaxError //接口返回异常，超时登录
+            },
+            "fnDrawCallback"    : function(){
+                this.api().column(1).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
+            },
+
+            "columns": [
+                {"data": "id" ,
+                    render:function(e,type, full, row){
+                        var html="";
+                        if(full.settle==0){
+                            html="<div class='checkcustom tc checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light'> " +
+                                "<input type='checkbox'  id='checkx"+e+"' name='checklist' value='"+e+"'> " +
+                                "<label for='checkx"+e+"' ></label></div>";
+                        }
+                        return html;
+                    }
+                },
+                {"data": "id"},
+                {"data": "operaUser"},
+                {"data": "countid"},
+                {"data": "rate"},
+                {"data": "oi" ,
+                    render:function(e,type,full,row){
+                        return income_type(full.oi);
+                    }
+                },
+                {"data": "num" ,
+                    render:function(e,type,full,row){
+                        return income_num(full.num);
+                    }
+                },
+                {"data": "countType"},
+                {"data": "operaType"},
+                {"data": "settle" ,
+                    render:function(e,type,full,row){
+                        if(full.settle==0){
+                            return "<a href='javascript:;'  onclick='changeSettle("+full.id+")'  class=\"icon_delete\" title=\"点击结算\">未结算</a>"
+                        }else{
+                            return "<span class='#ccc'>已结算</span>"
+                        }
+
+                    }
+                },
+                {"data": "operaIp"},
+                {"data": "snumber"},
+                {"data": "operaTime"},
+                {"data": "servicebranch"},
+                {"data": "username"},
+                {"data": "phone"},
+                {"data": "cardUname"},
+                {"data": "cardName"},
+                {"data": "cardNum"},
+                {"data": "remark"}
+
+            ],
+
+
+        });
+        $("#btn-query").on("click", function () {
+            table.ajax.reload(function () { }, true); // user paging is not reset on reload 这样设置page不会刷新
+            $("#table_wrapper").show();
+            $("#newtable_wrapper").hide();
+        })
+    })
+
+    function alreadydo() {
+        if(!$("#end").is(":checked")){
+            $('#end').val(0);
+        }else{
+            $('#end').val(1);
+        }
+    }
+    function nodo() {
+
+        if(!$("#noend").is(":checked")){
+            $('#noend').val(0);
+        }else{
+            $('#noend').val(1);
+        }
+    }
+    function income_type(types) {
+        switch(types)
+        {
+            case 0:
+                return "<span class='red'>支出</span>"
+                break;
+            case 1:
+                return "<span class='green'>收入</span>"
+                break;
+            default:
+                break;
+        }
+    }
+
+    //结算
+    function changeSettle(id) {
+        sweetAlert({
+                title: "",
+                text: "确定结算吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    $.ajax({
+                        type: "post", // 用POST方式传输
+                        dataType: 'json',
+                        url: "/cashpool/cashSettle", // 目标地址
+                        data: { id :id },
+                        success: function (data) {
+                            if (data.code=="success") {
+                                sweetAlert("", "结算成功！", "success");
+                                setTimeout(function(){ window.location.href = "/cashmanage/cashtrade_list";},1500);
+                            }
+                            else if (data.code=="403") {
+                                sweetAlert({
+                                    title: "",
+                                    text: "您的账号权限不足，无法操作此页面！",
+                                    type: "warning",
+                                    showCancelButton: false,
+                                    confirmButtonText: "确定",
+                                    closeOnConfirm: true
+                                });
+                            }
+                            else {
+                                sweetAlert({
+                                    title:"结算失败!",
+                                    text: data.message,
+                                    type: "error",
+                                    showCancelButton: true,
+                                    confirmButtonText: "确定",
+                                    cancelButtonText: "取消",
+                                    closeOnConfirm: false,
+                                    closeOnCancel: true
+                                });
+                            }
+                        },
+                        error: function (data) {
+                            sweetAlert({
+                                title:"结算失败!",
+                                text: "请检查网络是否畅通",
+                                type: "error",
+                                showCancelButton: true,
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            });
+                        }
+
+                    });
+                }
+            });
+    }
+
+
+
+    function income_num(num) {
+        if(num>0){
+            return '<span class="green">'+num+'</span>'
+        }
+        else {
+            return '<span class="red">'+num+'</span>'
+        }
+    }
+
+
+
+    //加载新表格
+    function submitform(types){
+        //初始化表格
+        var resultDataTable=$('#newtable').dataTable();
+        resultDataTable.fnClearTable();
+        resultDataTable.fnDestroy();
+
+        var net=$("#select_network").val();
+        $("#branchname").val(net);
+        $(".batch_play").css("top","0");
+        $("#mytable").html("");
+        $("#table_wrapper").hide();
+        $("#newtable").show();
+        $("#moneytype").val(types);
+        $("#dollar_num").show();
+        if(types=='CNY'){
+            $("#totalsr").html("人民币总收入");
+            $("#totalzc").html("人民币总支出");
+        }
+        else{
+            $("#totalsr").html("美金总收入");
+            $("#totalzc").html("美金总支出");
+        }
+        $('#newtable').DataTable({
+            "order": [ 10, "desc" ],
+            "serverSide": true,
+            searching: false,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            pagingType: "full_numbers",
+            serverSide: true, //启用服务器端分页
+            search: false,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中....",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                serverSide: true, //启用服务器端分页
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            "fnDrawCallback"    : function(){
+                this.api().column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
+            },
+            ajax: {
+                url: " /cashpool/queryScope",
+                "data": function (d) {
+                    // console.log(d)
+                    for (var key in d) {
+                        if(key.indexOf("start")==0){
+                            d['page'] = d['start']/d['length'];  //page传参
+                        }
+                        if(key.indexOf("length")==0){
+                            d['num'] = d['length'];  //num传参
+
+                        }
+                    }
+
+                    d = $.extend(d, {
+                        starttime:$("#txtstarDate").val(),
+                        endtime:$("#txtEndDate").val(),
+                        type:types,
+                        branchname:$("#branchname").val(),
+                        search: $("#searchkeyword").val()
+                    });
+
+                    return d;
+                },
+                "dataType": "json",
+                "dataFilter": function (json) { //json是服务器端返回的数据
+                    json = JSON.parse(json);
+                    var returnData = {};
+                    returnData.draw = 0; //从0开始才能翻页
+                    returnData.recordsTotal = json.count; //返回数据全部记录
+                    returnData.recordsFiltered = json.count; //后台不实现过滤功能，每次查询均视作全部结果
+                    returnData.data = json.data; //返回的数据列表
+                    returnData.inNum = json.inNum; //返回的收入
+                    returnData.outNum = json.outNum; //返回的支出
+                    return JSON.stringify(returnData); //这几个参数都是datatable需要的，必须要
+                },
+                dataSrc: function (json) {
+                    $("#inNum").html(parseFloat(json.inNum).toFixed(4));
+                    $("#outNum").html(parseFloat(json.outNum).toFixed(4));
+                    return json.data; //表格真正数组
+
+                },
+
+            },
+            "fnDrawCallback"    : function(){
+                this.api().column(1).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
+            },
+            "columns": [
+                {"data": "id" ,
+                    render:function(e,type, full, row){
+                        var html="";
+                        if(full.settle==0){
+                            html="<div class='checkcustom tc checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light'> " +
+                                "<input type='checkbox'  id='checkx"+e+"' name='checklist' value='"+e+"'> " +
+                                "<label for='checkx"+e+"' ></label></div>";
+                        }
+                        return html;
+                    }
+                },
+                {"data": "id"},
+                {"data": "operaUser"},
+                {"data": "countid"},
+                {"data": "rate"},
+                {
+                    "data": "oi",
+                    render: function (e, type, full, row) {
+                        return income_type(full.oi);
+                    }
+                },
+                {
+                    "data": "num",
+                    render: function (e, type, full, row) {
+                        return income_num(full.num);
+                    }
+                },
+                {"data": "countType"},
+                {"data": "operaType"},
+                {"data": "settle" ,
+                    render:function(e,type,full,row){
+                        if(full.settle==0){
+                            return "<a href='javascript:;'  onclick='changeSettle("+full.id+")'  class=\"icon_delete\" title=\"删除\">未结算</a>"
+                        }else{
+                            return "<span class='#ccc'>已结算</span>"
+                        }
+
+                    }
+                },
+                {"data": "operaIp"},
+                {"data": "snumber"},
+                {"data": "operaTime"},
+                {"data": "servicebranch"},
+                {"data": "username"},
+                {"data": "phone"},
+                {"data": "cardUname"},
+                {"data": "cardName"},
+                {"data": "cardNum"},
+                {"data": "remark"}
+
+            ]
+        });
+    }
+    // 点击check添加样式
+    $(document).on('click','.checkcustom label',function(){
+        $(this).toggleClass("on");
+    });
+
+    /*check全选*/
+    $("input[rel='box_check_all']").on("click",function(){
+        if($(this).prop("checked")===true){
+            $("input[name='checklist']").prop("checked",$(this).prop("checked")).siblings().addClass("on")
+
+        }else{
+            $("input[name='checklist']").prop("checked",false).siblings().removeClass("on")
+        }
+    });
+
+    // 批量结算
+    function batchSettle(){
+        var idlist ;
+        $('#table input:checkbox[name=checklist]:checked').each(function(k){
+            if(k == 0){
+                idlist = $(this).val();
+            }else{
+                idlist += ','+$(this).val();
+            }
+             console.log(idlist)
+        });
+        sweetAlert({
+                title: "确定批量结算吗？",
+                text: "你将无法恢复",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    $.ajax({
+                        type: "post", // 用POST方式传输
+                        dataType: 'json',
+                        url: "/cashpool/batchSettle", // 目标地址
+                        data: { ids :idlist },
+                        success: function (data) {
+                            console.log(data)
+                            if (data.code == "success") {
+                                sweetAlert({
+                                    title: "",
+                                    text:"批量结算中，请稍等..",
+                                    showCancelButton: false,
+                                    showConfirmButton: false ,
+                                    imageUrl: "/images/data_recovery.gif"
+                                });
+                                setTimeout(function(){
+                                    sweetAlert({
+                                            title: "",
+                                            text: "结算已完成！",
+                                            type: "success",
+                                            showCancelButton: false,
+                                            confirmButtonText: "确定",
+                                            cancelButtonText: "取消",
+                                            closeOnConfirm: false,
+                                            closeOnCancel: true
+                                        },
+                                        function(isConfirm){
+                                            if (isConfirm) {
+                                                window.location.href = "/cashmanage/cashtrade_list";
+                                            }
+                                        });
+                                },5000);
+
+
+                            }
+                            else if (data.code=="403") {
+                                sweetAlert({
+                                    title: "",
+                                    text: "您的账号权限不足，无法操作此页面！",
+                                    type: "warning",
+                                    showCancelButton: false,
+                                    confirmButtonText: "确定",
+                                    closeOnConfirm: true
+                                });
+                            }
+                            else {
+                                sweetAlert({
+                                    title:"结算失败！!",
+                                    text: "请选择要结算的条目！",
+                                    type: "error",
+                                    showCancelButton: true,
+                                    confirmButtonText: "确定",
+                                    cancelButtonText: "取消",
+                                    closeOnConfirm: false,
+                                    closeOnCancel: true
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+
+    }
+
+    // 加载网点
+    function loadnetwork() {
+        $.ajax({
+            url: '/servicebranch/queryAll',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                if (data.code == "403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else {
+                    var jsonObj = $.parseJSON(data);//json字符串转数组
+                    var html="";
+                    for (var i = 0; i < jsonObj.length; i++) {
+                        html = '<option value="' + jsonObj[i].branchname + '">' + jsonObj[i].branchname + '</option>';
+                        $("#select_network").append(html);
+
+                    }
+
+                }
+            }
+        });
+    }
+    // 获取登录成员信息
+    function information() {
+        $.ajax({
+            url: "/muser/getUser",
+            type: "get",
+            data: null,
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            success: function (data) {
+                if(data.servicebranch=="总部"){
+                    $("#network").show();
+
+                }
+                else{
+                    $("#select_network").find("option:selected").val(data.servicebranch);
+
+                }
+            }
+        });
+
+    }
+</script>
+</body>
+
+</html>

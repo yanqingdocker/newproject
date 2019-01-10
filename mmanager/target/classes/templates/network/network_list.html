@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>网点管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <!-- CSS App -->
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/mainframe">系统首页</a></li>
+        <li class="breadcrumb-item">网点管理</li>
+        <li class="breadcrumb-item active">网点列表</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">网点列表</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <table class="datatable table table-striped" id="table" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th class="tc" width="30">序号</th>
+                        <th>网点名称</th>
+                        <th>服务电话</th>
+                        <th>网点地址</th>
+                        <th>网点负责人</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+
+                </table>
+                <div class="batch_play inblock">
+                    <div class="inblock">
+                        <!--<a href="javascript:;" onclick="deletbatch()" class="blue mr10">删除</a>|-->
+                        <a class="blue ml10" href="/network/add_network" >添加</a></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--修改网点 模态框 （Modal） -->
+<div class="modal fade" id="myModal_dollar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myModalLabel"> 修改网点信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="myform" >
+                    <input type="hidden" id="netid" name="id">
+                    <div class="form-group">
+                        <label class="col-form-label" >网点名称<span class="warning">*</span></label>
+                        <input class="form-control" type="text"  name="branchname" id="branchname">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >服务电话<span class="warning">*</span></label>
+                        <input class="form-control" type="text" name="servicephone" id="netphone">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >网点地址<span class="warning">*</span></label>
+                        <input class="form-control" type="text" name="address" id="address">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >网点负责人<span class="warning">*</span></label>
+                        <input class="form-control" type="text" name="administrator" id="admin">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary w100" onclick="submitform()">确认修改 </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+    $(function () {
+        $('#table').DataTable( {
+            "order": [ 2, "desc" ],
+            "serverSide": true,
+            searching: true,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            ajax: {
+                url: "/servicebranch/queryAll",
+                dataSrc: function (data) {
+                    if (data.code=="403") {
+                        sweetAlert({
+                                title: "",
+                                text: "您的账号权限不足，无法操作此页面！",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.href = "/mainframe";
+                                }
+                            });
+                    }
+                    else{ return data;}
+                },
+                error: handleAjaxError //接口返回异常，超时登录
+            },
+            "fnDrawCallback"    : function(){
+                this.api().column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
+            },
+            "columns": [
+                {"data": "id" },
+                {
+                    "data": "branchname",
+                    render: function (e, type, full, row) {
+                        return '<a href="/network/cash_bank?netaddress='+encodeURI(full.branchname)+'" >'+full.branchname+'</a>';
+                    }
+                },
+                {"data": "servicephone" },
+                {"data": "address" },
+                {"data": "administrator" },
+                {"data": "createtime" },
+                {"data": "id",
+                    render:function(e,type,full,row){
+                        return "<a href='javascript:;'  onclick='deletbatch("+full.id+")'  class=\"icon_delete\" title=\"删除\">删除</a> | <a href='javascript:;'  data-toggle=\"modal\" data-target=\"#myModal_dollar\" onclick=\"changeinfo("+full.id+")\" class='blue' >修改</a>";
+                    }
+                }
+            ]
+        } );
+        $('#myform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'branchname': {
+                    validators: {
+                        notEmpty: {
+                            message: '网点名称不能为空'
+                        }
+                    }
+                },
+                'servicepho': {
+                    validators: {
+                        notEmpty: {
+                            message: '网点服务电话不能为空'
+                        }
+                    }
+                },
+                'address': {
+                    validators: {
+                        notEmpty: {
+                            message: '网点地址不能为空'
+                        }
+                    }
+                },
+                'administrator': {
+                    validators: {
+                        notEmpty: {
+                            message: '网点负责人不能为空'
+                        }
+                    }
+                }
+            }
+        })
+    })
+
+
+    // 删除网点
+    function deletbatch(id){
+        sweetAlert({
+                title: "确定删除吗？",
+                text: "你将无法恢复",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    $.ajax({
+                        type: "post", // 用POST方式传输
+                        dataType: 'json',
+                        url: "/servicebranch/delete", // 目标地址
+                        data: { id:id },
+                        success: function (data) {
+                            if (data.code=="success") {
+                                sweetAlert("", "恭喜您！删除成功！", "success");
+                                setTimeout(function(){ window.location.href = "/network/network_list";},1500);
+                            }
+                            else if (data.code=="403") {
+                                sweetAlert({
+                                    title: "",
+                                    text: "您的账号权限不足，无法操作此页面！",
+                                    type: "warning",
+                                    showCancelButton: false,
+                                    confirmButtonText: "确定",
+                                    closeOnConfirm: true
+                                });
+                            }
+                            else {
+                                sweetAlert({
+                                    title:"删除失败！!",
+                                    text: "请选择要删除的数据！",
+                                    type: "error",
+                                    showCancelButton: true,
+                                    confirmButtonText: "确定",
+                                    cancelButtonText: "取消",
+                                    closeOnConfirm: false,
+                                    closeOnCancel: true
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+
+    }
+    // 修改网点信息
+    function submitform() {
+        //ajax的形式提交表单
+        var str = $("#myform").serializeObject(); //此处调用的就是我们写好的引入的方法，会将带有name的input，全部转为JSON。
+        var datas = JSON.stringify(str);//返回一个新字符串
+        $.ajax({
+            url: '/servicebranch/update',
+            data: {datas:datas},
+            type: 'post',
+            success: function (data) {
+                if (strToJson(data).code == "success") {
+                    sweetAlert("", "恭喜您！修改成功！", "success");
+                    setTimeout(function () {
+                        window.location.href = "/network/network_list";
+                    }, 1500);
+                }
+                else if (strToJson(data).code=="403") {
+                    sweetAlert({
+                        title: "",
+                        text: "您的账号权限不足，无法操作此页面！",
+                        type: "warning",
+                        showCancelButton: false,
+                        confirmButtonText: "确定",
+                        closeOnConfirm: true
+                    });
+                }
+                else {
+                    sweetAlert("", "修改失败", "error");
+                }
+
+            },
+            error: function () {
+                sweetAlert("", "请求失败！", "error");
+            }
+        });
+    }
+    function changeinfo(id) {
+        $("#netid").val(id);
+        $.ajax({
+            url: '/servicebranch/queryById',
+            data: {id:id},
+            type: 'get',
+            success:function(data){
+                if (strToJson(data).code == "403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else {
+                    $("#branchname").val(strToJson(data).branchname);
+                    $("#netphone").val(strToJson(data).servicephone);
+                    $("#address").val(strToJson(data).address);
+                    $("#admin").val(strToJson(data).administrator);
+                }
+            },
+            error: function () {
+                sweetAlert("", "请求失败！", "error");
+            }
+        });
+    }
+
+
+</script>
+
+</body>
+
+</html>

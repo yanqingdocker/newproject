@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.caogen.mapper.GainMapper" >
+
+    <resultMap id="BaseResultMap" type="cn.com.caogen.entity.Gain" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="num" property="num" jdbcType="DOUBLE" />
+        <result column="couttype" property="couttype" jdbcType="VARCHAR" />
+        <result column="creatime" property="creatime" jdbcType="VARCHAR" />
+        <result column="operaor" property="operaor" jdbcType="VARCHAR" />
+        <result column="snumber" property="snumber" jdbcType="VARCHAR" />
+        <result column="servicebranch" property="servicebranch" jdbcType="VARCHAR" />
+
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+     id, num, couttype, creatime, operaor, snumber, servicebranch
+    </sql>
+    <insert id="add" parameterType="cn.com.caogen.entity.Gain">
+        insert into gain (num, couttype, creatime, operaor, snumber, servicebranch) values (#{num,jdbcType=DOUBLE},#{couttype,jdbcType=VARCHAR},#{creatime,jdbcType=VARCHAR},#{operaor,jdbcType=VARCHAR},#{snumber,jdbcType=VARCHAR},#{servicebranch,jdbcType=VARCHAR});
+    </insert>
+
+
+    <select id="queryGains"  resultMap="BaseResultMap" parameterType="Map">
+        select <include refid="Base_Column_List"/> from gain
+        where true
+        <if test="servicebranch !=null">
+            and servicebranch=#{servicebranch}
+        </if>
+    </select>
+
+
+
+</mapper>

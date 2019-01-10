@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.caogen.mapper.UserRoleMapper" >
+
+    <resultMap id="BaseResultMap" type="cn.com.caogen.entity.UserRole" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="userid" property="userid" jdbcType="INTEGER" />
+        <result column="roleid" property="roleid" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    id,userid,roleid
+     </sql>
+    <insert id="add" parameterType="cn.com.caogen.entity.UserRole">
+        insert into userrole (userid,roleid) values
+        (#{userid,jdbcType=INTEGER},#{roleid,jdbcType=INTEGER});
+    </insert>
+    <select id="queryByUserId" resultMap="BaseResultMap" parameterType="int">
+        select <include refid="Base_Column_List"/> from userrole where userid=#{userid}
+    </select>
+
+
+    <insert id="batchAdd" parameterType="java.util.List">
+        insert into userrole(userid,roleid) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userid},#{item.roleid})
+        </foreach>
+    </insert>
+    <delete id="deleteByUserid" parameterType="int">
+        delete from userrole where userid=#{userid}
+    </delete>
+    <delete id="deleteByRoleid" parameterType="int">
+        delete from userrole where roleid=#{roleid}
+    </delete>
+
+
+</mapper>

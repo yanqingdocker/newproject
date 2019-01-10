@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: cn.com.caogen.mmanager.MmanagerApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.98 s - in cn.com.caogen.mmanager.MmanagerApplicationTests

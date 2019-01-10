@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>平台资金库</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <!-- CSS App -->
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/echarts.common.min.js"></script>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/mainframe">系统首页</a></li>
+        <li class="breadcrumb-item">平台资金库</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">平台资金库</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body w100 inblock">
+                <div class="money_block ">
+                    <div class="rmb pl20">
+                        <h3 class="red pt15 l">人民币资金库</h3>
+                        <b id="rmb_bank" class="f36 white l pt20 pl30"></b>
+                    </div>
+                </div>
+                <div class="money_block ">
+                    <div class="dollar pl20">
+                        <h3 class="green pt15 l">美元资金库</h3>
+                        <b id="dollar_bank" class="f36 white l pt20 pl30"></b>
+                    </div>
+                </div>
+
+            </div>
+            <div class="inblock w100" id="chartmain" style="width:100%; height: 400px; padding: 20px"></div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chartmain'));
+        getChartData(myChart);
+        //使用制定的配置项和数据显示图表
+        // myChart.setOption(option);
+    })
+
+    //美元汇率信息
+    function getChartData(myChart) {
+
+        //echart的data数据格式是{对象,对象},{对象,对象}..,而不是字符串拼接,因此生成对象，放进数组
+        $.ajax({
+            url: '/count/queryblancebyType',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                if (data.code=="403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function(isConfirm){
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else{
+                    var  arr=new Array();
+                    var  dollar=new Array();
+                    var obj=strToJson(data);
+                    for(var i=0;i<obj.length;i++){
+                        if(obj[i].counttype=="CNY"){
+                            var rmbfix=obj[i].sum;
+                            $("#rmb_bank").html((rmbfix*10000/10000).toFixed(4));
+                            arr.push(obj[i].sum);
+                        }
+                        if(obj[i].counttype=="USD"){
+                            var dollarfix=obj[i].sum;
+                            $("#dollar_bank").html((dollarfix*10000/10000).toFixed(4));
+                            dollar.push(obj[i].sum);
+                        }
+                    }
+                    var  option = {
+                        title : {
+                            text: '平台资金库',
+//                    subtext: '汇率变化'
+                            textStyle: {
+                                color: '#333' //标题颜色
+                            }
+                        },
+
+                        tooltip : {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:['美元','人民币']
+                        },
+                        toolbox: {
+                            show: true,
+                            orient: 'vertical',
+                            left: 'right',
+                            top: 'center',
+                            feature: {
+                                // mark: {show: true},
+                                dataView: {show: true, readOnly: false},
+                                magicType: {show: true, type: ['line', 'bar']},
+                                restore: {show: true},
+                                saveAsImage: {show: true}
+                            }
+                        },
+                        calculable : true,
+                        xAxis : [
+                            {
+                                type : 'category',
+                                boundaryGap : true,//不从零刻度开始
+                                data : ["美元   人民币"],
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type: 'value',
+                                splitArea: {
+                                    show: true
+                                }
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'美元',
+                                type:'bar',
+                                data: dollar,
+                                markPoint : {
+                                    data : [
+                                        {type : 'max', name: '最大值'},
+                                        {type : 'min', name: '最小值'}
+                                    ]
+                                },
+                                barWidth : 100,//柱图宽度
+                                label:{
+                                    normal:{
+                                        show:false,            //显示数字
+                                        position: 'top'        //这里可以自己选择位置
+                                    }
+                                },
+
+                                itemStyle:{
+                                    normal:{
+                                        color: "#0390ee" //图标颜色
+                                    }
+                                },
+                                lineStyle:{
+                                    normal:{
+                                        width:2,  //连线粗细
+                                        color: "#0390ee"  //连线颜色
+                                    }
+                                }
+
+                            },
+                            {
+                                name:'人民币',
+                                type:'bar',
+                                data: arr,
+                                markPoint : {
+                                    data : [
+                                        {type : 'max', name: '最大值'},
+                                        {type : 'min', name: '最小值'}
+                                    ]
+                                },
+                                barWidth : 100,//柱图宽度
+                                label:{
+                                    normal:{
+                                        show:false,            //显示数字
+                                        position: 'top'        //这里可以自己选择位置
+                                    }
+                                }
+
+                            }
+                        ]
+                    };
+                    // console.log(option.xAxis[0].data);
+                    // console.log(option.series[0].data);
+                    myChart.setOption(option);
+
+                }
+
+            },
+            error: function (data) {
+                handleAjaxError();//超时登录或接口异常
+            }
+        });
+
+
+
+    }
+
+
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>南方国际货币兑换后台管理系统登录页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <!-- CSS App -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <!--[if lte IE 9]>
+    <script  type="text/javascript" src="/js/html5.min.js"></script>
+    <script  type="text/javascript" src="/js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .help-block{    text-align: left;
+            text-indent: 85px;}
+    </style>
+</head>
+
+<body class="login_page">
+<div class="box">
+    <h2 class="white mb30">南方国际货币兑换后台管理系统</h2>
+    <div class="form_bg ">
+        <form id="myform">
+            <div class="form-group">
+                <label class="col-form-label" >用户名</label>
+                <input type="text" size="32" maxlength="30" name="username" class="onkeydown"  onkeydown="enter_down( event);" >
+            </div>
+            <div class="form-group">
+                <label class="col-form-label" >密&nbsp;&nbsp;&nbsp;码</label>
+                <input type="password" size="32" maxlength="20" name="password"  class="onkeydown" onkeydown="enter_down( event);" >
+            </div>
+            <div class="form-group mt10">
+                <button type="button" class="login_button" onclick="submitform()" data-loading-text="登录中...">登  录</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        //判断页面是否被iframe引用
+        if(top.location != location){
+            top.location.href= location.href;//如果没有被iframe引用的话，则location与top.location是一样的！
+        }
+        $("#myform").bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'username': {
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不可以为空'
+                        }
+                    }
+                },
+                'password': {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            /*长度提示*/
+                            min: 6,
+                            max: 30,
+                            message: '密码长度必须在6到30之间'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: '密码由数字字母下划线和.组成'
+                        }
+                    }
+                }
+            }
+        })
+    })
+    function submitform() {
+        $("#myform").data("bootstrapValidator").enableFieldValidators("username", true);
+        $("#myform").data("bootstrapValidator").enableFieldValidators("password", true);
+        $("#myform").data("bootstrapValidator").validate();//手动对表单进行校检
+        if (!$("#myform").data("bootstrapValidator").isValid()) {//判断校检是否通过
+            return;
+        } else {
+        $.ajax({
+            type: "post",
+            dataType: 'json',
+            url: "/muser/login",
+            data:  $("#myform").serialize(),
+            error: function (data) {
+                sweetAlert("", "请求失败！", "error");
+            },
+            success: function (data) {
+                if (data.code=="success") {
+                    sweetAlert({
+                            title: "登陆成功！",
+                            text: "1秒后自动跳转。",
+                            type: "success",
+                            showConfirmButton: false
+                        },
+                        function(isConfirm){
+                            if (isConfirm) {
+                                window.location.href = "/index";
+                            }
+                        });
+                    setTimeout(function(){ window.location.href = "/index";},1000);
+                }
+                else {
+                    sweetAlert("", "登录失败", "error");
+                    // $('#loginbtn').prop('disabled', false);
+                }
+            }
+        })
+        }
+    }
+    function enter_down(event) {
+        if(event.keyCode== "13") {
+            stopDefault(event);
+            submitform();
+
+        }
+    }
+    function stopDefault(e) {
+        //如果提供了事件对象，则这是一个非IE浏览器
+        if(e && e.preventDefault) {
+            //阻止默认浏览器动作(W3C)
+            e.preventDefault();
+        } else {
+            //IE中阻止函数器默认动作的方式
+            window.event.returnValue = false;
+        }
+        return false;
+    }
+
+</script>
+
+</body>
+
+</html>

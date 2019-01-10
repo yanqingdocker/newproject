@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>汇率查询</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <!-- CSS App -->
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/echarts.common.min.js"></script>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">系统首页</a></li>
+        <li class="breadcrumb-item">汇率查询</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">汇率查询</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <div class="inblock w100" id="chartmain" style="width:100%; height: 400px; padding: 20px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chartmain'));
+        getChartData(myChart);
+        //使用制定的配置项和数据显示图表
+        //myChart.setOption(option);
+
+    })
+
+    //美元汇率信息
+    function getChartData(myChart) {
+        //echart的data数据格式是{对象,对象},{对象,对象}..,而不是字符串拼接,因此生成对象，放进数组
+        $.ajax({
+            url: "/rate/queryAll",
+            type: "get",
+            data: null,
+            dataType: "JSON",
+            error: function (data) {
+                $.Popup.error("表单数据不合法!");
+            },
+            success: function (data) {
+                if(data.code=="403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function(isConfirm){
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else {
+                    var arr = new Array();
+                    var obj = new Array();//美元人民币
+                    var rmb = new Array();//人民币美元
+                    var datetime = new Array();
+                    for (var i = 0; i < data.length; i++) {
+                        arr.push(data[i]);
+                        // console.log(arr);
+                    }
+                    for (var j = 0; j < data.length; j++) {
+                        var jsondata = arr[j];
+                        // console.log(jsondata);
+                        obj.push(jsondata.USDCNY.buyPic);
+                        var rmbfix = jsondata.USDCNY.sellPic;
+                        rmb.push(rmbfix);
+                        datetime.push(jsondata.USDCNY.date.substring(5, 10));
+
+                    }
+                    var len=arr.length-1;
+                    console.log(len);
+                    var lastsrate = arr[len].USDCNY.buyPic;//美元买入价
+                    var lastrmb = arr[len].USDCNY.sellPic;//人民币买入价
+                    $("#dollatrate").html(lastsrate);
+                    var fixrmb = lastrmb;
+                    $("#rmbtrate").html(fixrmb);
+
+                    // console.log(datetime);
+                    var option = {
+                        title: {
+                            text: '最近一周汇率变化',
+//                    subtext: '汇率变化'
+                            textStyle: {
+                                color: '#333' //标题颜色
+                            }
+                        },
+
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['美元人民币', '人民币美元']
+                        },
+                        toolbox: {
+                            show: true,
+                            orient: 'vertical',
+                            left: 'right',
+                            top: 'center',
+                            feature: {
+                                // mark: {show: true},
+                                dataView: {show: true, readOnly: false},
+                                magicType: {show: true, type: ['line', 'bar']},
+                                restore: {show: true},
+                                saveAsImage: {show: true}
+                            }
+                        },
+                        calculable: true,
+                        xAxis: [
+                            {
+                                type: 'category',
+                                boundaryGap: true,//不从零刻度开始
+                                data: datetime,
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                min: 6.4,
+                                // max: 6.4,
+                                interval: 0.01,
+                                splitArea: {
+                                    show: true
+                                }
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '美元人民币',
+                                type: 'line',
+                                data: obj,
+                                markPoint: {
+                                    data: [
+                                        {type: 'max', name: '最大值'},
+                                        {type: 'min', name: '最小值'}
+                                    ]
+                                },
+                                label: {
+                                    normal: {
+                                        show: true,            //显示数字
+                                        position: 'top'        //这里可以自己选择位置
+                                    }
+                                },
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: "#0390ee" //图标颜色
+                                    }
+                                },
+                                lineStyle: {
+                                    normal: {
+                                        width: 2,  //连线粗细
+                                        color: "#0390ee"  //连线颜色
+                                    }
+                                }
+
+                            },
+                            {
+                                name: '人民币美元',
+                                type: 'line',
+                                data: rmb,
+                                markPoint: {
+                                    data: [
+                                        {type: 'max', name: '最大值'},
+                                        {type: 'min', name: '最小值'}
+                                    ]
+                                },
+                                label: {
+                                    normal: {
+                                        show: true,            //显示数字
+                                        position: 'top'        //这里可以自己选择位置
+                                    }
+                                },
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                }
+                            }
+                        ]
+                    };
+                    // console.log(option.xAxis[0].data);
+                    // console.log(option.series[0].data);
+                    myChart.setOption(option);
+                }
+            },
+            error: function (data) {
+                handleAjaxError();//超时登录或接口异常
+            }
+        });
+
+    }
+
+
+
+</script>
+</body>
+
+</html>

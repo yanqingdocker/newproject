@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>会员升级审批</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <!-- CSS App -->
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <style>
+        .tabbutton a {
+            padding: 8px 20px;
+        }
+    </style>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/mainframe">系统首页</a></li>
+        <li class="breadcrumb-item">消息通知</li>
+        <li class="breadcrumb-item active">会员升级审批</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">会员升级审批</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <div class="tabbutton w100" style="position: absolute;top: 30px;left:0;z-index: 999">
+                    <a href="javascript:;" data-id="querydoing" class="cur">待处理</a>
+                    <a href="javascript:;" data-id="queryaccess">已同意</a>
+                    <a href="javascript:;" data-id="queryrefuse">已驳回</a>
+                </div>
+                <table class="datatable table table-striped" cellspacing="0" width="100%" id="table">
+                    <thead>
+                    <tr>
+                        <th width="30">序号</th>
+                        <th>申请类型</th>
+                        <th>申请人</th>
+                        <th>账号</th>
+                        <th>状态</th>
+                        <th>申请时间</th>
+                        <th>操作网点</th>
+                        <th>操作员</th>
+                        <th width="130">处理时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        loadtable("querydoing");
+    })
+    function loadtable(todo){
+        $('#table').DataTable( {
+            "order": [ 5, "desc" ],
+            "serverSide": true,
+            searching: true,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            ajax: {
+                url: '/message/'+todo+'',
+                dataSrc: function (data) {
+                    if (data.code=="403") {
+                        sweetAlert({
+                                title: "",
+                                text: "您的账号权限不足，无法操作此页面！",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.href = "/mainframe";
+                                }
+                            });
+                    }
+                    else{ return data;}
+                },
+                error: handleAjaxError //接口返回异常，超时登录
+            },
+            "fnDrawCallback"    : function(){
+                this.api().column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
+            },
+            "columns": [
+                {"data": "id"},
+                {"data": "taskname" },
+                {"data": "operauser" },
+                {"data": "taskcontent" ,
+                    render:function(e,type,full,row){
+                        return "<a href='javascript:;' data-toggle=\"modal\" data-target=\"#myModal_dollar\" class=\"blue text_overflow width235\" onclick=\"detail_task('"+full.taskcontent+"')\">"+full.taskcontent+"</a>"
+                    }
+                },
+                {"data": "state" ,
+                    render:function(e,type,full,row){
+                        return "<span class=\"red\">"+full.state+"</span>"
+                    }
+                },
+                {"data": "createtime" },
+                {"data": "servicebranch" },
+                {"data": "douser" },
+                {"data": "endtime" },
+                {"data": "id" ,
+                    render:function(e,type,full,row){
+                        if(full.state=="已驳回"||full.state=="已同意"){
+                            return "<span class='gray'>已处理</span>"
+                        }
+                        return "<a href='javascript:;' onclick='agree("+full.id+")'>同意</a> | <a href='javascript:;' onclick='noagree("+full.id+")'>拒绝</a>"
+                    }
+                }
+            ]
+        } );
+    }
+    $(".tabbutton a").click(function(){
+        $(this).addClass("cur").siblings().removeClass("cur");
+        var oldTable = $('#table').dataTable();
+        oldTable.fnClearTable(); //清空一下table
+        oldTable.fnDestroy(); //还原初始化了的dataTable
+        var todo=$(this).attr("data-id");
+        loadtable(todo);
+    });
+    // 同意申请
+    function agree(id) {
+        sweetAlert({
+                title: "",
+                text: "确定同意申请吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    $.ajax({
+                        type: "post", // 用POST方式传输
+                        dataType: 'json',
+                        url: "/message/accessmessage", // 目标地址
+                        data: { id :id },
+                        success: function (data) {
+                            if (data.code == "success") {
+                                sweetAlert("", "申请处理成功,已发送短信到用户手机！", "success");
+                                setTimeout(function(){ window.location.href = "/msgNotify/member_certificate";},1500);
+                            }
+                            else if (data.code=="403") {
+                                sweetAlert({
+                                        title: "",
+                                        text: "您的账号权限不足，无法操作此页面！",
+                                        type: "warning",
+                                        showCancelButton: false,
+                                        confirmButtonText: "确定",
+                                        cancelButtonText: "取消",
+                                        closeOnConfirm: false,
+                                        closeOnCancel: true
+                                    },
+                                    function(isConfirm){
+                                        if (isConfirm) {
+                                            window.location.href = "/mainframe";
+                                        }
+                                    });
+                            }
+                            else {
+                                sweetAlert("", "申请处理失败！", "error");
+                            }
+                        } ,
+                        error: function () {
+                            sweetAlert("", "请求失败！", "error");
+                        }
+                    });
+                }
+            });
+    }
+    // 拒绝申请
+    function noagree(id) {
+        sweetAlert({
+                title: "",
+                text: "确定同意驳回申请吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    $.ajax({
+                        type: "post", // 用POST方式传输
+                        dataType: 'json',
+                        url: "/message/refuesemessage", // 目标地址
+                        data: { id :id },
+                        success: function (data) {
+                            if (data.code == "success") {
+                                sweetAlert("", "驳回处理成功,已发送短信到用户手机！", "success");
+                                setTimeout(function(){ window.location.href = "/msgNotify/member_certificate";},1500);
+                            }
+                            else if (data.code=="403") {
+                                sweetAlert({
+                                        title: "",
+                                        text: "您的账号权限不足，无法操作此页面！",
+                                        type: "warning",
+                                        showCancelButton: false,
+                                        confirmButtonText: "确定",
+                                        cancelButtonText: "取消",
+                                        closeOnConfirm: false,
+                                        closeOnCancel: true
+                                    },
+                                    function(isConfirm){
+                                        if (isConfirm) {
+                                            window.location.href = "/mainframe";
+                                        }
+                                    });
+                            }
+                            else {
+                                sweetAlert("", "驳回处理失败,已发送短信到用户手机！", "error");
+                            }
+                        } ,
+                        error: function () {
+                            sweetAlert("", "请求失败！", "error");
+                        }
+                    });
+                }
+            });
+    }
+
+</script>
+</body>
+</html>

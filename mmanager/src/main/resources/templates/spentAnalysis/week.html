@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>周分析</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <!-- CSS Libs -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <!-- CSS App -->
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/echarts.common.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">系统首页</a></li>
+        <li class="breadcrumb-item">支出分析</li>
+        <li class="breadcrumb-item active">周支出分析</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">周支出分析</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+
+                <div class="inblock w100" id="chartmain" style="width:100%; height: 400px; padding: 20px"></div>
+                <div class="inblock row w100">
+                    <div class="f18 col-lg-6 tc">本周人民币总支出：<b class="red" id="totalrmb"></b></div>
+                    <div class="f18 col-lg-6 tc"> 本周美元总支出：<b  class="blue" id="totaldollar"></b></div>
+                </div>
+                <table class="datatable table table-striped" id="table" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>账户ID</th>
+                        <th>货币类型</th>
+                        <th>业务类型</th>
+                        <th>金额</th>
+                        <th>操作人</th>
+                        <th>IP地址</th>
+                        <th>时间</th>
+                        <th>交易网点</th>
+                    </tr>
+                    </thead>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chartmain'));
+        $.ajax({
+            url: '/opera/queryByWeek',
+            data:{oi:0},
+            type: 'get',
+            success: function (data) {
+                if (data.code=="403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function(isConfirm){
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else {
+                    var rmbnum = 0;
+                    var dollarnum = 0;
+                    var obj = strToJson(data);
+                    var arrcny = new Array();
+                    var arrdollar = new Array();
+                    var gldate = new Array();
+                    for (var i = 0; i < obj.length; i++) {
+                        if (obj[i].countType == "CNY") {
+                            arrcny.push(obj[i]);
+                        }
+                        if (obj[i].countType == "USD") {
+                            arrdollar.push(obj[i]);
+                        }
+                    }
+
+                    // 人民币过滤
+                    var mcny = [0, 0, 0, 0, 0, 0, 0];
+                    var totalrmb = 0;
+                    for (var j = 0; j < arrcny.length; j++) {
+                        var weekdate = arrcny[j].operaTime.substring(0, 10);
+                        var b = new Date(Date.parse(weekdate.replace(/\-/g, "/")));
+                        totalrmb = totalrmb - arrcny[j].num;
+                        switch (b.getDay()) {
+                            case 0:
+                                mcny[0] = mcny[0] - arrcny[j].num;
+                                break;
+                            case 1:
+                                mcny[1] = mcny[1] - arrcny[j].num;
+                                break;
+                            case 2:
+                                mcny[2] = mcny[2] - arrcny[j].num;
+                                break;
+                            case 3:
+                                mcny[3] = mcny[3] - arrcny[j].num;
+                                break;
+                            case 4:
+                                mcny[4] = mcny[4] - arrcny[j].num;
+                                break;
+                            case 5:
+                                mcny[5] = mcny[5] - arrcny[j].num;
+                                break;
+                            case 6:
+                                mcny[6] = mcny[6] - arrcny[j].num;
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+                    // 美元过滤
+                    var musd = [0, 0, 0, 0, 0, 0, 0];
+                    var totaldollar = 0;
+                    for (var j = 0; j < arrdollar.length; j++) {
+                        var weekdate = arrdollar[j].operaTime.substring(0, 10);
+                        var b = new Date(Date.parse(weekdate.replace(/\-/g, "/")));
+                        totaldollar = totaldollar - arrdollar[j].num;
+                        switch (b.getDay()) {
+                            case 0:
+                                musd[0] = musd[0] - arrdollar[j].num;
+                                break;
+                            case 1:
+                                musd[1] = musd[1] - arrdollar[j].num;
+                                break;
+                            case 2:
+                                musd[2] = musd[2] - arrdollar[j].num;
+                                break;
+                            case 3:
+                                musd[3] = musd[3] - arrdollar[j].num;
+                                break;
+                            case 4:
+                                musd[4] = musd[4] - arrdollar[j].num;
+                                break;
+                            case 5:
+                                musd[5] = musd[5] - arrdollar[j].num;
+                                break;
+                            case 6:
+                                musd[6] = musd[6] - arrdollar[j].num;
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+                    $("#totalrmb").html("￥" + totalrmb);
+                    $("#totaldollar").html("$" + totaldollar);
+                    //   console.log(mcny);人民币
+                    // console.log(musd);美元
+                    var datetime = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+                    var option = {
+                        title: {
+                            text: '本周支出分析',
+                            textStyle: {
+                                color: '#333' //标题颜色
+                            }
+                        },
+
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['美元支出', '人民币支出']
+                        },
+                        toolbox: {
+                            show: true,
+                            orient: 'vertical',
+                            left: 'right',
+                            top: 'center',
+                            feature: {
+                                // mark: {show: true},
+                                dataView: {show: true, readOnly: false},
+                                magicType: {show: true, type: ['line', 'bar']},
+                                restore: {show: true},
+                                saveAsImage: {show: true}
+                            }
+                        },
+                        calculable: true,
+                        xAxis: [
+                            {
+                                type: 'category',
+                                boundaryGap: true,//不从零刻度开始
+                                data: datetime
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                splitArea: {
+                                    show: true
+                                }
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '美元支出',
+                                type: 'line',
+                                data: musd,
+                                markPoint: {
+                                    data: [
+                                        {type: 'max', name: '最大值'},
+                                        {type: 'min', name: '最小值'}
+                                    ]
+                                },
+                                label: {
+                                    normal: {
+                                        show: true,            //显示数字
+                                        position: 'top'        //这里可以自己选择位置
+                                    }
+                                },
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: "#0390ee" //图标颜色
+                                    }
+                                },
+                                lineStyle: {
+                                    normal: {
+                                        width: 2,  //连线粗细
+                                        color: "#0390ee"  //连线颜色
+                                    }
+                                }
+
+                            },
+                            {
+                                name: '人民币支出',
+                                type: 'line',
+                                data: mcny,
+                                markPoint: {
+                                    data: [
+                                        {type: 'max', name: '最大值'},
+                                        {type: 'min', name: '最小值'}
+                                    ]
+                                },
+                                label: {
+                                    normal: {
+                                        show: true,            //显示数字
+                                        position: 'top'        //这里可以自己选择位置
+                                    }
+                                },
+                                markLine: {
+                                    data: [
+                                        {type: 'average', name: '平均值'}
+                                    ]
+                                }
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                }
+            },
+            error: function () {
+                sweetAlert("", "请求失败！", "error");
+            }
+        });
+        $('#table').DataTable({
+            "order": [ 7, "desc" ],
+            "serverSide": true,
+            searching: true,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            ajax: {
+                url: "/opera/queryByWeek",
+                data:{oi:0},
+                dataSrc: function (data) {
+                    if (data.code=="403") {
+                        sweetAlert({
+                                title: "",
+                                text: "您的账号权限不足，无法操作此页面！",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.href = "/mainframe";
+                                }
+                            });
+                    }
+                    else{ return data;}
+                },
+                error: handleAjaxError //接口返回异常，超时登录
+            },
+            "fnDrawCallback"    : function(){
+                this.api().column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
+            },
+            "columns": [
+                {"data": "id"},
+                {"data": "countid"},
+                {"data": "countType"},
+                {"data": "operaType"},
+                {"data": "num" ,
+                    render:function(e,type,full,row){
+                        return "<span class='red'>"+full.num+"</span>";
+                    }
+                },
+                {"data": "operaUser"},
+                {"data": "operaIp"},
+                {"data": "operaTime"},
+                {"data": "servicebranch"}
+
+            ]
+        });
+    })
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>现金兑换</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <!-- CSS Libs -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <!-- CSS App -->
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+    <script  type="text/javascript" src="/js/caculator.js"></script>
+    <script  type="text/javascript" src="/js/jquery.jqprint-0.3.js"></script>
+    <script  type="text/javascript" src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <style>
+        #printid{ display: none}
+        .serverchnamestyle{
+            height: 35px;
+            border: 1px solid #c5c5c5;
+            width: 25%;
+            margin-left: 15px;
+        }
+        .radioboxstyle{
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/mainframe">系统首页</a></li>
+        <li class="breadcrumb-item">现金管理</li>
+        <li class="breadcrumb-item active">现金兑换</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">现金兑换</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body inblock w100 pb30">
+                <form id="myform" class="form-horizontal w100" >
+                    <div class="form-group" style="display: none" id="network">
+                        <label  class="col-sm-2 control-label">选择代办<span class="warning">*</span></label>
+                        <select   class="serverchnamestyle"id="select_network">
+                            <option value="总部" selected>总部</option>
+                        </select>
+                        <input type="hidden" id="serverchname" name="serverchname">
+
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">客户姓名<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="username" id="username"  class="form-control" placeholder="请输入客户姓名" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">联系电话<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="phone"  class="form-control" placeholder="请输入联系电话" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" >手持货币类型<span class="warning">*</span></label>
+                        <select class="select_input col-sm-3 ml15 account acountbefore"  field="monneytype" id="scmoney">
+                        </select>
+                        <input type="hidden" id="srccounttype" name="destcounttype">
+                        <input type="radio" name="receive" style="margin-top: 10px;margin-left: 10px;background: #2FA4E7" value="1" checked>已收款
+                        <input type="radio" name="receive" style="margin-top: 10px;margin-left: 10px;background: #2FA4E7" value="0">未收款
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" >兑换货币类型<span class="warning">*</span></label>
+                        <select class="select_input col-sm-3 ml15 account acountbehind" field="monneytype" id="dhmoney" >
+
+                        </select>
+                        <input type="hidden" id="destcounttype" name="srccounttype">
+                        <input type="radio" name="pay" style="margin-top: 10px;margin-left: 10px;background: #2FA4E7" value="1" checked>已付款
+                        <input type="radio" name="pay" style="margin-top: 10px;margin-left: 10px;background: #2FA4E7" value="0">未付款
+                    </div>
+                    <div class="w100 inblock tips" style="margin-left: 17%;display: none">
+                        <div class=" red">请选择不同的货币类型</div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">今日汇率<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="rate"   class="form-control thisrate" oninput="ratechange()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">兑换金额<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="srcnum" id="beforemoney"  oninput="exchange()"  class="form-control" placeholder="请输入存入金额" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">兑换后金额<span class="warning">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="destnum" class="form-control" id="aftermoney" placeholder="0.00" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">持卡人姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="carduname"  class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">开户行</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="cardName"  class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">卡号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="cardNum"  class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="remark"  class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default" onclick="submitform()">提交兑换</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="printid" style="position: relative">
+    <span id="pusername" style="left: 95px; top: 130px; display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="type" style="left: 280px; top: 130px; display: inline-block;position:absolute;font-size: 12px"></span>
+    <span id="thisrate" style="left: 460px; top: 130px; display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="year" style="left: 355px; top: 65px; display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="month" style="left: 430px; top: 65px; display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="day" style="left: 490px; top: 65px; display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="pdmoneynum" style="left: 410px; top: 240px; display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="psnumber" style="left: 50px; top: 440px; display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="pmoneynum" style="left: 130px; top: 240px; display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="pservicebranch" style="left: 270px; top:495px; display: inline-block;position:absolute;font-size: 14px"></span>
+    <!--回单-->
+    <span id="husername" style="left: 690px; top: 125px;display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="htype" style="left:690px; top: 165px;display: inline-block;position:absolute;font-size: 12px"></span>
+    <span id="hmoneynum" style="left: 690px; top: 195px;display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="hdmoneynum" style="left: 690px; top:225px;display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="hthisrate" style="left: 690px; top: 260px;display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="hsnumber" style="left: 650px; top: 395px;display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="hyear" style="left: 620px; top: 65px;display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="hmonth" style="left: 690px; top: 65px;display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="hday" style="left: 740px; top: 65px;display: inline-block;position:absolute;font-size: 14px"></span>
+    <span id="hservicebranch" style="left: 690px; top: 495px;display: inline-block;position:absolute;font-size: 14px"></span>
+</div>
+<input type="hidden" id="realrate">
+<script type="text/javascript">
+    $(function(){
+        information();
+
+        loadaccount();//加载账户类型
+
+        $('#myform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'destnum': {
+                    validators: {
+                        notEmpty: {
+                            message: '兑换金额不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[0-9_\.]+$/,
+                            message: '金额只能由数字组成。'
+                        }
+                    }
+                },
+                'rate': {
+                    validators: {
+                        notEmpty: {
+                            message: '汇率不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[0-9_\.]+$/,
+                            message: '汇率只能由数字组成。'
+                        }
+                    }
+                } ,
+                'phone': {
+                    validators: {
+                        notEmpty: {
+                            message: '电话号码不可以为空'
+                        }
+                    }
+                },
+
+                'username': {
+                    validators: {
+                        notEmpty: {
+                            message: '客户姓名不能为空'
+                        }
+                    }
+                }
+
+            }
+        });
+    })
+
+    // 获取登录成员信息
+    function information() {
+        $.ajax({
+            url: "/muser/getUser",
+            type: "get",
+            data: null,
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            success: function (data) {
+                if(data.servicebranch=="总部"){
+                    $("#network").show();
+                    loadnetwork();
+                }
+                else{
+                    $("#select_network").find("option:selected").val(data.servicebranch);
+
+                }
+            }
+        });
+
+    }
+
+    // 加载网点
+    function loadnetwork() {
+        $.ajax({
+            url: '/servicebranch/queryAll',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                if (data.code == "403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else {
+                    var jsonObj = $.parseJSON(data);//json字符串转数组
+                    var html="";
+                    for (var i = 0; i < jsonObj.length; i++) {
+                        html = '<option value="' + jsonObj[i].branchname + '">' + jsonObj[i].branchname + '</option>';
+                        $("#select_network").append(html);
+
+                    }
+
+                }
+            }
+        });
+    }
+
+    // 加载平台货币类型
+    function loadaccount() {
+        var before = $(".acountbefore option:selected").attr("data-id");
+        var behind = $(".acountbehind option:selected").attr("data-id");
+        if (before == behind) {
+            $(".thisrate").val("1");
+            $("#realrate").val(1);
+            $(".tips").show();//提示
+        }
+        $.ajax({
+            url: '/count/queryMoneyType',
+            data: null,
+            type: 'get',
+            success: function (data) {
+                if (data.code == "403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }
+                else {
+                    var jsonObj = $.parseJSON(data);//json字符串转数组
+                    for (var i = 0; i < jsonObj.length; i++) {
+                        var html = '<option data-id="' + jsonObj[i] + '" value="' + jsonObj[i] + '">' + jsonObj[i] + '(' + currency_type(jsonObj[i]) + ')' + '</option>';
+                        $(".account").append(html);
+
+                    }
+
+
+                }
+            },
+            error: function (data) {
+                handleAjaxError();//超时登录或接口异常
+            }
+        });
+    }
+    // 自选兑换账户改变，汇率同时改变
+    $(".account").change(function () {
+        $("#beforemoney").val("");
+        $("#aftermoney").val("");
+        var before = $(".acountbefore option:selected").attr("data-id");
+        var behind = $(".acountbehind option:selected").attr("data-id");
+        var types = before + behind;
+        var turntype = behind + before;
+        if (before == behind) {
+            $(".thisrate").val("1");
+            $("#realrate").val(1);
+            $(".tips").show();//提示
+        }
+
+        else if (allrate(types)=="1") {
+            $(".tips").hide();//提示
+            $.ajax({
+                url: "/rate/getSingleRate",
+                type: "get",
+                data: {type: types},
+                dataType: "JSON",
+                success: function (data) {
+                    $(".thisrate").val(data.buyPic);
+                    $("#realrate").val($(".thisrate").val());
+                },
+                error: function (data) {
+                    //终止请求动作.
+                    data.abort();
+
+                }
+            });
+        }
+        else if(allrate(turntype)=="1") {
+            $(".tips").hide();//提示
+            $.ajax({
+                url: "/rate/getSingleRate",
+                type: "get",
+                data: {type: turntype},
+                dataType: "JSON",
+                success: function (data) {
+                    var realrate=data.sellPic;
+                    $(".thisrate").val(realrate);
+                    var  rate=  $(".thisrate").val();
+                    $("#realrate").val(1/rate);
+                },
+                error: function (data) {
+                    //终止请求动作.
+                    data.abort();
+
+                }
+            });
+        }
+    }) ;
+    // 兑换后金额
+    function exchange() {
+        var before= $("#beforemoney").val();
+        // var rate= $(".thisrate").val();
+        var sellrate=$("#realrate").val();
+        var changeafter=before*sellrate;
+        var value= Math.round(changeafter*10000)/10000;
+        $("#aftermoney").val(decimal(value,2));//四舍五入保留两位小数点
+    };
+    // 手动改变汇率，实际汇率同时改变
+    function ratechange() {
+        var before = $(".acountbefore option:selected").attr("data-id");
+        var behind = $(".acountbehind option:selected").attr("data-id");
+        var types = before + behind;
+        var turntype = behind + before;
+        if (before == behind) {
+            $(".thisrate").val("1");
+            $("#realrate").val(1);
+            $(".tips").show();//提示
+        }
+
+        else if (allrate(types)=="1") {
+            $(".tips").hide();//提示
+            $.ajax({
+                url: "/rate/getSingleRate",
+                type: "get",
+                data: {type: types},
+                dataType: "JSON",
+                success: function (data) {
+                    $("#realrate").val($(".thisrate").val());
+                    var before= $("#beforemoney").val();
+                    var sellrate=$("#realrate").val();
+                    var changeafter=before*sellrate;
+                    var value= Math.round(changeafter*10000)/10000;
+                    $("#aftermoney").val(decimal(value,2));//四舍五入保留两位小数点
+                },
+                error: function (data) {
+                    //终止请求动作.
+                    data.abort();
+
+                }
+            });
+        }
+        else if(allrate(turntype)=="1") {
+            $(".tips").hide();//提示
+            $.ajax({
+                url: "/rate/getSingleRate",
+                type: "get",
+                data: {type: turntype},
+                dataType: "JSON",
+                success: function (data) {
+                    $(".thisrate").val();
+                    var  rate=  $(".thisrate").val();
+                    $("#realrate").val(1/rate);
+                    var before= $("#beforemoney").val();
+                    var sellrate=$("#realrate").val();
+                    var changeafter=before*sellrate;
+                    var value= Math.round(changeafter*10000)/10000;
+                    $("#aftermoney").val(decimal(value,2));//四舍五入保留两位小数点
+                },
+                error: function (data) {
+                    //终止请求动作.
+                    data.abort();
+
+                }
+            });
+        }
+
+
+    } ;
+    // 自选兑换查询是否在汇率表中
+    function allrate(type){
+        var value="";
+        $.ajax({
+            url: "/rate/queryAll",
+            type: "get",
+            data: null,
+            dataType: "JSON",
+            async: false,
+            error: function (data) {
+                $.Popup.error("表单数据不合法!");
+            },
+            success: function (data) {
+                var arr = new Array();
+                //取最新的一条记录
+                for (var i = data.length-1; i < data.length; i++) {
+                    arr.push(data[i]);
+                }
+                var obj=arr[0];
+                for( key in obj){
+                    // 注意在json中获取，要用 data[key]   不要用data.key
+                    var code=obj[key].code;
+                    if(type==code){
+                        value=1;
+                    }
+
+                }
+            }
+
+        });
+        return value;
+    }
+
+    // 提交表单
+    function submitform() {
+        $('#myform').data('bootstrapValidator').enableFieldValidators('destnum', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('phone', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('username', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('rate', true);
+        $('#myform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#myform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            var valuea = $('#scmoney').val();
+            $('#destcounttype').val(valuea);
+            var valueb = $('#dhmoney').val();
+            $('#srccounttype').val(valueb);
+            var select_network=$('#select_network').val();
+            $('#serverchname').val(select_network)
+            $.ajax({
+                url: '/cashpool/exchange',
+                data: $('#myform').serialize(),
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        var obj=new Array()
+                        obj.push($.parseJSON( strToJson(data).message ));
+                        sweetAlert({
+                                title: "",
+                                text:"恭喜您！现金兑换成功！是否立即打印凭证？",
+                                type: "info",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function(isConfirm){
+                                if (isConfirm) {
+                                    var str=obj[0].operaTime;
+                                    $("#hsnumber").html(obj[0].snumber);
+                                    $("#psnumber").html(obj[0].snumber);
+                                    $("#pusername").html($("#username").val());
+                                    $("#husername").html($("#username").val());
+                                    $("#type").html(obj[0].countType);
+                                    $("#htype").html(obj[0].countType);
+                                    $("#pmoneynum").html($("#beforemoney").val());
+                                    $("#hmoneynum").html($("#beforemoney").val());
+                                    $("#pdmoneynum").html($("#aftermoney").val());
+                                    $("#hdmoneynum").html($("#aftermoney").val());
+                                    $("#pservicebranch").html(obj[0].servicebranch);
+                                    $("#hservicebranch").html(obj[0].servicebranch);
+                                    $("#year").html(str.substring(0,4));
+                                    $("#hyear").html(str.substring(0,4));
+                                    $("#month").html(str.substring(5,7));
+                                    $("#hmonth").html(str.substring(5,7));
+                                    $("#day").html(str.substring(8,10));
+                                    $("#hday").html(str.substring(8,10));
+                                    $("#thisrate").html($(".thisrate").val());
+                                    $("#hthisrate").html($(".thisrate").val());
+                                    //确认打印凭条
+                                    print();
+                                } else {
+                                    window.location.href = "/cashmanage/cashtrade_list";
+                                }
+                            });
+                    }
+                    else if(strToJson(data).code=="fail"){
+                        sweetAlert("", strToJson(data).message, "error");
+                    }
+                    else if(strToJson(data).code=="403") {
+                        sweetAlert({
+                                title: "",
+                                text: "您的账号权限不足，无法操作此页面！",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.href = "/mainframe";
+                                }
+                            });
+                    }
+                    else {
+                        sweetAlert("", strToJson(data).message, "error");
+                    }
+
+                },
+                error: function () {
+                    sweetAlert("", "请求失败！", "error");
+                }
+            });
+        }
+    }
+    var hkey_root,hkey_path,hkey_key
+    hkey_root="HKEY_CURRENT_USER"
+    hkey_path="\\Software\\Microsoft\\Internet Explorer\\PageSetup\\"
+
+    // 设置页眉页脚为空
+    function PageSetup_Null()
+    {
+        try{
+            var RegWsh = new ActiveXObject("WScript.Shell") ;
+            hkey_key="header" ;
+            RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,"") ;
+            hkey_key="footer" ;
+            RegWsh.RegWrite(hkey_root+hkey_path+hkey_key,"") ;
+        }
+        catch(e){}
+    }
+
+    function print(){
+        PageSetup_Null() ;
+        $("#printid").jqprint();
+        sweetAlert({
+                title: "正在打印中..",
+                text:"打印完成请关闭该弹出框",
+                type: "info",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "关闭",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    window.location.href = "/cashmanage/cashtrade_list";
+                }
+            })
+    }
+</script>
+</body>
+
+</html>

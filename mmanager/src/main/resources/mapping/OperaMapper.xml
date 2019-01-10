@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.caogen.mapper.OperaMapper" >
+
+    <resultMap id="BaseResultMap" type="cn.com.caogen.entity.Operation" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="snumber" property="snumber" jdbcType="VARCHAR" />
+        <result column="countid" property="countid" jdbcType="VARCHAR" />
+        <result column="counttype" property="countType" jdbcType="VARCHAR" />
+        <result column="num" property="num" jdbcType="DOUBLE" />
+        <result column="operatype" property="operaType" jdbcType="VARCHAR" />
+        <result column="operatime" property="operaTime" jdbcType="VARCHAR" />
+        <result column="operauser" property="operaUser" jdbcType="VARCHAR" />
+        <result column="oi" property="oi" jdbcType="INTEGER" />
+        <result column="operaip" property="operaIp" jdbcType="VARCHAR" />
+        <result column="servicebranch" property="servicebranch" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="cardname" property="cardName" jdbcType="VARCHAR" />
+        <result column="carduname" property="cardUname" jdbcType="VARCHAR" />
+        <result column="cardnum" property="cardNum" jdbcType="VARCHAR" />
+        <result column="rate" property="rate" jdbcType="VARCHAR" />
+        <result column="settle" property="settle" jdbcType="INTEGER" />
+
+
+    </resultMap>
+
+    <resultMap id="allInfo" type="java.util.Map">
+        <result column="sum" property="sum" jdbcType="DOUBLE"/>
+        <result column="counttype" property="counttype" jdbcType="VARCHAR"/>
+        <result column="operatype" property="operatype" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="allcount" type="java.util.Map">
+        <result column="operanum" property="counttype" jdbcType="INTEGER"/>
+        <result column="operatype" property="operatype" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    id,snumber,countid,counttype,num,operatype,operatime,operauser,oi,operaip,servicebranch,remark,phone,username,cardname,carduname,cardnum,rate,settle
+     </sql>
+    <insert id="add" parameterType="cn.com.caogen.entity.Appliy">
+        insert into operalog (snumber,countid,counttype,num,operatype,operatime,operauser,oi,operaip,servicebranch,remark,phone,username,cardname,carduname,cardnum,rate,settle) values
+        (#{snumber,jdbcType=VARCHAR},#{countid,jdbcType=VARCHAR},#{countType,jdbcType=VARCHAR},#{num,jdbcType=DOUBLE},#{operaType,jdbcType=VARCHAR},#{operaTime,jdbcType=VARCHAR},#{operaUser,jdbcType=VARCHAR},#{oi,jdbcType=INTEGER},#{operaIp,jdbcType=VARCHAR},#{servicebranch,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{username,jdbcType=VARCHAR},#{cardName,jdbcType=VARCHAR},#{cardUname,jdbcType=VARCHAR},#{cardNum,jdbcType=VARCHAR},#{rate,jdbcType=VARCHAR},#{settle,jdbcType=INTEGER});
+    </insert>
+    <select id="queryAll"  resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List"/> from operalog  Order By operatime Desc
+    </select>
+    <select id="delete"  parameterType="string">
+       delete from operalog where snumber=#{snumber}
+    </select>
+    <select id="queryConditionCount"   parameterType="Map" resultType="int">
+        select count(*) from operalog where 1=1
+        <if test="countid != null">
+            and countid =#{countid}
+        </if>
+        <if test="operauser != null">
+            and operauser =#{operauser}
+        </if>
+        <if test="operatype != null">
+            and operatype =#{operatype}
+        </if>
+        <if test="counttype != null">
+            and counttype =#{counttype}
+        </if>
+        <if test="servicebranch != null">
+            and servicebranch =#{servicebranch}
+        </if>
+        <if test="oi != null">
+            and oi =#{oi}
+        </if>
+        <if test="end != null">
+            and settle =1
+        </if>
+        <if test="noend != null">
+           and settle =0
+        </if>
+        <if test="key != null">
+            and  username like #{key}
+        </if>
+
+    </select>
+
+    <select id="queryByOrderNum"  resultMap="BaseResultMap" parameterType="string">
+        select <include refid="Base_Column_List"/> from operalog where snumber=#{snumber}
+    </select>
+
+    <select id="queryById"  resultMap="BaseResultMap" parameterType="int">
+        select <include refid="Base_Column_List"/> from operalog where id=#{id}
+    </select>
+    <update id="update" parameterType="cn.com.caogen.entity.Operation">
+        update operalog set
+        <if test="settle != null">
+            settle=#{settle,jdbcType=INTEGER}
+        </if>
+        where id=#{id}
+    </update>
+
+    <select id="queryCondition"  resultMap="BaseResultMap" parameterType="Map">
+        select <include refid="Base_Column_List"/> from operalog where 1=1
+        <if test="countid != null">
+            and countid =#{countid}
+        </if>
+        <if test="operauser != null">
+            and operauser =#{operauser}
+        </if>
+        <if test="operatype != null">
+            and operatype =#{operatype}
+        </if>
+        <if test="counttype != null">
+            and counttype =#{counttype}
+        </if>
+        <if test="servicebranch != null">
+            and servicebranch =#{servicebranch}
+        </if>
+        <if test="oi != null">
+            and oi =#{oi}
+        </if>
+        <if test="end != null">
+            and settle =1
+        </if>
+        <if test="noend != null">
+            and settle =0
+        </if>
+        <if test="key != null">
+            and  username like #{key}
+        </if>
+        Order By operatime Desc limit #{page},#{num}
+    </select>
+
+    <select id="queryoperatype" resultMap="allInfo" parameterType="Map">
+        select sum(num) as sum, counttype,operatype from operalog
+        <choose>
+            <when test="date!=null and date == '1'.toString()">
+                where to_days(operatime) = to_days(now())
+            </when>
+            <when test="date!=null and date == '7'.toString()">
+                where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(operatime)
+            </when>
+            <when test="date!=null and date == '30'.toString()">
+                where DATE_FORMAT( operatime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+            </when>
+            <when test="date!=null and date == '90'.toString()">
+                where  QUARTER(operatime)=QUARTER(now())
+            </when>
+            <when test="date!=null and date == '360'.toString()">
+                where YEAR(operatime)=YEAR(NOW())
+            </when>
+            <otherwise>
+                where false
+            </otherwise>
+        </choose>
+        <if test="servicebranch != null">
+            and servicebranch =#{servicebranch}
+        </if>
+        GROUP BY operatype,counttype
+
+    </select>
+
+    <select id="queryoperacount" resultMap="allcount" parameterType="Map">
+        select count(operatype) as operanum, operatype from operalog
+      <choose>
+            <when test="date!=null">
+                where to_days(operatime) = to_days(now())
+            </when>
+            <when test="date!=null and date == '7'.toString()">
+                where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(operatime)
+            </when>
+            <when test="date!=null and date == '30'.toString()">
+                where DATE_FORMAT( operatime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+            </when>
+            <when test="date!=null and date == '90'.toString()">
+                where  QUARTER(operatime)=QUARTER(now())
+            </when>
+            <when test="date!=null and date == '360'.toString()">
+                where YEAR(operatime)=YEAR(NOW())
+            </when>
+            <otherwise>
+                where false
+            </otherwise>
+        </choose>
+        <if test="servicebranch != null">
+            and servicebranch =#{servicebranch}
+        </if>
+        GROUP BY operatype
+
+    </select>
+
+
+    <select id="queryByDate" resultMap="BaseResultMap" parameterType="Map">
+        select <include refid="Base_Column_List"/> from operalog
+
+        <choose>
+            <when test="date!=null and date == '1'.toString()">
+                where to_days(operatime) = to_days(now())
+            </when>
+            <when test="date!=null and date == '7'.toString()">
+                where YEARWEEK(date_format(operatime,'%Y-%m-%d')) = YEARWEEK(now())
+            </when>
+            <when test="date!=null and date == '30'.toString()">
+                where DATE_FORMAT( operatime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+            </when>
+            <when test="date!=null and date == '90'.toString()">
+                where  QUARTER(operatime)=QUARTER(now())
+            </when>
+            <when test="date!=null and date == '360'.toString()">
+                where YEAR(operatime)=YEAR(NOW())
+            </when>
+            <otherwise>
+                where false
+            </otherwise>
+        </choose>
+        and oi=#{oi} and servicebranch=#{servicebranch}  Order By operatime Desc;
+
+    </select>
+
+
+
+    <select id="queryScope" parameterType="Map" resultMap="BaseResultMap">
+          SELECT <include refid="Base_Column_List"/>  FROM operalog where true
+            <if test="servicebranch != null">
+                and servicebranch =#{servicebranch}
+            </if>
+            <if test="counttype != null">
+                    and  counttype =#{counttype}
+            </if>
+
+          and operatime Between #{starttime} And #{endtime} limit #{page},#{num};
+    </select>
+    <select id="queryScopeCount" parameterType="Map" resultType="int">
+        SELECT count(*) FROM operalog where true
+        <if test="servicebranch != null">
+            and servicebranch =#{servicebranch}
+        </if>
+        <if test="counttype != null">
+            and  counttype =#{counttype}
+        </if>
+        and operatime Between #{starttime} And #{endtime}
+    </select>
+
+
+
+</mapper>

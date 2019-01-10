@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>南方国际货币兑换后台管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS Libs -->
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <!-- CSS App -->
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+</head>
+
+<body class="flat-blue relative">
+<div class="app-container expanded">
+    <div class="row content-container">
+        <nav class="navbar navbar-default navbar-fixed-top navbar-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-expand-toggle fa-rotate-90">
+                        <i class="fa fa-bars icon"></i>
+                    </button>
+                    <ol class="breadcrumb navbar-breadcrumb">
+                        <li class="active" id="servicebranch"></li>
+                    </ol>
+                    <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                        <i class="fa fa-th icon"></i>
+                    </button>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                        <i class="fa fa-times icon"></i>
+                    </button>
+                    <li><a  href="http://www.nfgjswitch.com" target="_blank">站点首页</a></li>
+                    <li class="dropdown" id="msg_status">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-comments-o"></i></a>
+                        <ul class="dropdown-menu animated fadeInDown">
+                            <li class="title">
+                                <a href="/tast/tast_nodeal" target="iframename">  待处理任务 <span class="badge pull-right" id="nodeal_num">0</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--<li class="dropdown danger">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-star-half-o"></i> 4</a>-->
+                    <!--<ul class="dropdown-menu danger  animated fadeInDown">-->
+                    <!--<li class="title">-->
+                    <!--Notification <span class="badge pull-right">4</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<ul class="list-group notifications">-->
+                    <!--<a href="#">-->
+                    <!--<li class="list-group-item">-->
+                    <!--<span class="badge">1</span> <i class="fa fa-exclamation-circle icon"></i> new registration-->
+                    <!--</li>-->
+                    <!--</a>-->
+                    <!--<a href="#">-->
+                    <!--<li class="list-group-item">-->
+                    <!--<span class="badge success">1</span> <i class="fa fa-check icon"></i> new orders-->
+                    <!--</li>-->
+                    <!--</a>-->
+                    <!--<a href="#">-->
+                    <!--<li class="list-group-item">-->
+                    <!--<span class="badge danger">2</span> <i class="fa fa-comments icon"></i> customers messages-->
+                    <!--</li>-->
+                    <!--</a>-->
+                    <!--<a href="#">-->
+                    <!--<li class="list-group-item message">-->
+                    <!--view all-->
+                    <!--</li>-->
+                    <!--</a>-->
+                    <!--</ul>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!--</li>-->
+                    <li class="dropdown profile">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false" > <span class="manage_name"></span><span class="caret"></span></a>
+                        <ul class="dropdown-menu animated fadeInDown">
+                            <li>
+                                <div class="profile-info">
+                                    <h4 class="username manage_name" ></h4>
+                                    <div class="btn-group margin-bottom-2x" role="group">
+                                        <button type="button" class="btn btn-default"   data-toggle="modal" data-target="#myModal_psw">修改密码</button>
+                                        <button type="button" class="btn btn-default" onclick="logout()"><i class="fa fa-sign-out"></i> 退出</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="side-menu sidebar-inverse">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="side-menu-container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand tc" href="index">
+                            <div class="title"> </div>
+                        </a>
+                        <button type="button" class="navbar-expand-toggle pull-right visible-xs">
+                            <i class="fa fa-times icon"></i>
+                        </button>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="panel panel-default dropdown ">
+                            <a data-toggle="collapse" href="#dropdown-user">
+                                <span class="icon fa nav_member"></span><span class="title">会员管理</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-user" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/member/member_list" target="iframename">会员列表</a>
+                                        </li>
+                                        <li><a href="/member/createuser" target="iframename">内部开户</a>
+                                        </li>
+                                        <li><a href="/member/account_list" target="iframename">账户管理</a>
+                                        </li>
+                                        <li><a href="/member/alipay_list" target="iframename">会员支付宝</a>
+                                        </li>
+                                        <li><a href="/member/bankcard_list" target="iframename">会员银行卡</a>
+                                        </li>
+                                        <li><a href="/member/opera_log" target="iframename">交易记录</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-element">
+                                <span class="icon fa nav_infx"></span><span class="title">收入分析</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-element" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/incomeAnalysis/week" target="iframename">周分析</a>
+                                        </li>
+                                        <li><a href="/incomeAnalysis/month" target="iframename">月分析</a>
+                                        </li>
+                                        <li><a href="/incomeAnalysis/quarter" target="iframename">季度分析</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-table">
+                                <span class="icon fa nav_outfx"></span><span class="title">支出分析</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-table" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/spentAnalysis/week" target="iframename">周分析</a>
+                                        </li>
+                                        <li><a href="/spentAnalysis/month" target="iframename">月分析</a>
+                                        </li>
+                                        <li><a href="/spentAnalysis/quarter" target="iframename">季度分析</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-form">
+                                <span class="icon fa nav_msg"></span><span class="title">消息通知</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-form" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/msgNotify/member_certificate" target="iframename">会员升级审批</a>
+                                        </li>
+                                        <!--<li><a href="/msgNotify/transfer_apply" target="iframename">转账申请</a>-->
+                                        <!--</li>-->
+                                        <!--<li><a href="/msgNotify/cash_apply" target="iframename">提现申请</a>-->
+                                        <!--</li>-->
+                                        <!--<li><a href="/msgNotify/recharge_record" target="iframename">充值记录</a>-->
+                                        <!--</li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Dropdown-->
+                        <!--<li class="panel panel-default dropdown">-->
+                        <!--<a data-toggle="collapse" href="#component-example">-->
+                        <!--<span class="icon fa nav_money"></span><span class="title">财务管理</span>-->
+                        <!--</a>-->
+                        <!--&lt;!&ndash; Dropdown level 1 &ndash;&gt;-->
+                        <!--<div id="component-example" class="panel-collapse collapse">-->
+                        <!--<div class="panel-body">-->
+                        <!--<ul class="nav navbar-nav">-->
+                        <!--<li><a href="" target="iframename">交易明细</a>-->
+                        <!--</li>-->
+                        <!--<li><a href="" target="iframename">利润统计</a>-->
+                        <!--</li>-->
+                        <!--</ul>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</li>-->
+
+                        <!-- Dropdown-->
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-rate" >
+                                <span class="icon fa nav_rate"></span><span class="title">汇率管理</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-rate" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/exchangeRate/rate" target="iframename">汇率查询</a>
+                                        </li>
+                                        <li><a href="/exchangeRate/rate_change" target="iframename">汇率修改</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Dropdown-->
+                        <!-- Dropdown-->
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-bank" >
+                                <span class="icon fa nav_moneyku"></span><span class="title">资金库</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-bank" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/capitalbank/capital_bank" target="iframename">平台资金库</a>
+                                        </li>
+                                        <li><a href="/capitalbank/cash_bank?netaddress=" target="iframename">现金资金库</a>
+                                        </li>
+                                        <li><a href="/capitalbank/cash_initialization" target="iframename">资金库初始化</a>
+                                        </li>
+                                        <li><a href="/capitalbank/profit_fplist" target="iframename">利润分配</a>
+                                        </li>
+                                        <li><a href="/capitalbank/daily_loss" target="iframename">日常收支</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Dropdown-->
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-cash" >
+                                <span class="icon fa nav_cash"></span><span class="title">现金柜台</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-cash" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/cashmanage/cash_in" target="iframename">现金存入</a>
+                                        </li>
+                                        <li><a href="/cashmanage/cash_out" target="iframename">现金提现</a>
+                                        </li>
+                                        <li><a href="/cashmanage/cash_change" target="iframename">现金兑换</a>
+                                        </li>
+                                        <li><a href="/cashmanage/cashtrade_list" target="iframename">交易记录</a>
+                                        </li>
+                                        <li><a href="/cashmanage/data_recovery" target="iframename">数据恢复</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-tast">
+                                <span class="icon fa nav_task"></span><span class="title">任务处理</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-tast" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/tast/tast_nodeal" target="iframename">待处理</a>
+                                        </li>
+                                        <li><a href="/tast/tast_dealing" target="iframename">处理中</a>
+                                        </li>
+                                        <li><a href="/tast/tast_finish" target="iframename">已完成</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Dropdown-->
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-loan">
+                                <span class="icon fa nav_loan"></span><span class="title">借贷管理</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-loan" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/loanManage/add_loan" target="iframename">借贷申请</a></li>
+                                        <li><a href="/loanManage/loan_list?status=0" target="iframename">借贷记录</a></li>
+                                        <li><a href="/loanManage/add_guarantee" target="iframename">添加担保人</a></li>
+                                        <li><a href="/loanManage/guarantee_list" target="iframename">担保人管理</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Dropdown-->
+                        <li class="panel panel-default dropdown" id="manage_user" style="display: none">
+                            <a data-toggle="collapse" href="#dropdown-mangae" >
+                                <span class="icon fa nav_manage"></span><span class="title">系统管理</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-mangae" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/manage/manage_list" target="iframename">成员列表</a>
+                                        </li>
+                                        <li><a href="/manage/manage_role" target="iframename">成员角色</a>
+                                        </li>
+                                        <li><a href="/manage/manage_power" target="iframename">成员权限</a>
+                                        </li>
+                                        <!--<li><a href="/manage/changepsw" target="iframename">修改密码</a>-->
+                                        <!--</li>-->
+                                        <!--<li><a href="/manage/changeinfo" target="iframename">修改信息</a>-->
+                                        <!--</li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Dropdown-->
+                        <li class="panel panel-default dropdown" id="network_drop" style="display: none">
+                            <a data-toggle="collapse" href="#dropdown-net">
+                                <span class="icon fa nav_network"></span><span class="title">网点分布</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-net" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/network/profit_list" target="iframename">业务提成</a></li>
+                                        <li><a href="/network/network_list" target="iframename">网点列表</a></li>
+                                        <li><a href="/network/add_network" target="iframename">网点添加</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Dropdown-->
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-example">
+                                <span class="icon fa nav_log"></span><span class="title">日志管理</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-example" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/oplog/log" target="iframename">操作日志</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Dropdown-->
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-app">
+                                <span class="icon fa nav_log"></span><span class="title">APP管理</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-app" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/appmanage/announcement" target="iframename">公告管理</a></li>
+                                        <li><a href="/appmanage/iosurl" target="iframename">IOS下载地址</a></li>
+                                        <li><a href="/appmanage/androidurl" target="iframename">安卓下载地址</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="container-fluid pr0">
+
+            <div class="side-body padding-top mr0">
+                <iframe name="iframename" id="mainFrame" src="/mainframe" frameborder="false" scrolling="auto"  width="100%" height="auto" allowtransparency="true"></iframe>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="wrapper">
+            © 2018 Copyright <a href="JavaScript:;" >南方国际货币兑换后台管理系统</a>
+        </div>
+    </footer>
+    <div id="indexAlert" class="tc" style="display: none">
+        <i class="icon_alarm"></i>
+        <h3>您有<b class="red" id="tast_num"></b>条待处理任务！</h3>
+        <a href="/tast/tast_nodeal" target="iframename">去处理</a>
+        <a href="JavaScript:;" id="closeAlert"  target="iframename">我知道了</a>
+    </div>
+    <div id="networkAlert" class="tc" style="display: none">
+        <i class="icon_alarm"></i>
+        <h3>您有任务已被平台处理</h3>
+        <a href="/tast/tast_finish" id="lookdeal" target="iframename">查看</a>
+    </div>
+</div>
+
+<!--详细消息 模态框 （Modal） -->
+<div class="modal fade" id="myModal_psw" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                <h4 class="modal-title" id="myModalLabel"> 修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <form id="myform" >
+                    <input type="hidden" id="userid" name="id">
+                    <div class="form-group">
+                        <label class="col-form-label" >密码：</label>
+                        <input class="form-control" type="password" name="password" placeholder="请输入密码">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" >确认密码：</label>
+                        <input class="form-control" type="password" name="conformpaypwd" placeholder="请再次输入密码">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary w100" onclick="submitform()">确认修改 </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div><!-- /.modal -->
+
+<input type="hidden" id="dealnum">
+<script type="text/javascript">
+    $(function(){
+        autodivheight();
+        $("#closeAlert").click(function () {
+            $(this).parent().hide();
+        });
+        $("#lookdeal").click(function(){
+            $("#networkAlert").hide();
+        })
+    });
+
+    function autodivheight(){ //函数：获取尺寸
+//获取浏览器窗口高度
+        var winHeight=0;
+        if (window.innerHeight){
+            winHeight = window.innerHeight;
+        }
+        else if ((document.body) && (document.body.clientHeight)){
+            winHeight = document.body.clientHeight;
+        }
+//通过深入Document内部对body进行检测，获取浏览器窗口高度
+        if (document.documentElement && document.documentElement.clientHeight){
+            winHeight = document.documentElement.clientHeight;
+        }
+//DIV高度为浏览器窗口的高度
+//document.getElementById("test").style.height= winHeight +"px";
+//DIV高度为浏览器窗口高度的一半
+        document.getElementById("mainFrame").style.height= winHeight-110 +"px";
+    }
+    window.onresize=autodivheight; //浏览器窗口发生变化时同时变化DIV高度
+</script>
+
+<script type="text/javascript" src="/js/Chart.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="/js/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/select2.full.min.js"></script>
+<script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+<script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
+<!--<script type="text/javascript" src="/js/index.js"></script>-->
+<script type="text/javascript">
+    $(function(){
+        task_nodeal();
+        information();
+        taskend();
+        $('#myform').bootstrapValidator({
+            feedbackIcons: {
+                //valid: 'glyphicon glyphicon-ok',
+                //invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                'password': {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            /*长度提示*/
+                            min: 6,
+                            max: 30,
+                            message: '密码长度必须在6到30之间'
+                        },
+                    }
+                },
+                'conformpaypwd': {
+                    message: '密码无效',
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        identical: {//相同
+                            field: 'password',
+                            message: '两次密码不一致'
+                        }
+                    }
+                }
+            }
+        })
+    })
+
+    //退出
+    function logout() {
+        $.ajax({
+            url: "/muser/logout",
+            type: "get",
+            data: null,
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.code=="success") {
+                    sweetAlert("", "退出成功！", "success");
+                    setTimeout(function(){ window.location.href = "/login";},1500);
+                }
+
+            },
+            error: function () {
+                window.location.href = "/login";
+            },
+        });
+
+    }
+    // 获取登录成员信息
+    function information() {
+        $.ajax({
+            url: "/muser/getUser",
+            type: "get",
+            data: null,
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            success: function (data) {
+                if(data==null){
+                    window.location.href = "/login";
+                }
+                else{
+                    $("#userid").val(data.id);
+                    $(".manage_name").html(data.username);
+                    $("#servicebranch").html(data.servicebranch);
+                    if(data.servicebranch=="总部"){
+                        $("#network_drop").show();
+                        $("#manage_user").show();
+                    }
+                }
+
+
+            }
+        });
+
+    }
+    //重置管理员密码
+    function submitform() {
+        $('#myform').data('bootstrapValidator').enableFieldValidators('password', true);
+        $('#myform').data('bootstrapValidator').enableFieldValidators('conformpaypwd', true);
+        $('#myform').data('bootstrapValidator').validate();//手动对表单进行校检
+        if (!$('#myform').data('bootstrapValidator').isValid()) {//判断校检是否通过
+            return;
+        } else {
+            $.ajax({
+                url: '/muser/restPwd',
+                data: $('#myform').serialize(),
+                type: 'post',
+                success: function (data) {
+                    if (strToJson(data).code == "success") {
+                        sweetAlert("", "恭喜您！密码修改成功！", "success");
+                        setTimeout(function () {
+                            window.location.href = "/login";
+                        }, 1500);
+                    }
+                    else if (strToJson(data).code=="403") {
+                        sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            closeOnConfirm: true
+                        });
+                    }
+                    else {
+                        sweetAlert("", "密码修改失败", "error");
+                    }
+
+                },
+                error: function () {
+                    sweetAlert("", "请求失败！", "error");
+                }
+            });
+        }
+    }
+</script>
+</body>
+
+</html>

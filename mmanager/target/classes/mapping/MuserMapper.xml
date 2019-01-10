@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.caogen.mapper.MuserMapper" >
+
+    <resultMap id="BaseResultMap" type="cn.com.caogen.entity.Muser" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="servicebranch" property="servicebranch" jdbcType="VARCHAR" />
+
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+     id, username, password,servicebranch
+    </sql>
+    <insert id="add" parameterType="cn.com.caogen.entity.Muser">
+        insert into muser (username,password,servicebranch) values (#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{servicebranch,jdbcType=VARCHAR});
+    </insert>
+
+    <delete id="delete" parameterType="int[]">
+        delete from muser where id in
+        <foreach collection="array" item="arr" index="no" open="("
+                 separator="," close=")">
+            #{arr}
+        </foreach>
+    </delete>
+
+    <select id="queryMusers"  resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List"/> from muser
+    </select>
+
+    <update id="updateMuser" parameterType="Map">
+        update muser set password=#{password} where id=#{id}
+    </update>
+
+</mapper>

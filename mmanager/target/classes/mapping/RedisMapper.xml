@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.caogen.mapper.RedisMapper" >
+
+    <resultMap id="BaseResultMap" type="cn.com.caogen.entity.Redis" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="vkey" property="vkey" jdbcType="VARCHAR" />
+        <result column="kvalue" property="kvalue" jdbcType="VARCHAR" />
+
+
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+     id, vkey,kvalue
+    </sql>
+    <insert id="add" parameterType="cn.com.caogen.entity.Redis">
+        insert into redis (vkey, kvalue) values (#{vkey,jdbcType=VARCHAR},#{kvalue,jdbcType=VARCHAR});
+    </insert>
+
+
+    <select id="getvalueBykey"  resultMap="BaseResultMap" parameterType="Map">
+        select <include refid="Base_Column_List"/> from redis
+        where vkey=#{vkey}
+
+    </select>
+
+    <update id="update" parameterType="map">
+        update redis set kvalue=#{kvalue} where vkey=#{vkey}
+    </update>
+
+
+
+
+
+</mapper>

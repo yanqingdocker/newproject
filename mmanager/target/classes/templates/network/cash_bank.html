@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>会员管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <!-- CSS Libs -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.min.css">
+    <!-- CSS App -->
+    <link  rel="stylesheet" type="text/css"  href="/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="/css/css.css">
+    <script  type="text/javascript" src="/js/jquery1.12.4.js"></script>
+    <script  type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/bootstrapValidator.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script  type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script  type="text/javascript" src="/js/sweet-alert.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery.notify.js"></script>
+    <script  type="text/javascript" src="/js/common.js"></script>
+</head>
+
+<body class="flat-blue common_body">
+<div class="bs-component">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/mainframe">系统首页</a></li>
+        <li class="breadcrumb-item">利润提成</li>
+        <li class="breadcrumb-item active">利润详情</li>
+    </ol>
+</div>
+<div class="page-title">
+    <span class="title">利润详情</span>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card-header">
+        </div>
+        <div class="money_block ">
+            <div class="rmb pl20">
+                <h3 class="red pt15 l">最新利润累计CNY:</h3>
+                <b id="rmb_bank" class="f36 white l pt20 pl30"></b>
+                <input  type="button" style="margin-top: 28px;margin-left: 39px;" class="btn btn-default" onclick="calc()" value="点击结算"></input>
+            </div>
+        </div>
+        <div class="money_block ">
+            <div class="dollar pl20">
+                <h3 class="green pt15 l">最新利润累计USD:</h3>
+                <b id="dollar_bank" class="f36 white l pt20 pl30"></b>
+                <input  type="button" style="margin-top: 28px;margin-left: 39px;" class="btn btn-default" onclick="alert('目前只支持结算CNY')" value="点击结算"></input>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <table class="datatable table table-striped" id="table" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>结算金额</th>
+                        <th>币种类型</th>
+                        <th>结算人</th>
+                        <th>结算时间</th>
+                        <th>结算流水</th>
+                        <th>所属对象</th>
+                    </tr>
+                    </thead>
+
+                </table>
+                <!--<div class="batch_play inblock">-->
+                <!--<div class="checkcustom ml10 mr10 inblock checkbox3 checkbox-success checkbox-check checkbox-round  checkbox-light">-->
+                <!--<input rel='box_check_all' id="box_check_all" type="checkbox" name="" /><label class="box_check_all blue" for="box_check_all">全选</label>-->
+                <!--</div>-->
+                <!--<div class="inblock"><a class="blue ml10" href="/manage/changeinfo">添加</a></div>-->
+                <!--</div>-->
+            </div>
+
+        </div>
+    </div>
+</div>
+<input type="hidden" id="branchname">
+
+<script type="text/javascript">
+    $(function () {
+
+        function geturl(str){
+            var LocString=String(window.document.location.href);
+            var rs=new RegExp("(^|)"+str+"=([^&]*)(&|$)","gi").exec(LocString),tmp;
+            if(tmp=rs)return tmp[2];
+            return null;
+        }
+        $("#branchname").val(decodeURI(geturl("netaddress")));
+        getMoneyData();
+        $('#table').DataTable( {
+            "serverSide": true,
+            searching: true,
+            lengthChange: true,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条数据",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "暂无数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+
+            ajax: {
+                url: '/gain/querybyserverch',
+                data: {servicebranch:$("#branchname").val()},
+                type: 'get',
+                dataSrc: function (data) {
+                    if (data.code=="403") {
+                        sweetAlert({
+                                title: "",
+                                text: "您的账号权限不足，无法操作此页面！",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonText: "确定",
+                                cancelButtonText: "取消",
+                                closeOnConfirm: false,
+                                closeOnCancel: true
+                            },
+                            function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.href = "/mainframe";
+                                }
+                            });
+                    }
+                    else{ return data;}
+                },
+                error: handleAjaxError //接口返回异常，超时登录
+            },
+            "fnDrawCallback"    : function(){
+                this.api().column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
+            },
+            "columns": [
+                {"data": "id" },
+                {"data": "num" },
+                {"data": "couttype" },
+                {"data": "operaor" },
+                {"data": "creatime" },
+                {"data": "snumber" },
+                {"data": "servicebranch" }
+
+            ]
+        } );
+    })
+    function calc() {
+        sweetAlert(
+            {
+                title: "确定结算吗？",
+                text: "你将无法恢复",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    $.ajax({
+                        url: '/gain/add',
+                        data: {servicebranch:$("#branchname").val()},
+                        type: 'post',
+                        success: function (data) {
+                            if (strToJson(data).code == "success") {
+                                sweetAlert("", "恭喜您！结算成功！", "success");
+                                setTimeout(function () {
+                                    window.location.href = "/network/cash_bank?netaddress="+$("#branchname").val();
+                                }, 1500);
+                            }
+                            else if (strToJson(data).code=="403") {
+                                sweetAlert({
+                                    title: "",
+                                    text: "您的账号权限不足，无法操作此页面！",
+                                    type: "warning",
+                                    confirmButtonText: "确定",
+                                    closeOnConfirm: true,
+                                });
+                            }
+                            else {
+                                sweetAlert("", strToJson(data).message, "error");
+                            }
+
+                        },
+                        error: function () {
+                            sweetAlert("结算失败！", "error");
+                        }
+                    });
+                }
+            }
+        )
+
+    }
+    function getMoneyData(){
+        $.ajax({
+            url: '/cashpool/queryAll',
+            data: {servicebranch:$("#branchname").val()},
+            type: 'get',
+            success: function (data) {
+                if (data.code=="403") {
+                    sweetAlert({
+                            title: "",
+                            text: "您的账号权限不足，无法操作此页面！",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function(isConfirm){
+                            if (isConfirm) {
+                                window.location.href = "/mainframe";
+                            }
+                        });
+                }else{
+                    var arr = new Array();
+                    var dollar = new Array();
+                    var obj = strToJson(data);
+                    for (var i = 0; i < obj.length; i++) {
+                        if (obj[i].counttype == "CNY") {
+                            var rmbfix = obj[i].blance;
+                            $("#rmb_bank").html((rmbfix * 10000 / 10000).toFixed(4));
+                            arr.push(obj[i].blance);
+                        }
+                        if (obj[i].counttype == "USD") {
+                            var dollarfix = obj[i].blance;
+                            $("#dollar_bank").html((dollarfix * 10000 / 10000).toFixed(4));
+                            dollar.push(obj[i].blance);
+                        }
+                    }
+                }
+            },
+            error: function (data) {
+                handleAjaxError();//超时登录或接口异常
+            }
+
+        })
+    }
+
+</script>
+</body>
+
+</html>
